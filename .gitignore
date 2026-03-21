@@ -1,0 +1,23 @@
+.venv
+.env
+.env.prod
+db.sqlite3
+__pycache__/
+*.pyc
+*.pyo
+
+
+
+
+# Claude Code
+.claude
+.claude_history
+.claude_cache/
+
+
+# Hebergement
+.htaccess
+passenger_wsgi.py
+
+# Static files en production
+staticfiles/
