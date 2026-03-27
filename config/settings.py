@@ -41,6 +41,8 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 INSTALLED_APPS = [
     'users',
     'vehicules',
+    'garages',
+    'abonnements'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from garages.models import Garage
+
 
 def validateur_extensions(value):
     if not value.name.endswith('.pdf'):
@@ -13,11 +15,14 @@ def validateur_immatriculation(value):
     ...
 
 def validateur_annee(value):
-    if len(value) != 4:
-        raise ValidationError('L\'année doit avoir 4 chiffres.')
-    
+    if value < 1900 or value > 2100:
+        raise ValidationError('Année invalide')
+
 
 class Vehicule(models.Model):
+    # Gestion multi-garage
+    garage = models.ForeignKey(Garage, on_delete=models.CASCADE)
+
     # Acquisition
     date_achat = models.DateField()
     vendeur = models.CharField(max_length=100)
@@ -29,18 +34,18 @@ class Vehicule(models.Model):
     marque = models.CharField(max_length=100)
     modele = models.CharField(max_length=100)
     couleur = models.CharField(max_length=100)
-    annee_vehicule = models.IntegerField(validators=[validateur_annee])
+    annee_vehicule = models.PositiveIntegerField(validators=[validateur_annee])
     transmission = models.CharField(max_length=100)
     energie = models.CharField(max_length=100)
     chevaux_dine = models.IntegerField()
     chevaux_fiscaux = models.IntegerField()
 
     # Vente
-    date_vente = models.DateField()
-    numero_vente = models.IntegerField()
-    facture_vente = models.FileField(upload_to='factures_vente/', validators=[validateur_extensions])
-    acheteur = models.CharField(max_length=100)
-    prix_vente = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
+    date_vente = models.DateField(null=True, blank=True)
+    numero_vente = models.IntegerField(null=True, blank=True)
+    facture_vente = models.FileField(upload_to='factures_vente/', validators=[validateur_extensions], null=True, blank=True)
+    acheteur = models.CharField(max_length=100, null=True, blank=True)
+    prix_vente = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix], null=True, blank=True)
 
     @property
     def prix_achat(self):
