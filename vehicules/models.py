@@ -43,8 +43,10 @@ class Vehicule(models.Model):
     prix_enchere = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
     prix_transport = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
     immatriculation = models.CharField(max_length=20, unique=True)
-    marque = models.CharField(max_length=100)
-    modele = models.CharField(max_length=100)
+    # marque = models.CharField(max_length=100)
+    marque = models.ForeignKey('Marque', on_delete=models.CASCADE)
+    # modele = models.CharField(max_length=100)
+    modele = models.ForeignKey('Modele', on_delete=models.CASCADE)
     couleur = models.CharField(max_length=100)
     annee_vehicule = models.PositiveIntegerField(validators=[validateur_annee])
     kilometrage_achat = models.PositiveIntegerField(default=0)
@@ -79,3 +81,15 @@ class Vehicule(models.Model):
             return f"{self.marque} {self.modele} ({self.immatriculation}) - (-) €"
 
 
+class Marque(models.Model):
+    nom = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.nom}"
+    
+class Modele(models.Model):
+    marque = models.ForeignKey(Marque, on_delete=models.CASCADE)
+    nom = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.marque} {self.nom}"
