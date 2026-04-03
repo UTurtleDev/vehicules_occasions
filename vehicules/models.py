@@ -82,14 +82,14 @@ class Vehicule(models.Model):
 
 
 class Marque(models.Model):
-    nom = models.CharField(max_length=100)
+    marque = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.nom}"
+        return f"{self.marque}"
     
 class Modele(models.Model):
     marque = models.ForeignKey(Marque, on_delete=models.CASCADE)
-    nom = models.CharField(max_length=100)
+    modele = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.marque} {self.nom}"
+        return f"{self.modele}"
