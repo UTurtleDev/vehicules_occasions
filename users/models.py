@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
-
+#TODO:Déplacer dans manager.py
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -36,6 +36,5 @@ class User(AbstractUser):
         verbose_name_plural = 'Utilisateurs'
 
     def __str__(self):
-        if self.first_name and self.last_name:
-            return f"{self.get_full_name()} ({self.email})"
-        return self.email
+        return f"{self.get_full_name()}"
+

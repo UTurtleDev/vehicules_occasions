@@ -24,4 +24,4 @@ class Garage(models.Model):
     abonnement = models.ForeignKey(Abonnement, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f"{self.nom} - {self.abonnement}"
+        return f"{self.nom}"

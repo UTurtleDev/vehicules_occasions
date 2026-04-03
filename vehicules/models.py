@@ -12,7 +12,7 @@ def validateur_prix(value):
         raise ValidationError('Le prix ne peut pas être négatif.')
     
 def validateur_immatriculation(value):
-    ...
+    ...# TODO: Validateur plaque d'immatriculation
 
 def validateur_annee(value):
     if value < 1900 or value > 2100:
@@ -20,6 +20,18 @@ def validateur_annee(value):
 
 
 class Vehicule(models.Model):
+    # Choix
+    class Transmission(models.TextChoices):
+        MANUEL = 'manuel', 'Manuel'
+        AUTOMATIQUE = 'automatique', 'Automatique'
+
+    class Energie(models.TextChoices):
+        ESSENCE = 'essence', 'Essence'
+        DIESEL = 'diesel', 'Diesel'
+        ELECTRIQUE = 'electrique', 'Electrique'
+        HYBRIDE = 'hybride', 'Hybride'
+
+
     # Gestion multi-garage
     garage = models.ForeignKey(Garage, on_delete=models.CASCADE)
 
@@ -35,8 +47,9 @@ class Vehicule(models.Model):
     modele = models.CharField(max_length=100)
     couleur = models.CharField(max_length=100)
     annee_vehicule = models.PositiveIntegerField(validators=[validateur_annee])
-    transmission = models.CharField(max_length=100)
-    energie = models.CharField(max_length=100)
+    kilometrage_achat = models.PositiveIntegerField(default=0)
+    transmission = models.CharField(max_length=100, choices=Transmission.choices)
+    energie = models.CharField(max_length=100, choices=Energie.choices)
     chevaux_dine = models.IntegerField()
     chevaux_fiscaux = models.IntegerField()
 
@@ -47,13 +60,17 @@ class Vehicule(models.Model):
     acheteur = models.CharField(max_length=100, null=True, blank=True)
     prix_vente = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix], null=True, blank=True)
 
+
     @property
     def prix_achat(self):
         return self.prix_vehicule + self.prix_enchere + self.prix_transport
 
     @property
     def marge(self):
-        return self.prix_vente - self.prix_achat
+        if self.prix_vente:
+            return self.prix_vente - self.prix_achat
+        else:
+            return 0
     
     def __str__(self):
         if self.prix_vente:

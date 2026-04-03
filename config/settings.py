@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'users',
     'vehicules',
     'garages',
-    'abonnements'
+    'abonnements',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

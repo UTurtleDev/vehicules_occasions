@@ -3,10 +3,12 @@ from django.db import models
 class Abonnement(models.Model):
 
     class Duree(models.IntegerChoices):
+        # Premier argument est le code, deuxieme est l'affichage
         MENSUEL = 30, 'Mensuel'
         ANNUEL = 365, 'Annuel'
 
     class Plan(models.TextChoices):
+        # Premier argument est le code, deuxieme est l'affichage
         FREE = 'free', 'Free'
         PRO = 'pro', 'Pro'
         ENTREPRISE = 'entreprise', 'Entreprise'
@@ -17,4 +19,5 @@ class Abonnement(models.Model):
     description = models.TextField(blank=True)
 
     def __str__(self):
+        # get display : méthode générée automatique par Django pour les champs de choix, pour afficher l'affichage et non le code
         return self.get_plan_display()
