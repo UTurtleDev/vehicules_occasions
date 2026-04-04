@@ -65,7 +65,7 @@ class Vehicule(models.Model):
 
     @property
     def prix_achat(self):
-        return self.prix_vehicule + self.prix_enchere + self.prix_transport
+        return (self.prix_vehicule or 0) + (self.prix_enchere or 0) + (self.prix_transport or 0)
 
     @property
     def marge(self):

@@ -7,23 +7,22 @@ class VehiculeAdmin(admin.ModelAdmin):
 
     list_display = ('marque', 'modele', 'immatriculation', 'garage', 'date_achat', 'prix_achat', 'prix_vente','marge')
 
+    readonly_fields = ('prix_achat',)
+
     fieldsets = (
         ('Garage', {'fields': ('garage',)}),
-        #TODO: Rajouter le prix_achat
-        # ('Achat', {'fields': ('date_achat', 'vendeur', 'facture_achat', 'prix_vehicule', 'prix_enchere', 'prix_transport', 'prix_achat')}),
-        ('Achat', {'fields': ('date_achat', 'vendeur', 'facture_achat', 'prix_vehicule', 'prix_enchere', 'prix_transport',)}),
+        ('Achat', {'fields': ('date_achat', 'vendeur', 'facture_achat', 'prix_vehicule', 'prix_enchere', 'prix_transport', 'prix_achat')}),
         ('Véhicule', {'fields': ('immatriculation', 'marque', 'modele', 'couleur', 'annee_vehicule', 'transmission', 'energie', 'chevaux_dine', 'chevaux_fiscaux')}),
         ('Vente', {'fields': ('date_vente', 'numero_vente', 'facture_vente', 'acheteur', 'prix_vente')})    
     )
 
     search_fields = ('marque__marque', 'modele__modele', 'immatriculation', 'garage__nom') #garage__nom pour chercher le nom du garage (FK)
-    list_filter = ('garage__nom', 'marque__marque', 'modele__modele', 'date_achat', 'date_vente') #TODO: Selecteur de date
+    list_filter = ('garage__nom', 'marque__marque', 'modele__modele', 'date_achat', 'date_vente')
     ordering = ('marque__marque', 'modele__modele', 'immatriculation', 'garage')
 
+    class Media: # Ajout de js pour que le prix d'achat soit dynamique
+        js = ('vehicules/js/prix_achat.js',)
 
-    # Récupération du prix d'achat vehicule
-    def prix_achat(self, obj):
-        return obj.prix_vehicule + obj.prix_enchere + obj.prix_transport
 
 
 class MarqueAdmin(admin.ModelAdmin):
