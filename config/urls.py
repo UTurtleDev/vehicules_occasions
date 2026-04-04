@@ -26,6 +26,12 @@ urlpatterns = [
 ]
 
 
+# Modification des titres de l'interface admin
+admin.site.site_header = "Administration véhicules d'occasions"
+admin.site.site_title = "Admin VO"
+admin.site.index_title = "Tableau de bord"
+
+
 # Servir les fichiers media et static en développement
 if settings.DEBUG:
     urlpatterns += static(
@@ -36,3 +42,4 @@ if settings.DEBUG:
         settings.STATIC_URL,
         document_root=settings.STATIC_ROOT
     )
+

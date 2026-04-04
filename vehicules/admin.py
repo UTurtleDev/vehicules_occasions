@@ -48,6 +48,9 @@ class ModeleAdmin(admin.ModelAdmin):
         ('Modele', {'fields': ('marque', 'modele')}),
     )
 
+    search_fields = ('marque__marque', 'modele')
+    list_filter = ('marque__marque', 'modele',)
+
     ordering = ('marque__marque', 'modele')
 
     def nb_vehicules_modele(self, obj):
