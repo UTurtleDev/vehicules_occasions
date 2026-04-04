@@ -73,6 +73,10 @@ class Vehicule(models.Model):
             return self.prix_vente - self.prix_achat
         else:
             return 0
+        
+    @property
+    def vendu(self):
+        return self.date_vente is not None
     
     def __str__(self):
         if self.prix_vente:
