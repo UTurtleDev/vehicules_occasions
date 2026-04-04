@@ -2,6 +2,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from abonnements.models import Abonnement
+from django.utils import timezone
+from datetime import timedelta    
 
 
 def validateur_code_postal(value):
@@ -22,6 +24,14 @@ class Garage(models.Model):
     telephone = models.CharField(max_length=10, validators=[validateur_telephone])
     email = models.EmailField()
     abonnement = models.ForeignKey(Abonnement, on_delete=models.SET_NULL, null=True)
+    date_debut_essai = models.DateField(null=True, blank=True)
 
-    def __str__(self):
-        return f"{self.nom}"
+    @property
+    def essai_actif(self):
+        if self.date_debut_essai is None:
+            return False
+        return (timezone.now().date() - self.date_debut_essai) < timedelta(days=30)
+    
+
+
+
