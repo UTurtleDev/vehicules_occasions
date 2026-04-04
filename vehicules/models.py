@@ -43,12 +43,11 @@ class Vehicule(models.Model):
     prix_enchere = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
     prix_transport = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
     immatriculation = models.CharField(max_length=20, unique=True)
-    # marque = models.CharField(max_length=100)
     marque = models.ForeignKey('Marque', on_delete=models.CASCADE)
-    # modele = models.CharField(max_length=100)
     modele = models.ForeignKey('Modele', on_delete=models.CASCADE)
     couleur = models.CharField(max_length=100)
     annee_vehicule = models.PositiveIntegerField(validators=[validateur_annee])
+    crit_air = models.IntegerField()
     kilometrage_achat = models.PositiveIntegerField(default=0)
     transmission = models.CharField(max_length=100, choices=Transmission.choices)
     energie = models.CharField(max_length=100, choices=Energie.choices)
@@ -61,6 +60,7 @@ class Vehicule(models.Model):
     facture_vente = models.FileField(upload_to='factures_vente/', validators=[validateur_extensions], null=True, blank=True)
     acheteur = models.CharField(max_length=100, null=True, blank=True)
     prix_vente = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix], null=True, blank=True)
+    kilometrage_vente = models.PositiveIntegerField(null=True, blank=True)
 
 
     @property
