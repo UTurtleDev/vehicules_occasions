@@ -18,7 +18,7 @@ class StockFilter(admin.SimpleListFilter):
 class VehiculeAdmin(admin.ModelAdmin):
     model = Vehicule
 
-    list_display = ('marque', 'modele', 'immatriculation', 'garage', 'date_achat', 'prix_achat', 'prix_vente','marge')
+    list_display = ('marque', 'modele', 'immatriculation', 'garage__nom', 'date_achat', 'prix_achat', 'date_vente', 'prix_vente','marge_fiscale', 'frais_reel', 'marge_interne')
 
     readonly_fields = ('prix_achat',)
 

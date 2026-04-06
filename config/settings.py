@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'vehicules',
     'garages',
     'abonnements',
+    'remise_en_etat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from garages.models import Garage
+from django.db.models import Sum
 
 
 def validateur_extensions(value):
@@ -15,7 +16,7 @@ def validateur_immatriculation(value):
     ...# TODO: Validateur plaque d'immatriculation
 
 def validateur_annee(value):
-    if value < 1900 or value > 2100:
+    if value < 1900 or value > 2100: #TODO: l'année ne peut etre supérieur a l'année actuelle
         raise ValidationError('Année invalide')
 
 
@@ -43,6 +44,7 @@ class Vehicule(models.Model):
     prix_enchere = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
     prix_transport = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
     immatriculation = models.CharField(max_length=20, unique=True)
+    vin = models.CharField(max_length=17, unique=True, blank=True, null=True)
     marque = models.ForeignKey('Marque', on_delete=models.CASCADE)
     modele = models.ForeignKey('Modele', on_delete=models.CASCADE)
     couleur = models.CharField(max_length=100)
@@ -68,9 +70,21 @@ class Vehicule(models.Model):
         return (self.prix_vehicule or 0) + (self.prix_enchere or 0) + (self.prix_transport or 0)
 
     @property
-    def marge(self):
+    def marge_fiscale(self):
         if self.prix_vente:
             return self.prix_vente - self.prix_achat
+        else:
+            return 0
+        
+
+    @property
+    def frais_reel(self):
+        return self.remises_en_etat.aggregate(Sum('montant'))['montant__sum'] or 0
+    
+    @property
+    def marge_interne(self):
+        if self.prix_vente:
+            return self.prix_vente - self.prix_achat - self.frais_reel
         else:
             return 0
         
@@ -79,16 +93,14 @@ class Vehicule(models.Model):
         return self.date_vente is not None
     
     def __str__(self):
-        if self.prix_vente:
-            return f"{self.marque} {self.modele} ({self.immatriculation}) - {self.marge} €"
-        else:
-            return f"{self.marque} {self.modele} ({self.immatriculation}) - (-) €"
+        return f"{self.marque} {self.modele} - {self.immatriculation}"
 
 
 class Marque(models.Model):
     marque = models.CharField(max_length=100)
 
     def __str__(self):
+        
         return f"{self.marque}"
     
 class Modele(models.Model):
