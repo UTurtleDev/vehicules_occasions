@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import RemiseEnEtat
-from vehicules.models import Vehicule
 
 class RemiseEnEtatAdmin(admin.ModelAdmin):
     model = RemiseEnEtat

@@ -20,12 +20,12 @@ class VehiculeAdmin(admin.ModelAdmin):
 
     list_display = ('marque', 'modele', 'immatriculation', 'garage__nom', 'date_achat', 'prix_achat', 'date_vente', 'prix_vente','marge_fiscale', 'frais_reel', 'marge_interne')
 
-    readonly_fields = ('prix_achat',)
+    readonly_fields = ('prix_achat', 'marge_fiscale', 'frais_reel', 'marge_interne')
 
     fieldsets = (
         ('Garage', {'fields': ('garage',)}),
         ('Achat', {'fields': ('date_achat', 'vendeur', 'facture_achat', 'prix_vehicule', 'prix_enchere', 'prix_transport', 'prix_achat')}),
-        ('Véhicule', {'fields': ('immatriculation', 'marque', 'modele', 'couleur', 'annee_vehicule', 'crit_air', 'kilometrage_achat', 'transmission', 'energie', 'chevaux_dine', 'chevaux_fiscaux')}),
+        ('Véhicule', {'fields': ('immatriculation', 'vin', 'marque', 'modele', 'couleur', 'annee_vehicule', 'crit_air', 'kilometrage_achat', 'transmission', 'energie', 'chevaux_dine', 'chevaux_fiscaux', 'marge_fiscale', 'frais_reel', 'marge_interne')}),
         ('Vente', {'fields': ('date_vente', 'numero_vente', 'facture_vente', 'acheteur', 'kilometrage_vente', 'prix_vente')})    
     )
 
