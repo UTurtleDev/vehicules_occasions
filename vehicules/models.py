@@ -18,7 +18,7 @@ def validateur_immatriculation(value):
 
 def validateur_annee(value):
     annee_encours = datetime.now().year
-    if value < 1900 or value > annee_encours: #TODO: l'année ne peut etre supérieur a l'année actuelle
+    if value < 1900 or value > annee_encours:
         raise ValidationError('Année invalide')
 
 
@@ -34,7 +34,7 @@ class Vehicule(models.Model):
         ELECTRIQUE = 'electrique', 'Electrique'
         HYBRIDE = 'hybride', 'Hybride'
 
-    class CritAir(models.TextChoices):
+    class CritAir(models.IntegerChoices):
         CRIT_AIR_0 = 0, 'Electrique'
         CRIT_AIR_1 = 1, '1'
         CRIT_AIR_2 = 2, '2'
