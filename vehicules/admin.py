@@ -49,10 +49,7 @@ class MarqueAdmin(admin.ModelAdmin):
 
     ordering = ('marque',)
 
-    # def nb_vehicules_marque(self, obj):
-    #     return obj.vehicule_set.count()
 
-    # nb_vehicules_marque.short_description = 'Vehicules'
 
 
 class ModeleAdmin(admin.ModelAdmin):
@@ -67,10 +64,7 @@ class ModeleAdmin(admin.ModelAdmin):
 
     ordering = ('marque__marque', 'modele')
 
-    # def nb_vehicules_modele(self, obj):
-    #     return obj.vehicule_set.count()
 
-    # nb_vehicules_modele.short_description = 'Vehicules'
 
 
 admin.site.register(Vehicule, VehiculeAdmin)

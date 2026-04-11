@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from garages.models import Garage
 from django.db.models import Sum
+from datetime import datetime
 
 
 def validateur_extensions(value):
@@ -16,7 +17,8 @@ def validateur_immatriculation(value):
     ...# TODO: Validateur plaque d'immatriculation
 
 def validateur_annee(value):
-    if value < 1900 or value > 2100: #TODO: l'année ne peut etre supérieur a l'année actuelle
+    annee_encours = datetime.now().year
+    if value < 1900 or value > annee_encours: #TODO: l'année ne peut etre supérieur a l'année actuelle
         raise ValidationError('Année invalide')
 
 
@@ -31,6 +33,15 @@ class Vehicule(models.Model):
         DIESEL = 'diesel', 'Diesel'
         ELECTRIQUE = 'electrique', 'Electrique'
         HYBRIDE = 'hybride', 'Hybride'
+
+    class CritAir(models.TextChoices):
+        CRIT_AIR_0 = 0, 'Electrique'
+        CRIT_AIR_1 = 1, '1'
+        CRIT_AIR_2 = 2, '2'
+        CRIT_AIR_3 = 3, '3'
+        CRIT_AIR_4 = 4, '4'
+        CRIT_AIR_5 = 5, '5'
+        NON_CLASSE = 6, 'Non classé'
 
 
     # Gestion multi-garage
@@ -49,7 +60,7 @@ class Vehicule(models.Model):
     modele = models.ForeignKey('Modele', on_delete=models.CASCADE)
     couleur = models.CharField(max_length=100)
     annee_vehicule = models.PositiveIntegerField(validators=[validateur_annee])
-    crit_air = models.IntegerField()
+    crit_air = models.IntegerField(max_length=1, choices=CritAir.choices)
     kilometrage_achat = models.PositiveIntegerField(default=0)
     transmission = models.CharField(max_length=100, choices=Transmission.choices)
     energie = models.CharField(max_length=100, choices=Energie.choices)
@@ -93,11 +104,6 @@ class Vehicule(models.Model):
         return self.date_vente is not None
     
 
-    
-    # nb_vehicules_marque.short_description = 'Vehicules'
-
-    
-    # nb_vehicules_modele.short_description = 'Vehicules'
     
     def __str__(self):
         return f"{self.marque} {self.modele} - {self.immatriculation}"
