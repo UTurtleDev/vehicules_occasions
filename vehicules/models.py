@@ -45,7 +45,7 @@ class Vehicule(models.Model):
 
 
     # Gestion multi-garage
-    garage = models.ForeignKey(Garage, on_delete=models.CASCADE)
+    garage = models.ForeignKey(Garage, on_delete=models.CASCADE, related_name='garages')
 
     # Acquisition
     date_achat = models.DateField()
@@ -60,7 +60,7 @@ class Vehicule(models.Model):
     modele = models.ForeignKey('Modele', on_delete=models.CASCADE)
     couleur = models.CharField(max_length=100)
     annee_vehicule = models.PositiveIntegerField(validators=[validateur_annee])
-    crit_air = models.IntegerField(max_length=1, choices=CritAir.choices)
+    crit_air = models.IntegerField(choices=CritAir.choices)
     kilometrage_achat = models.PositiveIntegerField(default=0)
     transmission = models.CharField(max_length=100, choices=Transmission.choices)
     energie = models.CharField(max_length=100, choices=Energie.choices)

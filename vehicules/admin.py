@@ -25,8 +25,8 @@ class VehiculeAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Garage', {'fields': ('garage',)}),
         ('Achat', {'fields': ('date_achat', 'vendeur', 'facture_achat', 'prix_vehicule', 'prix_enchere', 'prix_transport', 'prix_achat')}),
-        ('Véhicule', {'fields': ('immatriculation', 'vin', 'marque', 'modele', 'couleur', 'annee_vehicule', 'crit_air', 'kilometrage_achat', 'transmission', 'energie', 'chevaux_dine', 'chevaux_fiscaux', 'marge_fiscale', 'frais_reel', 'marge_interne')}),
-        ('Vente', {'fields': ('date_vente', 'numero_vente', 'facture_vente', 'acheteur', 'kilometrage_vente', 'prix_vente')})    
+        ('Véhicule', {'fields': ('immatriculation', 'vin', 'marque', 'modele', 'couleur', 'annee_vehicule', 'crit_air', 'kilometrage_achat', 'transmission', 'energie', 'chevaux_dine', 'chevaux_fiscaux')}),
+        ('Vente', {'fields': ('date_vente', 'numero_vente', 'facture_vente', 'acheteur', 'kilometrage_vente', 'prix_vente', 'marge_fiscale', 'frais_reel', 'marge_interne')})    
     )
 
     search_fields = ('marque__marque', 'modele__modele', 'immatriculation', 'garage__nom') #garage__nom pour chercher le nom du garage (FK)
