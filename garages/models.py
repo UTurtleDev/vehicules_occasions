@@ -32,6 +32,9 @@ class Garage(models.Model):
             return False
         return (timezone.now().date() - self.date_debut_essai) < timedelta(days=30)
     
+    def __str__(self):
+        return self.nom
+    
 
 
 

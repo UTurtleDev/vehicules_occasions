@@ -92,12 +92,24 @@ class Vehicule(models.Model):
     def vendu(self):
         return self.date_vente is not None
     
+
+    
+    # nb_vehicules_marque.short_description = 'Vehicules'
+
+    
+    # nb_vehicules_modele.short_description = 'Vehicules'
+    
     def __str__(self):
         return f"{self.marque} {self.modele} - {self.immatriculation}"
 
 
 class Marque(models.Model):
     marque = models.CharField(max_length=100)
+
+    @property
+    def nb_vehicules_marque(self):
+        return Vehicule.objects.filter(marque=self).count()
+
 
     def __str__(self):
         
@@ -107,5 +119,9 @@ class Modele(models.Model):
     marque = models.ForeignKey(Marque, on_delete=models.CASCADE)
     modele = models.CharField(max_length=100)
 
+    @property
+    def nb_vehicules_modele(self):
+        return Vehicule.objects.filter(modele=self).count()
+    
     def __str__(self):
         return f"{self.modele}"

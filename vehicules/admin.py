@@ -18,7 +18,7 @@ class StockFilter(admin.SimpleListFilter):
 class VehiculeAdmin(admin.ModelAdmin):
     model = Vehicule
 
-    list_display = ('marque', 'modele', 'immatriculation', 'garage__nom', 'date_achat', 'prix_achat', 'date_vente', 'prix_vente','marge_fiscale', 'frais_reel', 'marge_interne')
+    list_display = ('marque', 'modele', 'immatriculation', 'garage', 'date_achat', 'prix_achat', 'date_vente', 'prix_vente','marge_fiscale', 'frais_reel', 'marge_interne')
 
     readonly_fields = ('prix_achat', 'marge_fiscale', 'frais_reel', 'marge_interne')
 
@@ -49,14 +49,14 @@ class MarqueAdmin(admin.ModelAdmin):
 
     ordering = ('marque',)
 
-    def nb_vehicules_marque(self, obj):
-        return obj.vehicule_set.count()
+    # def nb_vehicules_marque(self, obj):
+    #     return obj.vehicule_set.count()
 
-    nb_vehicules_marque.short_description = 'Vehicules'
+    # nb_vehicules_marque.short_description = 'Vehicules'
 
 
 class ModeleAdmin(admin.ModelAdmin):
-    list_display = ('marque__marque', 'modele', 'nb_vehicules_modele')
+    list_display = ('marque', 'modele', 'nb_vehicules_modele')
 
     fieldsets = (
         ('Modele', {'fields': ('marque', 'modele')}),
@@ -67,10 +67,10 @@ class ModeleAdmin(admin.ModelAdmin):
 
     ordering = ('marque__marque', 'modele')
 
-    def nb_vehicules_modele(self, obj):
-        return obj.vehicule_set.count()
+    # def nb_vehicules_modele(self, obj):
+    #     return obj.vehicule_set.count()
 
-    nb_vehicules_modele.short_description = 'Vehicules'
+    # nb_vehicules_modele.short_description = 'Vehicules'
 
 
 admin.site.register(Vehicule, VehiculeAdmin)
