@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView, View
 
-# Create your views here.
+from vehicules.models import Vehicule
+
+
+
+
+

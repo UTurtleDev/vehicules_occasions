@@ -93,6 +93,11 @@ class Vehicule(models.Model):
         return self.remises_en_etat.aggregate(Sum('montant'))['montant__sum'] or 0
     
     @property
+    def cout_revient(self):
+        return self.prix_achat + self.frais_reel
+
+
+    @property
     def marge_interne(self):
         if self.prix_vente:
             return self.prix_vente - self.prix_achat - self.frais_reel

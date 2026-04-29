@@ -1,0 +1,309 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTurtle — Gérez vos véhicules d'occasion, suivez votre vraie rentabilité</title>
+    <link rel="stylesheet" href="{% static 'landing/css/landing.css' %}">
+</head>
+<body>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">Mes <span>Véhicules d'occasion</span></a>
+        <a href="{% url 'admin:index' %}" class="navbar-login">Connexion</a>
+    </nav>
+
+    <!-- ===================== HERO ===================== -->
+    <div class="hero-bg-glow" aria-hidden="true"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+
+            <div class="hero-badge">Pour les pros du VO</div>
+
+            <h1>
+                <span class="line-break">Arrêtez de deviner</span>
+                <span class="line-break">votre <span class="accent">vraie marge.</span></span>
+            </h1>
+
+            <p class="hero-sub">
+                La première plateforme VO qui calcule <strong>votre marge réelle</strong> après chaque remise en état.
+                Gérez votre stock, suivez vos frais, pilotez votre garage avec précision.
+            </p>
+
+            <div class="hero-cta">
+                <a href="#tarifs" class="btn-primary">Démarrer gratuitement</a>
+                <a href="#fonctionnalites" class="btn-secondary">Voir comment ça marche</a>
+            </div>
+
+            <p class="hero-note">30 jours d'essai gratuit — aucune carte bancaire requise</p>
+
+        </div>
+    </section>
+
+    <!-- ===================== PROBLÈME ===================== -->
+    <hr class="divider">
+
+    <section class="section" id="probleme">
+
+        <div class="section-label">Le problème</div>
+        <h2 class="section-title">
+            Vous savez ce que vous achetez et vendez.<br>
+            Savez-vous vraiment ce que vous gagnez ?
+        </h2>
+        <p class="section-sub">
+            Les logiciels du marché affichent une marge fiscale. Mais entre l'achat et la vente,
+            il y a les pièces, la main d'œuvre, le contrôle technique…
+            Ces frais disparaissent dans vos coûts sans jamais être imputés au bon véhicule.
+        </p>
+
+        <div class="problem-grid">
+
+            <div class="problem-cell">
+                <span class="icon">📋</span>
+                <h3>La marge fiscale vous rassure</h3>
+                <p>
+                    Votre logiciel vous affiche : prix de vente − prix d'achat.
+                    C'est la marge que vous déclarez. Elle ne dit pas tout.
+                </p>
+            </div>
+
+            <div class="problem-cell highlight">
+                <span class="icon">🔍</span>
+                <h3>La marge interne révèle la réalité</h3>
+                <p>
+                    Une fois les frais de remise en état déduits véhicule par véhicule,
+                    certaines "bonnes affaires" deviennent des pertes cachées.
+                </p>
+            </div>
+
+            <div class="problem-cell">
+                <span class="icon">📂</span>
+                <h3>Suivi des frais éparpillé</h3>
+                <p>
+                    Factures papier, tableurs Excel, mémoire…
+                    Les frais réels de chaque véhicule sont introuvables au moment de la vente.
+                </p>
+            </div>
+
+            <div class="problem-cell">
+                <span class="icon">🏢</span>
+                <h3>Multi-garage difficile à gérer</h3>
+                <p>
+                    Plusieurs sites, plusieurs stocks, impossibles à consolider simplement
+                    depuis un seul endroit.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===================== FONCTIONNALITÉS ===================== -->
+    <hr class="divider">
+
+    <section class="section" id="fonctionnalites">
+
+        <div class="section-label">La solution</div>
+        <h2 class="section-title">Tout ce dont vous avez besoin,<br>rien de superflu</h2>
+        <p class="section-sub">
+            UTurtle a été conçu pour les dealers VO qui veulent des chiffres fiables,
+            pas un logiciel surchargé de fonctionnalités inutiles.
+        </p>
+
+        <div class="features-layout">
+
+            <!-- Card vedette : double marge -->
+            <div class="feature-card featured">
+                <div>
+                    <span class="feature-tag unique">Fonctionnalité unique</span>
+                    <h3>Marge fiscale ET marge interne, en un coup d'œil</h3>
+                    <p>
+                        Attachez chaque intervention (pièces, main d'œuvre, contrôle technique) directement au véhicule concerné.
+                        UTurtle calcule automatiquement vos <strong>deux marges</strong> en temps réel.
+                        Vous vendez toujours en sachant exactement ce que vous empochez vraiment.
+                    </p>
+                </div>
+                <div class="marge-comparison" aria-label="Exemple de calcul de marge">
+                    <div class="marge-row">
+                        <span class="label">Prix de vente</span>
+                        <span class="value">12 500 €</span>
+                    </div>
+                    <div class="marge-row">
+                        <span class="label">Prix d'achat total</span>
+                        <span class="value">− 9 800 €</span>
+                    </div>
+                    <hr class="marge-divider">
+                    <div class="marge-row">
+                        <span class="label">Marge fiscale</span>
+                        <span class="value amber">+ 2 700 €</span>
+                    </div>
+                    <hr class="marge-divider">
+                    <div class="marge-row">
+                        <span class="label">Remise en état (CT + pièces)</span>
+                        <span class="value">− 1 350 €</span>
+                    </div>
+                    <div class="marge-row">
+                        <span class="label">Marge interne réelle</span>
+                        <span class="value green">+ 1 350 €</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature : suivi stock -->
+            <div class="feature-card">
+                <span class="feature-tag standard">Stock</span>
+                <h3>Suivi de stock en temps réel</h3>
+                <p>
+                    Chaque véhicule est tracké de l'achat à la vente.
+                    Filtrez par statut (en stock / vendu), par marque ou par garage.
+                    Retrouvez n'importe quel véhicule en quelques secondes.
+                </p>
+            </div>
+
+            <!-- Feature : multi-garage -->
+            <div class="feature-card">
+                <span class="feature-tag standard">Multi-site</span>
+                <h3>Plusieurs garages, un seul tableau de bord</h3>
+                <p>
+                    Gérez plusieurs établissements depuis un compte unique.
+                    Les stocks sont isolés par garage, mais les statistiques
+                    se consolident pour une vue globale de votre activité.
+                </p>
+            </div>
+
+            <!-- Feature : remise en état -->
+            <div class="feature-card">
+                <span class="feature-tag standard">Frais réels</span>
+                <h3>Remise en état au niveau du véhicule</h3>
+                <p>
+                    Contrôle technique, pièces détachées, main d'œuvre —
+                    chaque ligne de frais est rattachée au bon véhicule.
+                    Plus de frais généraux dilués, plus d'approximation.
+                </p>
+            </div>
+
+            <!-- Feature : fiche véhicule -->
+            <div class="feature-card">
+                <span class="feature-tag standard">Données</span>
+                <h3>Fiche véhicule complète</h3>
+                <p>
+                    Immatriculation, VIN, énergie, Crit'Air, kilométrage,
+                    factures d'achat et de vente… Tout ce qu'il faut
+                    pour une traçabilité parfaite, toujours accessible.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===================== TARIFS ===================== -->
+    <hr class="divider">
+
+    <section class="section" id="tarifs">
+
+        <div class="section-label">Tarifs</div>
+        <h2 class="section-title">Simple, transparent,<br>sans surprise</h2>
+        <p class="section-sub">
+            Commencez gratuitement, évoluez quand vous en avez besoin.
+            Tous les plans incluent 30 jours d'essai gratuit.
+        </p>
+
+        <div class="pricing-grid">
+
+            <!-- FREE -->
+            <div class="pricing-card">
+                <div class="plan-name">Free</div>
+                <div class="plan-price">
+                    <span class="currency">€</span>
+                    <span class="amount">0</span>
+                    <span class="period">&nbsp;/ mois</span>
+                </div>
+                <p class="plan-desc">Pour découvrir et tester toutes les bases.</p>
+                <hr class="plan-divider">
+                <ul class="plan-features">
+                    <li class="active"><span class="check">✓</span> 1 garage</li>
+                    <li class="active"><span class="check">✓</span> Jusqu'à 10 véhicules en stock</li>
+                    <li class="active"><span class="check">✓</span> Suivi marge fiscale & interne</li>
+                    <li class="active"><span class="check">✓</span> Remise en état par véhicule</li>
+                    <li><span class="dash">—</span> Multi-garage</li>
+                    <li><span class="dash">—</span> Export des données</li>
+                    <li><span class="dash">—</span> Support prioritaire</li>
+                </ul>
+                <a href="#" class="btn-plan outline">Démarrer gratuitement</a>
+            </div>
+
+            <!-- PRO -->
+            <div class="pricing-card popular">
+                <div class="pricing-badge">Populaire</div>
+                <div class="plan-name">Pro</div>
+                <div class="plan-price">
+                    <span class="currency">€</span>
+                    <span class="amount">5</span>
+                    <span class="period">&nbsp;/ mois</span>
+                </div>
+                <p class="plan-desc">Pour les dealers actifs avec plusieurs sites.</p>
+                <hr class="plan-divider">
+                <ul class="plan-features">
+                    <li class="active"><span class="check">✓</span> Jusqu'à 3 garages</li>
+                    <li class="active"><span class="check">✓</span> Véhicules illimités</li>
+                    <li class="active"><span class="check">✓</span> Suivi marge fiscale & interne</li>
+                    <li class="active"><span class="check">✓</span> Remise en état par véhicule</li>
+                    <li class="active"><span class="check">✓</span> Multi-garage</li>
+                    <li class="active"><span class="check">✓</span> Export des données</li>
+                    <li><span class="dash">—</span> Support prioritaire</li>
+                </ul>
+                <a href="#" class="btn-plan filled">Essayer 30 jours gratuit</a>
+            </div>
+
+            <!-- ENTREPRISE -->
+            <div class="pricing-card">
+                <div class="plan-name">Entreprise</div>
+                <div class="plan-price">
+                    <span class="currency">€</span>
+                    <span class="amount">10</span>
+                    <span class="period">&nbsp;/ mois</span>
+                </div>
+                <p class="plan-desc">Pour les groupes avec des besoins avancés.</p>
+                <hr class="plan-divider">
+                <ul class="plan-features">
+                    <li class="active"><span class="check">✓</span> Garages illimités</li>
+                    <li class="active"><span class="check">✓</span> Véhicules illimités</li>
+                    <li class="active"><span class="check">✓</span> Suivi marge fiscale & interne</li>
+                    <li class="active"><span class="check">✓</span> Remise en état par véhicule</li>
+                    <li class="active"><span class="check">✓</span> Multi-garage</li>
+                    <li class="active"><span class="check">✓</span> Export des données</li>
+                    <li class="active"><span class="check">✓</span> Support prioritaire</li>
+                </ul>
+                <a href="#" class="btn-plan outline">Démarrer gratuitement</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===================== CTA FINAL ===================== -->
+    <section class="cta-section">
+        <div class="cta-inner">
+            <div class="section-label">C'est parti</div>
+            <h2 class="section-title">Commencez à suivre<br>votre vraie rentabilité</h2>
+            <p class="section-sub">
+                30 jours d'essai gratuit, sans carte bancaire.
+                Prenez le contrôle de vos marges dès aujourd'hui.
+            </p>
+            <a href="#" class="btn-primary">Créer mon compte gratuit</a>
+            <p class="cta-guarantee">Sans engagement — résiliable à tout moment</p>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="footer-brand">U<span>Turtle</span> — Véhicules d'occasion</div>
+        <div>© 2026 UTurtle. Tous droits réservés.</div>
+    </footer>
+
+</body>
+</html>
