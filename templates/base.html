@@ -11,7 +11,23 @@
 <body>
 
 
-    {% block content %}{% endblock content %}
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar">
+    <a href="/" class="navbar-brand">Mes <span>Véhicules d'occasion</span></a>
+    <a href="{% url 'admin:index' %}" class="navbar-login">Connexion</a>
+</nav>
+
+{% block content %}{% endblock content %}
+    
+    
+    
+    
+    
+    
+    
+    
+
     
 </body>
 </html>

@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
+{% block title %} <title>Liste des véhicules</title> {% endblock title %}
+
 
 {% block content %}
 
-<h1>ListView</h1>
+<h1>Mes véhicules d'occasions</h1>
 
 {% for vehicule in vehicules %}
     <a href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">

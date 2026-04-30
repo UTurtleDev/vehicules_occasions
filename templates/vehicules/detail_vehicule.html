@@ -2,18 +2,33 @@
 
 {% block content %}
 
-<p>Marque : {{ vehicule.marque }}</p>
-<p>Modele : {{ vehicule.modele }}</p>
-<p>Date achat : {{ vehicule.date_achat }}</p>
-<p>Vendeur : {{ vehicule.vendeur }}</p>
-<p>Prix du véhicule : {{ vehicule.prix_vehicule }}</p>
-<p>Cout d'enchère : {{ vehicule.prix_enchere }}</p>
-<p>Cout du transport : {{ vehicule.prix_transport }}</p>
-<p>Prix total d'achat : {{ vehicule.prix_achat }}</p>
-<p>Frais de remise en etat : {{ vehicule.frais_reel }}</p>
-<p>Cout de revient : {{ vehicule.cout_revient }}</p>
-<p>Immatriculation : {{ vehicule.immatriculation }}</p>
-<p></p>
+
+<div>
+    <p>Marque : {{ vehicule.marque }}</p>
+    <p>Modele : {{ vehicule.modele }}</p>
+    <p>Couleur : {{ vehicule.couleur }}</p>
+    <p>Année : {{ vehicule.annee_vehicule }}</p>
+    <p>Crit Air : {{ vehicule.crit_air }}</p>
+    <p>Kilometrage : {{ vehicule.kilometrage_achat }}</p>
+    <p>Transmission : {{ vehicule.transmission }}</p>
+    <p>Energie : {{ vehicule.energie }}</p>
+    <p>Chevaux dine : {{ vehicule.chevaux_dine }}</p>
+    <p>Chevaux fiscaux : {{ vehicule.chevaux_fiscaux }}</p>
+    <p>Date achat : {{ vehicule.date_achat }}</p>
+    <p>Vendeur : {{ vehicule.vendeur }}</p>
+    <p>Prix du véhicule : {{ vehicule.prix_vehicule }}</p>
+    <p>Cout d'enchère : {{ vehicule.prix_enchere }}</p>
+    <p>Cout du transport : {{ vehicule.prix_transport }}</p>
+    <p>Prix total d'achat : {{ vehicule.prix_achat }}</p>
+    <p>Frais de remise en etat : {{ vehicule.frais_reel }}</p>
+    <p>Cout de revient : {{ vehicule.cout_revient }}</p>
+    <p>Immatriculation : {{ vehicule.immatriculation }}</p>
+    <p>VIN : {{ vehicule.vin }}</p>
+</div>
+
+
+
+
 
 
 {% endblock content %}
