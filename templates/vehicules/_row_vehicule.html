@@ -1,0 +1,67 @@
+{% comment %}
+  Partial : une ligne de la liste véhicules.
+  Attend la variable `vehicule` dans le contexte.
+{% endcomment %}
+<a class="row" href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">
+
+    <span class="dot dot-{{ vehicule.energie }}"></span>
+
+    <div>
+        <div class="row-veh-model">
+            {{ vehicule.modele }} <span class="year">· {{ vehicule.annee_vehicule }}</span>
+        </div>
+        <div class="row-veh-sub">
+            <span class="immat">{{ vehicule.immatriculation }}</span>
+            <span>{{ vehicule.kilometrage_achat|floatformat:0 }} km</span>
+            <span>{{ vehicule.get_transmission_display }}</span>
+        </div>
+    </div>
+
+    <div class="row-date">
+        <span class="row-date-val">{{ vehicule.date_achat|date:"j F Y" }}</span>
+        {% if vehicule.vendu %}
+            <span class="row-anciennete" style="color: var(--muted2);">acquis</span>
+        {% else %}
+            {% with m=vehicule.mois_en_stock %}
+                <span class="row-anciennete {% if m >= 12 %}alert{% elif m >= 8 %}warn{% endif %}">
+                    <span class="pip"></span>
+                    en stock depuis {{ m }} mois
+                </span>
+            {% endwith %}
+        {% endif %}
+    </div>
+
+    <div>
+        <div class="col-label">{% if vehicule.vendu %}Prix vente{% else %}Prix achat{% endif %}</div>
+        <div class="row-price">
+            {% if vehicule.vendu %}{{ vehicule.prix_vente|floatformat:0 }}{% else %}{{ vehicule.prix_achat|floatformat:0 }}{% endif %} €
+        </div>
+    </div>
+
+    <div>
+        <div class="col-label">M. fiscale</div>
+        {% if vehicule.vendu %}
+            <div class="row-marge pos-amber">+{{ vehicule.marge_fiscale|floatformat:0 }} €</div>
+        {% else %}
+            <div class="row-marge none">—</div>
+        {% endif %}
+    </div>
+
+    <div>
+        <div class="col-label">M. interne</div>
+        {% if vehicule.vendu %}
+            <div class="row-marge {% if vehicule.marge_interne < 0 %}neg{% else %}pos-green{% endif %}">
+                {% if vehicule.marge_interne >= 0 %}+{% endif %}{{ vehicule.marge_interne|floatformat:0 }} €
+            </div>
+        {% else %}
+            <div class="row-marge none">—</div>
+        {% endif %}
+    </div>
+
+    {% if vehicule.vendu %}
+        <span class="badge-stock vendu">Vendu</span>
+    {% else %}
+        <span class="badge-stock en-stock">En stock</span>
+    {% endif %}
+
+</a>

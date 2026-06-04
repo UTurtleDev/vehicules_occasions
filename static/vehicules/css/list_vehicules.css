@@ -1,0 +1,379 @@
+/* ============================================
+   Liste des véhicules — Option C
+   Réutilise les variables de style.css (palette UTurtle).
+   Tout est scopé sous .vo-list pour éviter les collisions
+   avec la navbar / le body définis dans base.html.
+   ============================================ */
+
+.vo-list {
+    margin-top: 64px;                 /* hauteur de la .navbar fixe (base.html) */
+    height: calc(100vh - 64px);
+    display: flex;
+    overflow: hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ── Sidebar ── */
+.vo-list .sidebar {
+    width: 248px;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+.vo-list .sb-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 9px 12px;
+}
+.vo-list .sb-search input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.vo-list .sb-search input::placeholder { color: var(--muted2); }
+
+.vo-list .sb-group { display: flex; flex-direction: column; gap: 3px; }
+.vo-list .sb-group-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px 6px;
+}
+.vo-list .sb-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted2);
+}
+.vo-list .sb-group-clear {
+    font-size: 10px;
+    color: var(--accent);
+    opacity: 0.85;
+}
+.vo-list .sb-group-clear:hover { opacity: 1; }
+
+.vo-list .sb-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 9px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: var(--muted);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s, color 0.15s;
+    user-select: none;
+}
+.vo-list .sb-item:hover { background: var(--surface2); color: var(--text); }
+.vo-list .sb-item.on {
+    background: var(--accent-dim);
+    border-color: var(--border-accent);
+    color: var(--accent);
+}
+.vo-list .sb-item-left { display: flex; align-items: center; gap: 9px; }
+.vo-list .sb-badge {
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 100px;
+    background: var(--surface3);
+    color: var(--muted2);
+    font-variant-numeric: tabular-nums;
+}
+.vo-list .sb-item.on .sb-badge { background: rgba(229,185,60,0.18); color: var(--accent); }
+
+.vo-list .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.vo-list .dot-essence    { background: #E5834A; }
+.vo-list .dot-diesel     { background: #7CA0F0; }
+.vo-list .dot-electrique { background: var(--green); }
+.vo-list .dot-hybride    { background: #A67CE0; }
+
+.vo-list .sb-divider { border: none; border-top: 1px solid var(--border); }
+
+.vo-list .sb-reset {
+    font-size: 11.5px;
+    color: var(--muted);
+    text-align: center;
+    padding: 9px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    transition: border-color 0.15s, color 0.15s;
+}
+.vo-list .sb-reset:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+/* ── Main ── */
+.vo-list .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.vo-list .main-topbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 26px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+.vo-list .main-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    margin: 0;                         /* annule le h1 { margin-top:200px } de style.css */
+}
+.vo-list .main-count {
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--surface2);
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    font-variant-numeric: tabular-nums;
+}
+.vo-list .main-spacer { flex: 1; }
+.vo-list .sort-control { display: flex; align-items: center; gap: 8px; }
+.vo-list .sort-label {
+    font-size: 11px;
+    color: var(--muted2);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.vo-list .sort-select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 12px;
+    color: var(--text);
+    font-size: 12.5px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    outline: none;
+}
+.vo-list .sort-select:hover { border-color: rgba(255,255,255,0.18); }
+
+.vo-list .list { flex: 1; overflow-y: auto; }
+
+.vo-list .group-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 9px 26px;
+    background: rgba(23,23,31,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.vo-list .group-count {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 1px 8px;
+    border-radius: 100px;
+    background: var(--surface3);
+    color: var(--muted2);
+}
+
+/* ── Ligne véhicule ── */
+.vo-list .row,
+.vo-list .row-head {
+    display: grid;
+    grid-template-columns: 16px minmax(180px, 1.4fr) 1.1fr 1fr 0.9fr 0.9fr 88px;
+    gap: 16px;
+    align-items: center;
+}
+.vo-list .row {
+    padding: 13px 26px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.12s;
+}
+.vo-list a.row { color: inherit; }
+.vo-list .row:hover { background: var(--surface2); }
+
+.vo-list .row-veh-model {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.86rem;
+    color: var(--text);
+}
+.vo-list .row-veh-model .year { font-weight: 400; color: var(--muted); font-size: 0.78rem; }
+.vo-list .row-veh-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+}
+.vo-list .row-veh-sub .immat { font-family: 'Syne', sans-serif; letter-spacing: 0.03em; }
+
+.vo-list .row-date { display: flex; flex-direction: column; gap: 2px; }
+.vo-list .row-date-val {
+    font-size: 12.5px;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+.vo-list .row-anciennete {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted2);
+}
+.vo-list .row-anciennete.warn  { color: var(--accent); }
+.vo-list .row-anciennete.alert { color: var(--red); }
+.vo-list .row-anciennete .pip {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: currentColor;
+}
+
+.vo-list .col-label {
+    font-size: 9.5px;
+    color: var(--muted2);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+.vo-list .row-price {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.84rem;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+.vo-list .row-marge {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.84rem;
+    font-variant-numeric: tabular-nums;
+}
+.vo-list .row-marge.pos-amber { color: var(--accent); }
+.vo-list .row-marge.pos-green { color: var(--green); }
+.vo-list .row-marge.neg       { color: var(--red); }
+.vo-list .row-marge.none      { color: var(--muted2); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400; }
+
+.vo-list .badge-stock {
+    justify-self: start;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+.vo-list .badge-stock.en-stock {
+    background: rgba(60,206,160,0.12);
+    color: var(--green);
+    border: 1px solid rgba(60,206,160,0.25);
+}
+.vo-list .badge-stock.vendu {
+    background: rgba(80,82,106,0.15);
+    color: var(--muted);
+    border: 1px solid var(--border);
+}
+
+.vo-list .row-head {
+    padding: 10px 26px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+.vo-list .row-head span {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted2);
+}
+
+/* ── Pagination ── */
+.vo-list .pagination {
+    padding: 12px 26px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+.vo-list .pag-info { font-size: 11.5px; color: var(--muted); }
+.vo-list .pag-btns { display: flex; gap: 4px; }
+.vo-list .pag-btn {
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.vo-list .pag-btn:hover { border-color: rgba(255,255,255,0.18); color: var(--text); }
+.vo-list .pag-btn.active {
+    background: var(--accent-dim);
+    border-color: var(--border-accent);
+    color: var(--accent);
+}
+
+/* ── Empty state ── */
+.vo-list .empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    padding: 60px;
+}
+.vo-list .empty-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.vo-list .list::-webkit-scrollbar,
+.vo-list .sidebar::-webkit-scrollbar { width: 9px; }
+.vo-list .list::-webkit-scrollbar-thumb,
+.vo-list .sidebar::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 100px; }

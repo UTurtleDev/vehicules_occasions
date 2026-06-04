@@ -1,31 +1,157 @@
 {% extends "base.html" %}
+{% load static %}
+{% load vo_filters %}
 
-{% block title %} <title>Liste des véhicules</title> {% endblock title %}
-
+{% block title %}<title>Liste des véhicules</title>{% endblock title %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'vehicules/css/list_vehicules.css' %}">
 
-<h1>Mes véhicules d'occasions</h1>
+<div class="vo-list">
 
-{% for vehicule in vehicules %}
-    <a href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">
-    <p>{{ vehicule.marque }} {{ vehicule.modele }} {{ vehicule.prix_achat }} {{ vehicule.prix_vente }} {{ vehicule.marge_fiscale }} {{ vehicule.marge_interne }}</p>
+    {# ═══════════════ SIDEBAR ═══════════════ #}
+    <aside class="sidebar">
 
-{% endfor %}
+        <form method="get" class="sb-search">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <circle cx="6.5" cy="6.5" r="5" stroke="#7C7F99" stroke-width="1.5"></circle>
+                <path d="M10.5 10.5 L14 14" stroke="#7C7F99" stroke-width="1.5" stroke-linecap="round"></path>
+            </svg>
+            <input type="text" name="q" value="{{ f_search }}" placeholder="Plaque, marque, modèle…">
+            {% if f_statut and f_statut != 'tous' %}<input type="hidden" name="statut" value="{{ f_statut }}">{% endif %}
+            {% for e in f_energies %}<input type="hidden" name="energie" value="{{ e }}">{% endfor %}
+            {% for m in f_marques %}<input type="hidden" name="marque" value="{{ m }}">{% endfor %}
+            {% if f_tri %}<input type="hidden" name="tri" value="{{ f_tri }}">{% endif %}
+        </form>
 
-{% if is_paginated %}
-    <!-- Page précédente -->
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">← Précédent</a>
-    {% endif %}
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Statut</span></div>
+            <a class="sb-item {% if f_statut == 'tous' %}on{% endif %}" href="{% set_qs request 'statut' 'tous' %}">
+                <span class="sb-item-left">Tous les véhicules</span>
+                <span class="sb-badge">{{ count_total }}</span>
+            </a>
+            <a class="sb-item {% if f_statut == 'en-stock' %}on{% endif %}" href="{% set_qs request 'statut' 'en-stock' %}">
+                <span class="sb-item-left">En stock</span>
+                <span class="sb-badge">{{ count_stock }}</span>
+            </a>
+            <a class="sb-item {% if f_statut == 'vendu' %}on{% endif %}" href="{% set_qs request 'statut' 'vendu' %}">
+                <span class="sb-item-left">Vendus</span>
+                <span class="sb-badge">{{ count_vendu }}</span>
+            </a>
+        </div>
 
-    <!-- Numéro actuel / total -->
-    <span>Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+        <hr class="sb-divider">
 
-    <!-- Page suivante -->
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Suivant →</a>
-    {% endif %}
-{% endif %}
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Énergie</span></div>
+            {% for e in energie_filters %}
+                <a class="sb-item {% is_active request 'energie' e.value as on %}{% if on %}on{% endif %}"
+                   href="{% toggle_qs request 'energie' e.value %}">
+                    <span class="sb-item-left">
+                        <span class="dot dot-{{ e.value }}"></span>
+                        {{ e.label }}
+                    </span>
+                    <span class="sb-badge">{{ e.count }}</span>
+                </a>
+            {% endfor %}
+        </div>
 
+        <hr class="sb-divider">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Marque</span></div>
+            {% for marque in marques %}
+                <a class="sb-item {% is_active request 'marque' marque.pk as on %}{% if on %}on{% endif %}"
+                   href="{% toggle_qs request 'marque' marque.pk %}">
+                    <span class="sb-item-left">{{ marque.marque }}</span>
+                    <span class="sb-badge">{{ marque.nb_vehicules_marque }}</span>
+                </a>
+            {% endfor %}
+        </div>
+
+        {% if f_statut != 'tous' or f_energies or f_marques or f_search %}
+            <hr class="sb-divider">
+            <a class="sb-reset" href="?">↺ Réinitialiser les filtres</a>
+        {% endif %}
+
+    </aside>
+
+    {# ═══════════════ MAIN ═══════════════ #}
+    <main class="main">
+
+        <div class="main-topbar">
+            <h1 class="main-title">Stock véhicules</h1>
+            <span class="main-count">{{ paginator.count }} véhicule{{ paginator.count|pluralize }}</span>
+            <div class="main-spacer"></div>
+            <div class="sort-control">
+                <span class="sort-label">Trier</span>
+                <select class="sort-select" onchange="window.location.href = this.value;">
+                    <option value="{% set_qs request 'tri' 'marque' %}"    {% if f_tri == 'marque' %}selected{% endif %}>Par marque</option>
+                    <option value="{% set_qs request 'tri' 'date-asc' %}"  {% if f_tri == 'date-asc' %}selected{% endif %}>Plus anciens d'abord</option>
+                    <option value="{% set_qs request 'tri' 'date-desc' %}" {% if f_tri == 'date-desc' %}selected{% endif %}>Plus récents d'abord</option>
+                </select>
+            </div>
+        </div>
+
+        {% if vehicules %}
+            <div class="list">
+                {% if f_tri == 'marque' %}
+                    {% regroup vehicules by marque as marque_groups %}
+                    {% for group in marque_groups %}
+                        <div class="group-header">
+                            {{ group.grouper }}
+                            <span class="group-count">{{ group.list|length }}</span>
+                        </div>
+                        {% for vehicule in group.list %}
+                            {% include "vehicules/_row_vehicule.html" %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <div class="row-head">
+                        <span></span>
+                        <span>Véhicule</span>
+                        <span>Acquisition</span>
+                        <span>Prix</span>
+                        <span>M. fiscale</span>
+                        <span>M. interne</span>
+                        <span>Statut</span>
+                    </div>
+                    {% for vehicule in vehicules %}
+                        {% include "vehicules/_row_vehicule.html" %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {% if is_paginated %}
+                <div class="pagination">
+                    <span class="pag-info">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+                    <div class="pag-btns">
+                        {% if page_obj.has_previous %}
+                            <a class="pag-btn" href="{% page_qs request page_obj.previous_page_number %}">‹</a>
+                        {% endif %}
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if num == page_obj.number %}
+                                <span class="pag-btn active">{{ num }}</span>
+                            {% else %}
+                                <a class="pag-btn" href="{% page_qs request num %}">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <a class="pag-btn" href="{% page_qs request page_obj.next_page_number %}">›</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+        {% else %}
+            <div class="empty">
+                <div class="empty-title">Aucun véhicule</div>
+                <div>Aucun véhicule ne correspond à ces filtres.</div>
+                <a class="sb-reset" style="width:auto; padding:8px 18px;" href="?">↺ Réinitialiser</a>
+            </div>
+        {% endif %}
+
+    </main>
+
+</div>
 {% endblock content %}

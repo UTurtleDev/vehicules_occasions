@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from garages.models import Garage
 from django.db.models import Sum
+from django.utils import timezone
 from datetime import datetime
 
 
@@ -107,9 +108,14 @@ class Vehicule(models.Model):
     @property
     def vendu(self):
         return self.date_vente is not None
-    
 
-    
+    @property
+    def mois_en_stock(self):
+        if self.vendu:
+            return None
+        jours = (timezone.now().date() - self.date_achat).days
+        return int(jours // 30.4)
+
     def __str__(self):
         return f"{self.marque} {self.modele} - {self.immatriculation}"
 
