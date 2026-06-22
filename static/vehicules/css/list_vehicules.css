@@ -377,3 +377,26 @@
 .vo-list .sidebar::-webkit-scrollbar { width: 9px; }
 .vo-list .list::-webkit-scrollbar-thumb,
 .vo-list .sidebar::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 100px; }
+
+/* ── Bouton Ajouter un véhicule ── */
+.vo-list .btn-ajouter {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    padding: 8px 18px;
+    white-space: nowrap;
+    transition: box-shadow 0.2s, filter 0.18s;
+}
+.vo-list .btn-ajouter:hover {
+    box-shadow: 0 0 0 4px var(--accent-glow);
+    filter: brightness(1.05);
+}

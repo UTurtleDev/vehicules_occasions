@@ -1,40 +1,327 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>{{ vehicule.marque }} {{ vehicule.modele }}</title>{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'vehicules/css/detail_vehicule.css' %}">
 
+<div class="vo-detail">
+    <div class="wrap">
 
-<h1>{{ vehicule.marque }} {{ vehicule.modele }}</h1>
+        {# ── Breadcrumb ── #}
+        <a class="crumb" href="{% url 'vehicules:garages' %}">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                <path d="M10 3 L5 8 L10 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Retour au stock
+        </a>
 
-<div>
-    <p>Marque : {{ vehicule.marque }}</p>
-    <p>Modele : {{ vehicule.modele }}</p>
-    <p>Couleur : {{ vehicule.couleur }}</p>
-    <p>Année : {{ vehicule.annee_vehicule }}</p>
-    <p>Crit Air : {{ vehicule.crit_air }}</p>
-    <p>Kilometrage : {{ vehicule.kilometrage_achat }}</p>
-    <p>Transmission : {{ vehicule.transmission }}</p>
-    <p>Energie : {{ vehicule.energie }}</p>
-    <p>Chevaux dine : {{ vehicule.chevaux_dine }}</p>
-    <p>Chevaux fiscaux : {{ vehicule.chevaux_fiscaux }}</p>
-    <p>Date achat : {{ vehicule.date_achat }}</p>
-    <p>Vendeur : {{ vehicule.vendeur }}</p>
-    <p>Prix du véhicule : {{ vehicule.prix_vehicule }}</p>
-    <p>Cout d'enchère : {{ vehicule.prix_enchere }}</p>
-    <p>Cout du transport : {{ vehicule.prix_transport }}</p>
-    <p>Prix total d'achat : {{ vehicule.prix_achat }}</p>
-    <p>Frais de remise en etat : {{ vehicule.frais_reel }}</p>
-    <p>Cout de revient : {{ vehicule.cout_revient }}</p>
-    <p>Immatriculation : {{ vehicule.immatriculation }}</p>
-    <p>VIN : {{ vehicule.vin }}</p>
+        {# ── Hero ── #}
+        <div class="hero">
+            <div class="hero-top">
+                <div class="hero-titles">
+                    <h1 class="hero-title">
+                        {{ vehicule.marque }} {{ vehicule.modele }}
+                        <span class="year">· {{ vehicule.annee_vehicule }}</span>
+                    </h1>
+                    <div class="hero-meta">
+                        <span>Acquis le <b>{{ vehicule.date_achat|date:"j N Y" }}</b></span>
+                        {% if not vehicule.vendu %}
+                            <span>En stock depuis <b>{{ vehicule.mois_en_stock }} mois</b></span>
+                        {% else %}
+                            <span>Vendu le <b>{{ vehicule.date_vente|date:"j N Y" }}</b></span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    {% if vehicule.vendu %}
+                        <span class="badge-stock vendu">Vendu</span>
+                    {% else %}
+                        <span class="badge-stock en-stock">En stock</span>
+                    {% endif %}
+                    <a href="#" class="btn-action btn-modifier">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path d="M11.5 2.5 L13.5 4.5 L5.5 12.5 L3 13 L3.5 10.5 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                        </svg>
+                        Modifier
+                    </a>
+                    {% if not vehicule.vendu %}
+                        <a href="#" class="btn-action btn-vendre">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 8.5 L8.5 2 H13.5 V7 L7 13.5 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                                <circle cx="10.6" cy="5.4" r="1" fill="currentColor"/>
+                            </svg>
+                            Vendre
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {# ── Cards ── #}
+        <div class="grid">
+
+            {# Card 1 : Identité #}
+            <div class="card">
+                <div class="card-head">
+                    <span class="ic">
+                        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                            <path d="M2 10 L3 6.5 C3.2 5.7 3.9 5 5 5 H11 C12.1 5 12.8 5.7 13 6.5 L14 10 V12.5 H12 V11 H4 V12.5 H2 Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                            <circle cx="4.7" cy="10" r="0.9" fill="currentColor"/>
+                            <circle cx="11.3" cy="10" r="0.9" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    <span class="card-title">Identité du véhicule</span>
+                </div>
+                <div class="specs">
+                    <div class="spec">
+                        <span class="spec-label">Marque</span>
+                        <span class="spec-value">{{ vehicule.marque }}</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Modèle</span>
+                        <span class="spec-value">{{ vehicule.modele }}</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Couleur</span>
+                        <span class="spec-value">{{ vehicule.couleur }}</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Année</span>
+                        <span class="spec-value">{{ vehicule.annee_vehicule }}</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Immatriculation</span>
+                        <span class="spec-value plate">{{ vehicule.immatriculation }}</span>
+                    </div>
+                    {% if vehicule.vin %}
+                        <div class="spec">
+                            <span class="spec-label">N° de série (VIN)</span>
+                            <span class="spec-value vin">{{ vehicule.vin }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Card 2 : Caractéristiques techniques #}
+            <div class="card">
+                <div class="card-head">
+                    <span class="ic">
+                        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                            <circle cx="8" cy="8" r="2.2" stroke="currentColor" stroke-width="1.2"/>
+                            <path d="M8 1.2 V3.2 M8 12.8 V14.8 M1.2 8 H3.2 M12.8 8 H14.8 M3.2 3.2 L4.6 4.6 M11.4 11.4 L12.8 12.8 M12.8 3.2 L11.4 4.6 M4.6 11.4 L3.2 12.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                    <span class="card-title">Caractéristiques techniques</span>
+                </div>
+                <div class="specs">
+                    <div class="spec">
+                        <span class="spec-label">Crit'Air</span>
+                        <span class="spec-value"><span class="pill critair">Crit'Air {{ vehicule.crit_air }}</span></span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Kilométrage</span>
+                        <span class="spec-value">{{ vehicule.kilometrage_achat }} <span class="unit">km</span></span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Transmission</span>
+                        <span class="spec-value">{{ vehicule.get_transmission_display }}</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Énergie</span>
+                        <span class="spec-value">
+                            <span class="dot dot-{{ vehicule.energie }}"></span>
+                            {{ vehicule.get_energie_display }}
+                        </span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Chevaux DIN</span>
+                        <span class="spec-value">{{ vehicule.chevaux_dine }} <span class="unit">ch</span></span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Chevaux fiscaux</span>
+                        <span class="spec-value">{{ vehicule.chevaux_fiscaux }} <span class="unit">CV</span></span>
+                    </div>
+                </div>
+            </div>
+
+            {# Card 3 : Informations d'achat (wide) #}
+            <div class="card wide">
+                <div class="card-head">
+                    <span class="ic">
+                        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                            <path d="M2.5 3.5 H13.5 V12.5 H2.5 Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                            <path d="M2.5 6.2 H13.5" stroke="currentColor" stroke-width="1.2"/>
+                            <path d="M5 9.2 H7.5 M10 9.2 H11.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                    <span class="card-title">Informations d'achat</span>
+                </div>
+
+                <div class="achat-meta">
+                    <div class="m">
+                        <span class="m-label">Date d'achat</span>
+                        <span class="m-value">{{ vehicule.date_achat|date:"j N Y" }}</span>
+                    </div>
+                    <div class="m">
+                        <span class="m-label">Vendeur</span>
+                        <span class="m-value">{{ vehicule.vendeur }}</span>
+                    </div>
+                </div>
+
+                <div class="achat-body">
+                    <div class="achat-col">
+                        <div class="col-head">Coût d'acquisition</div>
+                        <div class="line">
+                            <span class="l-label">Prix du véhicule</span>
+                            <span class="l-value">{{ vehicule.prix_vehicule|floatformat:0 }} €</span>
+                        </div>
+                        {% if vehicule.prix_enchere %}
+                            <div class="line sub">
+                                <span class="l-label">Coût d'enchère <span class="tag">accessoire</span></span>
+                                <span class="l-value">{{ vehicule.prix_enchere|floatformat:0 }} €</span>
+                            </div>
+                        {% endif %}
+                        {% if vehicule.prix_transport %}
+                            <div class="line sub">
+                                <span class="l-label">Coût de transport <span class="tag">accessoire</span></span>
+                                <span class="l-value">{{ vehicule.prix_transport|floatformat:0 }} €</span>
+                            </div>
+                        {% endif %}
+                        <hr class="line-rule">
+                        <div class="total">
+                            <span class="t-label">Prix total d'achat</span>
+                            <span class="t-value">{{ vehicule.prix_achat|floatformat:0 }} €</span>
+                        </div>
+                    </div>
+
+                    <div class="achat-divider"></div>
+
+                    <div class="achat-col">
+                        <div class="col-head">Coût de revient</div>
+                        <div class="line">
+                            <span class="l-label">Prix total d'achat</span>
+                            <span class="l-value">{{ vehicule.prix_achat|floatformat:0 }} €</span>
+                        </div>
+                        {% if vehicule.frais_reel %}
+                            <div class="line sub">
+                                <span class="l-label">Frais de remise en état</span>
+                                <span class="l-value">+ {{ vehicule.frais_reel|floatformat:0 }} €</span>
+                            </div>
+                        {% endif %}
+                        <hr class="line-rule">
+                        <div class="total accent">
+                            <span class="t-label">Coût de revient</span>
+                            <span class="t-value">{{ vehicule.cout_revient|floatformat:0 }} €</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% if vehicule.facture_achat %}
+                    <div class="card-foot">
+                        <div class="doc">
+                            <span class="doc-ic">PDF</span>
+                            <div class="doc-txt">
+                                <span class="doc-name">{{ vehicule.facture_achat.name }}</span>
+                                <span class="doc-meta">Facture d'achat</span>
+                            </div>
+                        </div>
+                        <a class="doc-dl" href="{{ vehicule.facture_achat.url }}" download>
+                            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 2 V10 M5 7.5 L8 10.5 L11 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 12.5 H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            Télécharger
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            {# Card 4 : Vente & marges (wide) #}
+            <div class="card wide">
+                <div class="card-head">
+                    <span class="ic">
+                        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                            <path d="M2 8.5 L8.5 2 H13.5 V7 L7 13.5 Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                            <circle cx="10.6" cy="5.4" r="1" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    <span class="card-title">Vente &amp; marges</span>
+                </div>
+
+                {% if not vehicule.vendu %}
+                    <div class="vente-empty">
+                        <span class="ve-icon">
+                            <svg width="22" height="22" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 8.5 L8.5 2 H13.5 V7 L7 13.5 Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                                <circle cx="10.6" cy="5.4" r="1" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <div class="ve-title">Véhicule encore en stock</div>
+                        <div class="ve-sub">Enregistrez la vente pour calculer automatiquement la marge fiscale et la marge interne de ce véhicule.</div>
+                        <div class="ve-ref">
+                            Seuil de rentabilité <b>{{ vehicule.cout_revient|floatformat:0 }} €</b>
+                        </div>
+                        <button class="btn-action btn-vendre">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 8.5 L8.5 2 H13.5 V7 L7 13.5 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                                <circle cx="10.6" cy="5.4" r="1" fill="currentColor"/>
+                            </svg>
+                            Enregistrer la vente
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="achat-body">
+                        <div class="achat-col">
+                            <div class="col-head">Vente</div>
+                            <div class="line">
+                                <span class="l-label">Date de vente</span>
+                                <span class="l-value">{{ vehicule.date_vente|date:"j N Y" }}</span>
+                            </div>
+                            {% if vehicule.acheteur %}
+                                <div class="line">
+                                    <span class="l-label">Acheteur</span>
+                                    <span class="l-value">{{ vehicule.acheteur }}</span>
+                                </div>
+                            {% endif %}
+                            {% if vehicule.kilometrage_vente %}
+                                <div class="line">
+                                    <span class="l-label">Kilométrage à la vente</span>
+                                    <span class="l-value">{{ vehicule.kilometrage_vente }} <span class="unit">km</span></span>
+                                </div>
+                            {% endif %}
+                            <hr class="line-rule">
+                            <div class="total">
+                                <span class="t-label">Prix de vente</span>
+                                <span class="t-value">{{ vehicule.prix_vente|floatformat:0 }} €</span>
+                            </div>
+                        </div>
+
+                        <div class="achat-divider"></div>
+
+                        <div class="achat-col">
+                            <div class="col-head">Marges</div>
+                            <div class="line">
+                                <span class="l-label">Prix de vente</span>
+                                <span class="l-value">{{ vehicule.prix_vente|floatformat:0 }} €</span>
+                            </div>
+                            <div class="line sub">
+                                <span class="l-label">− Coût de revient</span>
+                                <span class="l-value">{{ vehicule.cout_revient|floatformat:0 }} €</span>
+                            </div>
+                            <hr class="line-rule">
+                            <div class="total {% if vehicule.marge_interne > 0 %}green{% endif %}">
+                                <span class="t-label">Marge interne</span>
+                                <span class="t-value">{{ vehicule.marge_interne|floatformat:0 }} €</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
 </div>
 
-
-
-
-
-
 {% endblock content %}
-
-
-
-

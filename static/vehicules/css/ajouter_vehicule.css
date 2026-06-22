@@ -1,0 +1,250 @@
+/* ============================================
+   Ajouter un véhicule — formulaire
+   Réutilise les variables de style.css (palette UTurtle).
+   Tout est scopé sous .vo-ajout pour éviter les collisions
+   avec la navbar / le h1 global définis dans base.html / style.css.
+   ============================================ */
+
+.vo-ajout {
+    margin-top: 64px;                 /* hauteur de la .navbar fixe (base.html) */
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 48px 26px 96px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── En-tête ── */
+.vo-ajout .ajout-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border);
+}
+.vo-ajout .ajout-header h1 {
+    margin-top: 0;                    /* annule le h1 { margin-top:200px } de style.css */
+    font-family: 'Syne', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.1;
+}
+.vo-ajout .ajout-header a {
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: color 0.18s;
+}
+.vo-ajout .ajout-header a:hover { color: var(--text); }
+
+/* ── Erreurs globales ── */
+.vo-ajout .form-errors {
+    background: rgba(229, 99, 74, 0.08);
+    border: 1px solid rgba(229, 99, 74, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 28px;
+}
+.vo-ajout .form-errors p {
+    font-size: 13px;
+    color: #E5634A;
+    margin: 0;
+}
+.vo-ajout .form-errors p + p { margin-top: 4px; }
+
+/* ── Section ── */
+.vo-ajout .form-section {
+    margin-bottom: 40px;
+}
+.vo-ajout .form-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+/* ── Grille de champs ── */
+.vo-ajout .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 24px;
+}
+
+/* ── Champ ── */
+.vo-ajout .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+.vo-ajout .form-field > label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted2);
+}
+
+/* ── Inputs / selects / textarea ── */
+.vo-ajout input,
+.vo-ajout select,
+.vo-ajout textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    transition: border-color 0.18s, background 0.18s;
+}
+.vo-ajout select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%237C7F99' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 34px;
+}
+.vo-ajout textarea { resize: vertical; min-height: 80px; }
+
+.vo-ajout input::placeholder,
+.vo-ajout textarea::placeholder { color: var(--muted2); }
+
+.vo-ajout input:hover,
+.vo-ajout select:hover,
+.vo-ajout textarea:hover { border-color: rgba(255, 255, 255, 0.14); }
+
+.vo-ajout input:focus,
+.vo-ajout select:focus,
+.vo-ajout textarea:focus {
+    border-color: var(--border-accent);
+    outline: none;
+    background: var(--surface3);
+}
+
+/* Date inputs : harmonise l'icône calendrier */
+.vo-ajout input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.55);
+    cursor: pointer;
+}
+
+/* Fichier */
+.vo-ajout input[type="file"] {
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+}
+.vo-ajout input[type="file"]::file-selector-button {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 14px;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: border-color 0.18s, color 0.18s;
+}
+.vo-ajout input[type="file"]::file-selector-button:hover {
+    border-color: var(--border-accent);
+    color: var(--accent);
+}
+
+/* ── Sous-champs « Nouvelle marque / Nouveau modèle » ── */
+.vo-ajout #champ-nouvelle-marque,
+.vo-ajout #champ-nouveau-modele {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 12px;
+    margin-left: 2px;
+    padding: 12px 0 12px 14px;
+    border-left: 2px solid var(--accent);
+}
+.vo-ajout #champ-nouvelle-marque[hidden],
+.vo-ajout #champ-nouveau-modele[hidden] { display: none; }
+.vo-ajout #champ-nouvelle-marque label,
+.vo-ajout #champ-nouveau-modele label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.85;
+}
+
+/* ── Erreur de champ ── */
+.vo-ajout .field-error {
+    font-size: 11px;
+    color: #E5634A;
+    margin-top: 4px;
+}
+
+/* ── Actions ── */
+.vo-ajout .form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 22px;
+    margin-top: 12px;
+    padding-top: 26px;
+    border-top: 1px solid var(--border);
+}
+.vo-ajout .form-actions a {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition: color 0.18s;
+}
+.vo-ajout .form-actions a:hover { color: var(--text); }
+.vo-ajout .form-actions button {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    padding: 11px 26px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.05s, filter 0.18s;
+}
+.vo-ajout .form-actions button:hover {
+    box-shadow: 0 0 0 4px var(--accent-glow);
+    filter: brightness(1.05);
+}
+.vo-ajout .form-actions button:active { transform: translateY(1px); }
+
+/* ── Responsive ── */
+@media (max-width: 680px) {
+    .vo-ajout { padding: 32px 20px 80px; }
+    .vo-ajout .form-grid { grid-template-columns: 1fr; }
+    .vo-ajout .ajout-header h1 { font-size: 1.55rem; }
+    .vo-ajout .form-actions { flex-direction: row; }
+}

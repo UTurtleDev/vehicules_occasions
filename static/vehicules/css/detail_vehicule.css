@@ -1,0 +1,461 @@
+/* ============================================
+   Détail véhicule
+   Réutilise les variables de style.css (palette UTurtle).
+   Scopé sous .vo-detail pour éviter les collisions.
+   ============================================ */
+
+.vo-detail {
+    margin-top: 64px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.vo-detail .wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 26px 28px 60px;
+}
+
+/* ── Breadcrumb ── */
+.vo-detail .crumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 22px;
+    transition: color 0.15s;
+}
+.vo-detail .crumb:hover { color: var(--text); }
+
+/* ── Hero ── */
+.vo-detail .hero {
+    margin-bottom: 22px;
+}
+.vo-detail .hero-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+.vo-detail .hero-titles {
+    flex: 1;
+    min-width: 240px;
+}
+.vo-detail .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.1rem;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin: 0;
+}
+.vo-detail .hero-title .year {
+    color: var(--muted);
+    font-weight: 400;
+}
+.vo-detail .hero-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+}
+.vo-detail .hero-meta b { color: var(--text); font-weight: 600; }
+.vo-detail .hero-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* ── Badges statut ── */
+.vo-detail .badge-stock {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 5px 13px;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+.vo-detail .badge-stock.en-stock {
+    background: rgba(60, 206, 160, 0.12);
+    color: var(--green);
+    border: 1px solid rgba(60, 206, 160, 0.25);
+}
+.vo-detail .badge-stock.vendu {
+    background: rgba(80, 82, 106, 0.15);
+    color: var(--muted);
+    border: 1px solid var(--border);
+}
+
+/* ── Boutons d'action ── */
+.vo-detail .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 10px 20px;
+    border-radius: 100px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    text-decoration: none;
+}
+.vo-detail .btn-modifier {
+    background: var(--surface2);
+    color: var(--text);
+    border-color: var(--border);
+}
+.vo-detail .btn-modifier:hover { border-color: rgba(255, 255, 255, 0.2); }
+.vo-detail .btn-vendre {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+}
+.vo-detail .btn-vendre:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(229, 185, 60, 0.28);
+}
+
+/* ── Grille de cards ── */
+.vo-detail .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    align-items: start;
+}
+
+/* ── Card ── */
+.vo-detail .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.vo-detail .card.wide { grid-column: 1 / -1; }
+
+.vo-detail .card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border);
+}
+.vo-detail .card-head .ic {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    border: 1px solid var(--border-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+.vo-detail .card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* ── Lignes de specs ── */
+.vo-detail .specs { padding: 6px 20px 14px; }
+.vo-detail .spec {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+}
+.vo-detail .spec:last-child { border-bottom: none; }
+.vo-detail .spec-label { font-size: 12.5px; color: var(--muted); }
+.vo-detail .spec-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text);
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.vo-detail .spec-value.plate { color: var(--accent); letter-spacing: 0.05em; }
+.vo-detail .spec-value.vin { letter-spacing: 0.04em; }
+.vo-detail .spec-value .unit { color: var(--muted); font-weight: 400; font-size: 0.78rem; }
+
+/* ── Dot énergie ── */
+.vo-detail .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-block;
+}
+.vo-detail .dot-essence    { background: #E5834A; }
+.vo-detail .dot-diesel     { background: #7CA0F0; }
+.vo-detail .dot-electrique { background: var(--green); }
+.vo-detail .dot-hybride    { background: #A67CE0; }
+
+/* ── Pill Crit'Air ── */
+.vo-detail .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--surface3);
+    color: var(--text);
+}
+.vo-detail .pill.critair {
+    background: rgba(124, 160, 240, 0.14);
+    color: #9DB8F5;
+    border: 1px solid rgba(124, 160, 240, 0.25);
+}
+
+/* ── Card achat : meta ── */
+.vo-detail .achat-meta {
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--border);
+}
+.vo-detail .achat-meta .m { display: flex; flex-direction: column; gap: 3px; }
+.vo-detail .achat-meta .m-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted2);
+}
+.vo-detail .achat-meta .m-value {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+/* ── Card achat : body 2 colonnes ── */
+.vo-detail .achat-body {
+    display: grid;
+    grid-template-columns: 1fr 1px 0.85fr;
+    gap: 0;
+}
+.vo-detail .achat-col { padding: 16px 22px 18px; }
+.vo-detail .achat-divider { background: var(--border); }
+
+.vo-detail .col-head {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 8px;
+}
+
+/* ── Lignes financières ── */
+.vo-detail .line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 9px 0;
+    font-size: 13px;
+}
+.vo-detail .line .l-label { color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.vo-detail .line .l-label .tag {
+    font-size: 9px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    background: var(--surface3);
+    padding: 1px 7px;
+    border-radius: 100px;
+}
+.vo-detail .line .l-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+}
+.vo-detail .line.sub .l-value { color: var(--muted); }
+.vo-detail .line-rule { border: none; border-top: 1px dashed var(--border); margin: 4px 0; }
+
+/* ── Total ── */
+.vo-detail .total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 16px;
+    margin-top: 8px;
+    border-radius: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+}
+.vo-detail .total .t-label {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.vo-detail .total .t-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    font-variant-numeric: tabular-nums;
+}
+.vo-detail .total.accent {
+    background: var(--accent-dim);
+    border-color: var(--border-accent);
+}
+.vo-detail .total.accent .t-label { color: var(--accent); }
+.vo-detail .total.accent .t-value { color: var(--accent); }
+.vo-detail .total.green {
+    background: rgba(60, 206, 160, 0.12);
+    border-color: rgba(60, 206, 160, 0.25);
+}
+.vo-detail .total.green .t-label { color: var(--green); }
+.vo-detail .total.green .t-value { color: var(--green); }
+
+/* ── Vente (état non vendu) ── */
+.vo-detail .vente-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 13px;
+    padding: 32px 24px 30px;
+}
+.vo-detail .ve-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--accent-dim);
+    border: 1px solid var(--border-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+}
+.vo-detail .ve-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+}
+.vo-detail .ve-sub {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 1.55;
+}
+.vo-detail .ve-ref {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    margin-top: 2px;
+}
+.vo-detail .ve-ref b {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Facture PDF ── */
+.vo-detail .card-foot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 22px;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+}
+.vo-detail .doc {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex: 1;
+    min-width: 0;
+}
+.vo-detail .doc-ic {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: rgba(255, 107, 107, 0.12);
+    border: 1px solid rgba(255, 107, 107, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.5rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+.vo-detail .doc-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vo-detail .doc-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.vo-detail .doc-meta { font-size: 11px; color: var(--muted2); }
+.vo-detail .doc-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 7px 14px;
+    transition: border-color 0.15s, color 0.15s;
+}
+.vo-detail .doc-dl:hover { border-color: var(--border-accent); color: var(--accent); }
+
+/* ── Responsive ── */
+@media (max-width: 880px) {
+    .vo-detail .grid { grid-template-columns: 1fr; }
+    .vo-detail .achat-body { grid-template-columns: 1fr; }
+    .vo-detail .achat-divider { display: none; }
+    .vo-detail .wrap { padding: 20px 16px 60px; }
+    .vo-detail .hero-title { font-size: 1.6rem; }
+}

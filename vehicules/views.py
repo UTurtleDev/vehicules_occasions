@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, View
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q
 
-from vehicules.models import Vehicule, Marque
+from vehicules.models import Vehicule, Marque, Modele
+from vehicules.forms import VehiculeForm
 
 
 class ListVehiculeView(ListView):
@@ -84,3 +86,34 @@ class DetailVehiculeView(DetailView):
         context = super().get_context_data(**kwargs)
         context['remises_en_etat'] = self.object.remises_en_etat.all()
         return context
+
+
+class AjoutVehiculeView(CreateView):
+    model = Vehicule
+    form_class = VehiculeForm
+    template_name = 'vehicules/ajouter_vehicule.html'
+
+    def get_success_url(self):
+        return reverse_lazy('vehicules:detail-vehicule', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['marques'] = Marque.objects.order_by('marque')
+        context['modeles'] = Modele.objects.select_related('marque').order_by('marque__marque', 'modele')
+        return context
+
+    def form_valid(self, form):
+        nouvelle_marque = form.cleaned_data.get('nouvelle_marque', '').strip()
+        nouveau_modele = form.cleaned_data.get('nouveau_modele', '').strip()
+
+        if nouvelle_marque:
+            marque, _ = Marque.objects.get_or_create(marque=nouvelle_marque)
+            form.instance.marque = marque
+        else:
+            marque = form.cleaned_data['marque']
+
+        if nouveau_modele:
+            modele, _ = Modele.objects.get_or_create(marque=marque, modele=nouveau_modele)
+            form.instance.modele = modele
+
+        return super().form_valid(form)
