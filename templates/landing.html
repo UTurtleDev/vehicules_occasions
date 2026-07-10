@@ -12,7 +12,8 @@
     <!-- ===================== NAVBAR ===================== -->
     <nav class="navbar">
         <a href="/" class="navbar-brand">Mes <span>Véhicules d'occasion</span></a>
-        <a href="{% url 'admin:index' %}" class="navbar-login">Connexion</a>
+        {% comment %} <a href="{% url 'admin:index' %}" class="navbar-login">Connexion</a> {% endcomment %}
+        <a href="{% url 'vehicules:garages' %}" class="navbar-login">Connexion</a>
     </nav>
 
     <!-- ===================== HERO ===================== -->
