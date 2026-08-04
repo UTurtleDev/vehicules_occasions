@@ -40,7 +40,7 @@
                     {% else %}
                         <span class="badge-stock en-stock">En stock</span>
                     {% endif %}
-                    <a href="#" class="btn-action btn-modifier">
+                    <a href="{% url 'vehicules:modifier-vehicule' vehicule.pk %}" class="btn-action btn-modifier">
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                             <path d="M11.5 2.5 L13.5 4.5 L5.5 12.5 L3 13 L3.5 10.5 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
                         </svg>
@@ -205,10 +205,10 @@
                             <span class="l-value">{{ vehicule.prix_achat|floatformat:0 }} €</span>
                         </div>
                         {% if vehicule.frais_reel %}
-                            <div class="line sub">
+                            <a href="{% url 'remise_en_etat:liste-remises' vehicule.pk %}" class="line sub line-link">
                                 <span class="l-label">Frais de remise en état</span>
                                 <span class="l-value">+ {{ vehicule.frais_reel|floatformat:0 }} €</span>
-                            </div>
+                            </a>
                         {% endif %}
                         <hr class="line-rule">
                         <div class="total accent">

@@ -1,0 +1,77 @@
+/* ============================================
+   Liste des frais de remise en état
+   Complète detail_vehicule.css (même wrapper .vo-detail).
+   ============================================ */
+
+.vo-detail .remise-rows {
+    display: flex;
+    flex-direction: column;
+}
+.vo-detail .remise-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+.vo-detail .remise-row:last-child { border-bottom: none; }
+.vo-detail .remise-type {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    background: var(--surface3);
+    border-radius: 100px;
+    padding: 3px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.vo-detail .remise-desc {
+    flex: 1;
+    color: var(--muted);
+    min-width: 0;
+}
+.vo-detail .remise-montant {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.vo-detail .remise-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 22px;
+}
+.vo-detail .remise-foot span:first-child {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.vo-detail .remise-total-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.vo-detail .remise-empty {
+    padding: 34px 22px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media (max-width: 680px) {
+    .vo-detail .remise-row { flex-wrap: wrap; }
+    .vo-detail .remise-desc { order: 3; flex-basis: 100%; }
+}

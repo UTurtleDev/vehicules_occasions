@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>Ajouter un frais — {{ vehicule.marque }} {{ vehicule.modele }}</title>{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'remise_en_etat/css/ajouter_remise.css' %}">
+
+<div class="vo-remise">
+
+    <div class="remise-header">
+        <h1>Ajouter un frais de remise en état</h1>
+        <span class="remise-sub">Véhicule : <b>{{ vehicule.marque }} {{ vehicule.modele }} · {{ vehicule.immatriculation }}</b></span>
+        <a href="{% url 'vehicules:modifier-vehicule' vehicule.pk %}">← Retour à la fiche du véhicule</a>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-field">
+            <label for="{{ form.type_ree.id_for_label }}">{{ form.type_ree.label }}</label>
+            {{ form.type_ree }}
+            {% if form.type_ree.errors %}<p class="field-error">{{ form.type_ree.errors.0 }}</p>{% endif %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+            {{ form.description }}
+            {% if form.description.errors %}<p class="field-error">{{ form.description.errors.0 }}</p>{% endif %}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.montant.id_for_label }}">{{ form.montant.label }}</label>
+            {{ form.montant }}
+            {% if form.montant.errors %}<p class="field-error">{{ form.montant.errors.0 }}</p>{% endif %}
+        </div>
+
+        <div class="form-actions">
+            <a href="{% url 'vehicules:modifier-vehicule' vehicule.pk %}">Annuler</a>
+            <button type="submit">Enregistrer le frais</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock content %}

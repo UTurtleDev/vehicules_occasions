@@ -300,6 +300,20 @@
 .vo-detail .line.sub .l-value { color: var(--muted); }
 .vo-detail .line-rule { border: none; border-top: 1px dashed var(--border); margin: 4px 0; }
 
+/* ── Ligne cliquable (ex : frais de remise en état) ── */
+.vo-detail .line-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 0 -8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    transition: background 0.15s;
+}
+.vo-detail .line-link:hover { background: var(--surface2); }
+.vo-detail .line-link:hover .l-label { color: var(--text); }
+
 /* ── Total ── */
 .vo-detail .total {
     display: flex;

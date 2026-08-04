@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>Frais de remise en état — {{ vehicule.marque }} {{ vehicule.modele }}</title>{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'vehicules/css/detail_vehicule.css' %}">
+<link rel="stylesheet" href="{% static 'remise_en_etat/css/liste_remises.css' %}">
+
+<div class="vo-detail">
+    <div class="wrap">
+
+        {# ── Breadcrumb ── #}
+        <a class="crumb" href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                <path d="M10 3 L5 8 L10 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Retour à la fiche
+        </a>
+
+        {# ── Hero ── #}
+        <div class="hero">
+            <div class="hero-top">
+                <div class="hero-titles">
+                    <h1 class="hero-title">Frais de remise en état</h1>
+                    <div class="hero-meta">
+                        <span>{{ vehicule.marque }} {{ vehicule.modele }} · <b>{{ vehicule.immatriculation }}</b></span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="{% url 'remise_en_etat:ajouter-remise' vehicule.pk %}" class="btn-action btn-vendre">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 2.5 V13.5 M2.5 8 H13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Ajouter un frais
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {# ── Card : détail des frais ── #}
+        <div class="card wide">
+            <div class="card-head">
+                <span class="ic">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                        <path d="M2.5 3.5 H13.5 V12.5 H2.5 Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                        <path d="M2.5 6.2 H13.5" stroke="currentColor" stroke-width="1.2"/>
+                        <path d="M5 9.2 H7.5 M10 9.2 H11.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="card-title">Détail des frais engagés</span>
+            </div>
+
+            {% if remises_en_etat %}
+                <div class="remise-rows">
+                    {% for frais in remises_en_etat %}
+                        <div class="remise-row">
+                            <span class="remise-type">{{ frais.get_type_ree_display|default:"Autre" }}</span>
+                            <span class="remise-desc">{{ frais.description|default:"—" }}</span>
+                            <span class="remise-montant">{{ frais.montant|floatformat:0 }} €</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="card-foot remise-foot">
+                    <span>Total des frais engagés</span>
+                    <span class="remise-total-value">{{ vehicule.frais_reel|floatformat:0 }} €</span>
+                </div>
+            {% else %}
+                <div class="remise-empty">
+                    Aucun frais de remise en état enregistré pour ce véhicule.
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

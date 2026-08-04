@@ -1,0 +1,151 @@
+/* ============================================
+   Ajouter un frais de remise en état
+   Réutilise les variables de style.css (palette UTurtle).
+   Scopé sous .vo-remise pour éviter les collisions.
+   ============================================ */
+
+.vo-remise {
+    margin-top: 64px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 48px 26px 96px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+.vo-remise .remise-header {
+    margin-bottom: 30px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border);
+}
+.vo-remise .remise-header h1 {
+    margin-top: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.15;
+}
+.vo-remise .remise-header .remise-sub {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+.vo-remise .remise-header .remise-sub b { color: var(--text); font-weight: 600; }
+.vo-remise .remise-header a {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.18s;
+}
+.vo-remise .remise-header a:hover { color: var(--text); }
+
+.vo-remise .form-errors {
+    background: rgba(229, 99, 74, 0.08);
+    border: 1px solid rgba(229, 99, 74, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 24px;
+}
+.vo-remise .form-errors p { font-size: 13px; color: #E5634A; margin: 0; }
+.vo-remise .form-errors p + p { margin-top: 4px; }
+
+.vo-remise .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 22px;
+}
+.vo-remise .form-field > label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted2);
+}
+
+.vo-remise input,
+.vo-remise select,
+.vo-remise textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    transition: border-color 0.18s, background 0.18s;
+}
+.vo-remise select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%237C7F99' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 34px;
+}
+.vo-remise textarea { resize: vertical; min-height: 90px; }
+
+.vo-remise input:focus,
+.vo-remise select:focus,
+.vo-remise textarea:focus {
+    border-color: var(--border-accent);
+    outline: none;
+    background: var(--surface3);
+}
+
+.vo-remise .field-error {
+    font-size: 11px;
+    color: #E5634A;
+    margin-top: 4px;
+}
+
+.vo-remise .form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 22px;
+    margin-top: 8px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+.vo-remise .form-actions a {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition: color 0.18s;
+}
+.vo-remise .form-actions a:hover { color: var(--text); }
+.vo-remise .form-actions button {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    padding: 11px 26px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.05s, filter 0.18s;
+}
+.vo-remise .form-actions button:hover {
+    box-shadow: 0 0 0 4px var(--accent-glow);
+    filter: brightness(1.05);
+}
+.vo-remise .form-actions button:active { transform: translateY(1px); }
+
+@media (max-width: 620px) {
+    .vo-remise { padding: 32px 20px 80px; }
+}

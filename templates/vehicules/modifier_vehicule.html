@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>Modifier {{ vehicule.marque }} {{ vehicule.modele }}</title>{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'vehicules/css/ajouter_vehicule.css' %}">
+<link rel="stylesheet" href="{% static 'vehicules/css/modifier_vehicule.css' %}">
+
+<div class="vo-ajout">
+
+    <div class="ajout-header">
+        <h1>Modifier {{ vehicule.marque }} {{ vehicule.modele }}</h1>
+        <div class="ajout-header-actions">
+            <a class="btn-frais" href="{% url 'remise_en_etat:ajouter-remise' vehicule.pk %}">
+                + Ajouter des frais de remise en état
+            </a>
+            <a href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">← Retour à la fiche</a>
+        </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="ajout-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {# ═══════════ SECTION : GARAGE ═══════════ #}
+        <section class="form-section">
+            <div class="form-grid">
+                <div class="form-field">
+                    <label for="{{ form.garage.id_for_label }}">{{ form.garage.label }}</label>
+                    {{ form.garage }}
+                    {% if form.garage.errors %}<p class="field-error">{{ form.garage.errors.0 }}</p>{% endif %}
+                </div>
+            </div>
+        </section>
+
+        {# ═══════════ SECTION : IDENTITÉ DU VÉHICULE ═══════════ #}
+        <section class="form-section">
+            <h2 class="form-section-title">Identité du véhicule</h2>
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label for="{{ form.marque.id_for_label }}">{{ form.marque.label }}</label>
+                    <select name="marque" id="{{ form.marque.id_for_label }}">
+                        <option value="">---------</option>
+                        <option value="__nouveau__">➕ Nouvelle marque...</option>
+                        {% for marque in marques %}
+                            <option value="{{ marque.pk }}"
+                                    {% if form.marque.value|stringformat:"s" == marque.pk|stringformat:"s" %}selected{% endif %}>
+                                {{ marque.marque }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    {% if form.marque.errors %}<p class="field-error">{{ form.marque.errors.0 }}</p>{% endif %}
+                    <div id="champ-nouvelle-marque" {% if not form.nouvelle_marque.value %}hidden{% endif %}>
+                        <label for="{{ form.nouvelle_marque.id_for_label }}">{{ form.nouvelle_marque.label }}</label>
+                        {{ form.nouvelle_marque }}
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.modele.id_for_label }}">{{ form.modele.label }}</label>
+                    <select name="modele" id="{{ form.modele.id_for_label }}">
+                        <option value="">---------</option>
+                        <option value="__nouveau__">➕ Nouveau modèle...</option>
+                        {% for modele in modeles %}
+                            <option value="{{ modele.pk }}"
+                                    data-marque="{{ modele.marque_id }}"
+                                    {% if form.modele.value|stringformat:"s" == modele.pk|stringformat:"s" %}selected{% endif %}>
+                                {{ modele.modele }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    {% if form.modele.errors %}<p class="field-error">{{ form.modele.errors.0 }}</p>{% endif %}
+                    <div id="champ-nouveau-modele" {% if not form.nouveau_modele.value %}hidden{% endif %}>
+                        <label for="{{ form.nouveau_modele.id_for_label }}">{{ form.nouveau_modele.label }}</label>
+                        {{ form.nouveau_modele }}
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.annee_vehicule.id_for_label }}">{{ form.annee_vehicule.label }}</label>
+                    {{ form.annee_vehicule }}
+                    {% if form.annee_vehicule.errors %}<p class="field-error">{{ form.annee_vehicule.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.couleur.id_for_label }}">{{ form.couleur.label }}</label>
+                    {{ form.couleur }}
+                    {% if form.couleur.errors %}<p class="field-error">{{ form.couleur.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.immatriculation.id_for_label }}">{{ form.immatriculation.label }}</label>
+                    {{ form.immatriculation }}
+                    {% if form.immatriculation.errors %}<p class="field-error">{{ form.immatriculation.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.vin.id_for_label }}">{{ form.vin.label }}</label>
+                    {{ form.vin }}
+                    {% if form.vin.errors %}<p class="field-error">{{ form.vin.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.energie.id_for_label }}">{{ form.energie.label }}</label>
+                    {{ form.energie }}
+                    {% if form.energie.errors %}<p class="field-error">{{ form.energie.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.transmission.id_for_label }}">{{ form.transmission.label }}</label>
+                    {{ form.transmission }}
+                    {% if form.transmission.errors %}<p class="field-error">{{ form.transmission.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.crit_air.id_for_label }}">{{ form.crit_air.label }}</label>
+                    {{ form.crit_air }}
+                    {% if form.crit_air.errors %}<p class="field-error">{{ form.crit_air.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.chevaux_dine.id_for_label }}">{{ form.chevaux_dine.label }}</label>
+                    {{ form.chevaux_dine }}
+                    {% if form.chevaux_dine.errors %}<p class="field-error">{{ form.chevaux_dine.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.chevaux_fiscaux.id_for_label }}">{{ form.chevaux_fiscaux.label }}</label>
+                    {{ form.chevaux_fiscaux }}
+                    {% if form.chevaux_fiscaux.errors %}<p class="field-error">{{ form.chevaux_fiscaux.errors.0 }}</p>{% endif %}
+                </div>
+
+            </div>
+        </section>
+
+        {# ═══════════ SECTION : ACQUISITION ═══════════ #}
+        <section class="form-section">
+            <h2 class="form-section-title">Acquisition</h2>
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label for="{{ form.date_achat.id_for_label }}">{{ form.date_achat.label }}</label>
+                    {{ form.date_achat }}
+                    {% if form.date_achat.errors %}<p class="field-error">{{ form.date_achat.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.vendeur.id_for_label }}">{{ form.vendeur.label }}</label>
+                    {{ form.vendeur }}
+                    {% if form.vendeur.errors %}<p class="field-error">{{ form.vendeur.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.facture_achat.id_for_label }}">{{ form.facture_achat.label }}</label>
+                    {{ form.facture_achat }}
+                    {% if vehicule.facture_achat %}<p class="field-hint">Fichier actuel : {{ vehicule.facture_achat.name }}</p>{% endif %}
+                    {% if form.facture_achat.errors %}<p class="field-error">{{ form.facture_achat.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.prix_vehicule.id_for_label }}">{{ form.prix_vehicule.label }}</label>
+                    {{ form.prix_vehicule }}
+                    {% if form.prix_vehicule.errors %}<p class="field-error">{{ form.prix_vehicule.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.prix_enchere.id_for_label }}">{{ form.prix_enchere.label }}</label>
+                    {{ form.prix_enchere }}
+                    {% if form.prix_enchere.errors %}<p class="field-error">{{ form.prix_enchere.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.prix_transport.id_for_label }}">{{ form.prix_transport.label }}</label>
+                    {{ form.prix_transport }}
+                    {% if form.prix_transport.errors %}<p class="field-error">{{ form.prix_transport.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.kilometrage_achat.id_for_label }}">{{ form.kilometrage_achat.label }}</label>
+                    {{ form.kilometrage_achat }}
+                    {% if form.kilometrage_achat.errors %}<p class="field-error">{{ form.kilometrage_achat.errors.0 }}</p>{% endif %}
+                </div>
+
+            </div>
+        </section>
+
+        {# ═══════════ SECTION : FRAIS DE REMISE EN ÉTAT ═══════════ #}
+        <section class="form-section">
+            <div class="form-section-head">
+                <h2 class="form-section-title">Frais de remise en état</h2>
+                <a class="btn-frais" href="{% url 'remise_en_etat:ajouter-remise' vehicule.pk %}">
+                    + Ajouter un frais
+                </a>
+            </div>
+
+            {% if remises_en_etat %}
+                <div class="frais-list">
+                    {% for frais in remises_en_etat %}
+                        <div class="frais-item">
+                            <span class="frais-type">{{ frais.get_type_ree_display|default:"Autre" }}</span>
+                            <span class="frais-desc">{{ frais.description|default:"—" }}</span>
+                            <span class="frais-montant">{{ frais.montant|floatformat:0 }} €</span>
+                        </div>
+                    {% endfor %}
+                    <div class="frais-total">
+                        <span>Total des frais</span>
+                        <span>{{ vehicule.frais_reel|floatformat:0 }} €</span>
+                    </div>
+                </div>
+            {% else %}
+                <p class="frais-empty">Aucun frais de remise en état enregistré pour ce véhicule.</p>
+            {% endif %}
+        </section>
+
+        <div class="form-actions">
+            <a href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">Annuler</a>
+            <button type="submit">Enregistrer les modifications</button>
+        </div>
+
+    </form>
+
+</div>
+
+<script src="{% static 'vehicules/js/ajouter_vehicule.js' %}"></script>
+
+{% endblock content %}

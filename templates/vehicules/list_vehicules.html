@@ -21,6 +21,7 @@
             {% if f_statut and f_statut != 'tous' %}<input type="hidden" name="statut" value="{{ f_statut }}">{% endif %}
             {% for e in f_energies %}<input type="hidden" name="energie" value="{{ e }}">{% endfor %}
             {% for m in f_marques %}<input type="hidden" name="marque" value="{{ m }}">{% endfor %}
+            {% for t in f_transmissions %}<input type="hidden" name="transmission" value="{{ t }}">{% endfor %}
             {% if f_tri %}<input type="hidden" name="tri" value="{{ f_tri }}">{% endif %}
         </form>
 
@@ -59,6 +60,19 @@
         <hr class="sb-divider">
 
         <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Transmission</span></div>
+            {% for t in transmission_filters %}
+                <a class="sb-item {% is_active request 'transmission' t.value as on %}{% if on %}on{% endif %}"
+                   href="{% toggle_qs request 'transmission' t.value %}">
+                    <span class="sb-item-left">{{ t.label }}</span>
+                    <span class="sb-badge">{{ t.count }}</span>
+                </a>
+            {% endfor %}
+        </div>
+
+        <hr class="sb-divider">
+
+        <div class="sb-group">
             <div class="sb-group-head"><span class="sb-group-title">Marque</span></div>
             {% for marque in marques %}
                 <a class="sb-item {% is_active request 'marque' marque.pk as on %}{% if on %}on{% endif %}"
@@ -69,7 +83,7 @@
             {% endfor %}
         </div>
 
-        {% if f_statut != 'tous' or f_energies or f_marques or f_search %}
+        {% if f_statut != 'tous' or f_energies or f_marques or f_transmissions or f_search %}
             <hr class="sb-divider">
             <a class="sb-reset" href="?">↺ Réinitialiser les filtres</a>
         {% endif %}

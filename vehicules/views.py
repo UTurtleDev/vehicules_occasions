@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q
 
 from vehicules.models import Vehicule, Marque, Modele
@@ -30,6 +30,10 @@ class ListVehiculeView(ListView):
         marques = params.getlist('marque')
         if marques:
             qs = qs.filter(marque__pk__in=marques)
+
+        transmissions = params.getlist('transmission')
+        if transmissions:
+            qs = qs.filter(transmission__in=transmissions)
 
         search = params.get('q', '').strip()
         if search:
@@ -64,15 +68,25 @@ class ListVehiculeView(ListView):
             for value, label in Vehicule.Energie.choices
         ]
 
+        ctx['transmission_filters'] = [
+            {
+                'value': value,
+                'label': label,
+                'count': Vehicule.objects.filter(transmission=value).count(),
+            }
+            for value, label in Vehicule.Transmission.choices
+        ]
+
         ctx['count_total'] = Vehicule.objects.count()
         ctx['count_stock'] = Vehicule.objects.filter(date_vente__isnull=True).count()
         ctx['count_vendu'] = Vehicule.objects.filter(date_vente__isnull=False).count()
 
-        ctx['f_statut']   = params.get('statut', 'tous')
-        ctx['f_energies'] = params.getlist('energie')
-        ctx['f_marques']  = params.getlist('marque')
-        ctx['f_search']   = params.get('q', '')
-        ctx['f_tri']      = params.get('tri', 'marque')
+        ctx['f_statut']        = params.get('statut', 'tous')
+        ctx['f_energies']      = params.getlist('energie')
+        ctx['f_marques']       = params.getlist('marque')
+        ctx['f_transmissions'] = params.getlist('transmission')
+        ctx['f_search']        = params.get('q', '')
+        ctx['f_tri']           = params.get('tri', 'marque')
 
         return ctx
 
@@ -100,6 +114,39 @@ class AjoutVehiculeView(CreateView):
         context = super().get_context_data(**kwargs)
         context['marques'] = Marque.objects.order_by('marque')
         context['modeles'] = Modele.objects.select_related('marque').order_by('marque__marque', 'modele')
+        return context
+
+    def form_valid(self, form):
+        nouvelle_marque = form.cleaned_data.get('nouvelle_marque', '').strip()
+        nouveau_modele = form.cleaned_data.get('nouveau_modele', '').strip()
+
+        if nouvelle_marque:
+            marque, _ = Marque.objects.get_or_create(marque=nouvelle_marque)
+            form.instance.marque = marque
+        else:
+            marque = form.cleaned_data['marque']
+
+        if nouveau_modele:
+            modele, _ = Modele.objects.get_or_create(marque=marque, modele=nouveau_modele)
+            form.instance.modele = modele
+
+        return super().form_valid(form)
+
+
+class ModifierVehiculeView(UpdateView):
+    model = Vehicule
+    form_class = VehiculeForm
+    template_name = 'vehicules/modifier_vehicule.html'
+    context_object_name = 'vehicule'
+
+    def get_success_url(self):
+        return reverse_lazy('vehicules:detail-vehicule', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['marques'] = Marque.objects.order_by('marque')
+        context['modeles'] = Modele.objects.select_related('marque').order_by('marque__marque', 'modele')
+        context['remises_en_etat'] = self.object.remises_en_etat.all()
         return context
 
     def form_valid(self, form):
