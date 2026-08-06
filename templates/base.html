@@ -5,29 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static "css/style.css" %}">
+    {% block extra_css %}{% endblock extra_css %}
 
     {% block title %}{% endblock title %}
 </head>
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 <div class="bg-glow"></div>
 
 
 <!-- ===================== NAVBAR ===================== -->
 <nav class="navbar">
     <a href="/" class="navbar-brand">Mes <span>Véhicules d'occasion</span></a>
-    <a href="{% url 'admin:index' %}" class="navbar-login">Connexion</a>
+
+    {% if user.is_authenticated %}
+        <div class="navbar-garage">
+            {% if garages_disponibles|length > 1 %}
+                <details class="garage-select">
+                    <summary>
+                        <span>{{ garage_actif.nom|default:"Sélectionner un garage" }}</span>
+                        <svg class="garage-select-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                            <path d="M1 1 L5 5 L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </summary>
+                    <div class="garage-select-menu">
+                        {% for garage in garages_disponibles %}
+                            <button type="button"
+                                    class="garage-select-item {% if garage_actif and garage.pk == garage_actif.pk %}active{% endif %}"
+                                    hx-post="{% url 'garages:changer-garage' %}"
+                                    hx-vals='{"garage_id": "{{ garage.pk }}"}'>
+                                {{ garage.nom }}
+                            </button>
+                        {% endfor %}
+                    </div>
+                </details>
+            {% elif garage_actif %}
+                <span class="garage-select-single">{{ garage_actif.nom }}</span>
+            {% endif %}
+        </div>
+
+        <details class="navbar-profile">
+            <summary>{{ user.get_full_name|default:user.email }}</summary>
+            <div class="navbar-profile-menu">
+                <form method="post" action="{% url 'users:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="navbar-profile-logout">Déconnexion</button>
+                </form>
+            </div>
+        </details>
+    {% else %}
+        <a href="#" class="navbar-login"
+           hx-get="{% url 'users:login_modal' %}"
+           hx-target="#modal"
+           hx-swap="innerHTML">Connexion</a>
+    {% endif %}
 </nav>
 
 {% block content %}{% endblock content %}
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
+<div id="modal"></div>
+
+<script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </body>
 </html>

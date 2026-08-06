@@ -1,20 +1,13 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UTurtle — Gérez vos véhicules d'occasion, suivez votre vraie rentabilité</title>
-    <link rel="stylesheet" href="{% static 'landing/css/landing.css' %}">
-</head>
-<body>
 
-    <!-- ===================== NAVBAR ===================== -->
-    <nav class="navbar">
-        <a href="/" class="navbar-brand">Mes <span>Véhicules d'occasion</span></a>
-        {% comment %} <a href="{% url 'admin:index' %}" class="navbar-login">Connexion</a> {% endcomment %}
-        <a href="{% url 'vehicules:garages' %}" class="navbar-login">Connexion</a>
-    </nav>
+{% block title %}<title>UTurtle — Gérez vos véhicules d'occasion, suivez votre vraie rentabilité</title>{% endblock title %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'landing/css/landing.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
 
     <!-- ===================== HERO ===================== -->
     <div class="hero-bg-glow" aria-hidden="true"></div>
@@ -306,5 +299,4 @@
         <div>© 2026 UTurtle. Tous droits réservés.</div>
     </footer>
 
-</body>
-</html>
+{% endblock content %}

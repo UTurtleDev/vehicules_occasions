@@ -3,18 +3,19 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q
 
+from garages.mixins import GarageLectureMixin, GarageEcritureMixin
 from vehicules.models import Vehicule, Marque, Modele
 from vehicules.forms import VehiculeForm
 
 
-class ListVehiculeView(ListView):
+class ListVehiculeView(GarageLectureMixin, ListView):
     model = Vehicule
     template_name = 'vehicules/list_vehicules.html'
     context_object_name = 'vehicules'
     paginate_by = 20
 
     def get_queryset(self):
-        qs = Vehicule.objects.select_related('marque', 'modele', 'garage')
+        qs = super().get_queryset().select_related('marque', 'modele', 'garage')
         params = self.request.GET
 
         statut = params.get('statut')
@@ -91,7 +92,7 @@ class ListVehiculeView(ListView):
         return ctx
 
 
-class DetailVehiculeView(DetailView):
+class DetailVehiculeView(GarageLectureMixin, DetailView):
     model = Vehicule
     template_name = 'vehicules/detail_vehicule.html'
     context_object_name = 'vehicule'
@@ -102,7 +103,7 @@ class DetailVehiculeView(DetailView):
         return context
 
 
-class AjoutVehiculeView(CreateView):
+class AjoutVehiculeView(GarageEcritureMixin, CreateView):
     model = Vehicule
     form_class = VehiculeForm
     template_name = 'vehicules/ajouter_vehicule.html'
@@ -117,6 +118,8 @@ class AjoutVehiculeView(CreateView):
         return context
 
     def form_valid(self, form):
+        form.instance.garage = self.get_garage_actif()
+
         nouvelle_marque = form.cleaned_data.get('nouvelle_marque', '').strip()
         nouveau_modele = form.cleaned_data.get('nouveau_modele', '').strip()
 
@@ -133,7 +136,7 @@ class AjoutVehiculeView(CreateView):
         return super().form_valid(form)
 
 
-class ModifierVehiculeView(UpdateView):
+class ModifierVehiculeView(GarageEcritureMixin, UpdateView):
     model = Vehicule
     form_class = VehiculeForm
     template_name = 'vehicules/modifier_vehicule.html'

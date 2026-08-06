@@ -1,0 +1,43 @@
+<div class="login-overlay"
+     hx-get="{% url 'users:modal_close' %}"
+     hx-target="#modal"
+     hx-swap="innerHTML"></div>
+
+<div class="login-box">
+    <button type="button" class="login-close"
+            hx-get="{% url 'users:modal_close' %}"
+            hx-target="#modal"
+            hx-swap="innerHTML"
+            aria-label="Fermer">&times;</button>
+
+    <h2 class="login-title">Connexion</h2>
+
+    <form class="login-form" method="post"
+          hx-post="{% url 'users:login_submit' %}"
+          hx-target="#modal"
+          hx-swap="innerHTML">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="login-errors">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="login-field">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {{ form.username }}
+            {% if form.username.errors %}<p class="login-field-error">{{ form.username.errors.0 }}</p>{% endif %}
+        </div>
+
+        <div class="login-field">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {{ form.password }}
+            {% if form.password.errors %}<p class="login-field-error">{{ form.password.errors.0 }}</p>{% endif %}
+        </div>
+
+        <button type="submit" class="login-submit">Se connecter</button>
+    </form>
+</div>

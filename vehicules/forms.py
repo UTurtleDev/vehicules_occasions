@@ -9,7 +9,6 @@ class VehiculeForm(forms.ModelForm):
     class Meta:
         model = Vehicule
         fields = [
-            'garage',
             'marque', 'modele', 'annee_vehicule', 'couleur',
             'immatriculation', 'vin', 'energie', 'transmission',
             'crit_air', 'chevaux_dine', 'chevaux_fiscaux',

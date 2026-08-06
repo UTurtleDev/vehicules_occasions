@@ -24,17 +24,6 @@
             </div>
         {% endif %}
 
-        {# ═══════════ SECTION : GARAGE ═══════════ #}
-        <section class="form-section">
-            <div class="form-grid">
-                <div class="form-field">
-                    <label for="{{ form.garage.id_for_label }}">{{ form.garage.label }}</label>
-                    {{ form.garage }}
-                    {% if form.garage.errors %}<p class="field-error">{{ form.garage.errors.0 }}</p>{% endif %}
-                </div>
-            </div>
-        </section>
-
         {# ═══════════ SECTION : IDENTITÉ DU VÉHICULE ═══════════ #}
         <section class="form-section">
             <h2 class="form-section-title">Identité du véhicule</h2>
