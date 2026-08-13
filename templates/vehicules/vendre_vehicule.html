@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>Vendre {{ vehicule.marque }} {{ vehicule.modele }}</title>{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'vehicules/css/ajouter_vehicule.css' %}">
+
+<div class="vo-ajout">
+
+    <div class="ajout-header">
+        <h1>Enregistrer la vente</h1>
+        <a href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">← Retour à la fiche</a>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="ajout-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {# ═══════════ SECTION : INFORMATIONS DE VENTE ═══════════ #}
+        <section class="form-section">
+            <h2 class="form-section-title">{{ vehicule.marque }} {{ vehicule.modele }} · {{ vehicule.immatriculation }}</h2>
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label for="{{ form.date_vente.id_for_label }}">{{ form.date_vente.label }}</label>
+                    {{ form.date_vente }}
+                    {% if form.date_vente.errors %}<p class="field-error">{{ form.date_vente.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.acheteur.id_for_label }}">{{ form.acheteur.label }}</label>
+                    {{ form.acheteur }}
+                    {% if form.acheteur.errors %}<p class="field-error">{{ form.acheteur.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.prix_vente.id_for_label }}">{{ form.prix_vente.label }}</label>
+                    {{ form.prix_vente }}
+                    {% if form.prix_vente.errors %}<p class="field-error">{{ form.prix_vente.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.kilometrage_vente.id_for_label }}">{{ form.kilometrage_vente.label }}</label>
+                    {{ form.kilometrage_vente }}
+                    {% if form.kilometrage_vente.errors %}<p class="field-error">{{ form.kilometrage_vente.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.numero_vente.id_for_label }}">{{ form.numero_vente.label }}</label>
+                    {{ form.numero_vente }}
+                    {% if form.numero_vente.errors %}<p class="field-error">{{ form.numero_vente.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.facture_vente.id_for_label }}">{{ form.facture_vente.label }}</label>
+                    {{ form.facture_vente }}
+                    {% if form.facture_vente.errors %}<p class="field-error">{{ form.facture_vente.errors.0 }}</p>{% endif %}
+                </div>
+
+            </div>
+        </section>
+
+        <div class="form-actions">
+            <a href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">Annuler</a>
+            <button type="submit">Enregistrer la vente</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock content %}

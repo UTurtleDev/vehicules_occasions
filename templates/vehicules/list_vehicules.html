@@ -44,6 +44,20 @@
         <hr class="sb-divider">
 
         <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Garage</span></div>
+            <a class="sb-item {% if f_garage == 'tous' %}on{% endif %}" href="{% set_qs request 'garage' 'tous' %}">
+                <span class="sb-item-left">Tous les garages</span>
+                <span class="sb-badge">{{ count_tous_garages }}</span>
+            </a>
+            <a class="sb-item {% if f_garage == 'actif' %}on{% endif %}" href="{% set_qs request 'garage' 'actif' %}">
+                <span class="sb-item-left">Garage actif uniquement</span>
+                <span class="sb-badge">{{ count_garage_actif }}</span>
+            </a>
+        </div>
+
+        <hr class="sb-divider">
+
+        <div class="sb-group">
             <div class="sb-group-head"><span class="sb-group-title">Énergie</span></div>
             {% for e in energie_filters %}
                 <a class="sb-item {% is_active request 'energie' e.value as on %}{% if on %}on{% endif %}"
@@ -83,7 +97,7 @@
             {% endfor %}
         </div>
 
-        {% if f_statut != 'tous' or f_energies or f_marques or f_transmissions or f_search %}
+        {% if f_statut != 'tous' or f_garage != 'tous' or f_energies or f_marques or f_transmissions or f_search %}
             <hr class="sb-divider">
             <a class="sb-reset" href="?">↺ Réinitialiser les filtres</a>
         {% endif %}

@@ -35,6 +35,14 @@ class User(AbstractUser):
         verbose_name = 'Utilisateur'
         verbose_name_plural = 'Utilisateurs'
 
+    def save(self, *args, **kwargs):
+        # username reste unique et obligatoire via AbstractUser, mais n'est
+        # jamais saisi (email fait office d'identifiant) : on le déduit de
+        # l'email pour éviter qu'il reste vide et entre en collision.
+        if not self.username:
+            self.username = self.email
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.get_full_name()}"
 

@@ -11,6 +11,7 @@
             {{ vehicule.modele }} <span class="year">· {{ vehicule.annee_vehicule }}</span>
         </div>
         <div class="row-veh-sub">
+            <span class="row-veh-garage">{{ vehicule.garage.nom }}</span>
             <span class="immat">{{ vehicule.immatriculation }}</span>
             <span>{{ vehicule.kilometrage_achat|floatformat:0 }} km</span>
             <span>{{ vehicule.get_transmission_display }}</span>

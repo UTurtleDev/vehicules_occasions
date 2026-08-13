@@ -3,6 +3,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
 
 from garages.mixins import GarageLectureMixin, GarageEcritureMixin
+from garages.utils import get_garage_actif
+from vehicules.models import Vehicule
 from .models import RemiseEnEtat
 from .forms import RemiseEnEtatForm
 
@@ -12,10 +14,9 @@ class AjouterRemiseEnEtatView(GarageEcritureMixin, CreateView):
     form_class = RemiseEnEtatForm
     template_name = 'remise_en_etat/ajouter_remise.html'
 
-    def dispatch(self, request, *args, **kwargs):
-        self.request = request
-        self.vehicule = get_object_or_404(self.get_queryset(), pk=kwargs['vehicule_pk'])
-        return super().dispatch(request, *args, **kwargs)
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.vehicule = get_object_or_404(Vehicule, pk=kwargs['vehicule_pk'], garage=get_garage_actif(request))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

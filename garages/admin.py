@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Garage  
+from .models import Garage, GarageMembre
+
+
+class GarageMembreInline(admin.TabularInline):
+    model = GarageMembre
+    extra = 1
 
 
 class Essaie_actif(admin.SimpleListFilter):
@@ -28,16 +33,18 @@ class GarageAdmin(admin.ModelAdmin):
 
     readonly_fields = ('essai_actif',)
 
-    list_display = ('nom', 'proprietaire','telephone', 'email', 'abonnement', 'essai_actif')
+    list_display = ('nom', 'telephone', 'email', 'abonnement', 'essai_actif')
 
     fieldsets = (
-        ('Garage', {'fields': ('nom', 'proprietaire')}),
+        ('Garage', {'fields': ('nom',)}),
         ('Adresse', {'fields': ('adresse', 'ville', 'code_postal', 'telephone', 'email')}),
         ('Abonnement', {'fields': ('abonnement', 'date_debut_essai', 'essai_actif')}),
     )
 
     list_filter = ('abonnement', Essaie_actif)
-    
+
+    inlines = [GarageMembreInline]
+
 
 
 

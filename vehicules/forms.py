@@ -40,3 +40,20 @@ class VehiculeForm(forms.ModelForm):
             self.add_error('modele', 'Sélectionnez un modèle ou saisissez-en un nouveau.')
 
         return cleaned_data
+
+
+class VenteForm(forms.ModelForm):
+    class Meta:
+        model = Vehicule
+        fields = [
+            'date_vente', 'acheteur', 'prix_vente', 'kilometrage_vente',
+            'numero_vente', 'facture_vente',
+        ]
+        widgets = {
+            'date_vente': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name in ('date_vente', 'acheteur', 'prix_vente', 'kilometrage_vente'):
+            self.fields[name].required = True

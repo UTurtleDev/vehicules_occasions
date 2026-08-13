@@ -16,7 +16,7 @@ def validateur_telephone(value):
     
 
 class Garage(models.Model):
-    proprietaire = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='garages')
+    membres = models.ManyToManyField(settings.AUTH_USER_MODEL, through='GarageMembre', related_name='garages')
     nom = models.CharField(max_length=100)
     adresse = models.CharField(max_length=200)
     ville = models.CharField(max_length=100)
@@ -34,7 +34,21 @@ class Garage(models.Model):
     
     def __str__(self):
         return self.nom
-    
 
 
+class GarageMembre(models.Model):
+    """Rôle d'un utilisateur sur un garage : gestionnaire (lecture + écriture) ou lecture seule."""
 
+    class Role(models.TextChoices):
+        GESTIONNAIRE = 'gestionnaire', 'Gestionnaire'
+        LECTURE = 'lecture', 'Lecture'
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='garage_memberships')
+    garage = models.ForeignKey(Garage, on_delete=models.CASCADE, related_name='memberships')
+    role = models.CharField(max_length=20, choices=Role.choices, default=Role.GESTIONNAIRE)
+
+    class Meta:
+        unique_together = ('user', 'garage')
+
+    def __str__(self):
+        return f"{self.user} · {self.garage} ({self.get_role_display()})"

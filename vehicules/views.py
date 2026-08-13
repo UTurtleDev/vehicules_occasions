@@ -4,8 +4,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q
 
 from garages.mixins import GarageLectureMixin, GarageEcritureMixin
+from garages.utils import get_garage_actif
 from vehicules.models import Vehicule, Marque, Modele
-from vehicules.forms import VehiculeForm
+from vehicules.forms import VehiculeForm, VenteForm
 
 
 class ListVehiculeView(GarageLectureMixin, ListView):
@@ -17,6 +18,10 @@ class ListVehiculeView(GarageLectureMixin, ListView):
     def get_queryset(self):
         qs = super().get_queryset().select_related('marque', 'modele', 'garage')
         params = self.request.GET
+
+        if params.get('garage', 'actif') == 'actif':
+            garage_actif = get_garage_actif(self.request)
+            qs = qs.filter(garage=garage_actif) if garage_actif else qs.none()
 
         statut = params.get('statut')
         if statut == 'en-stock':
@@ -58,13 +63,26 @@ class ListVehiculeView(GarageLectureMixin, ListView):
         ctx = super().get_context_data(**kwargs)
         params = self.request.GET
 
-        ctx['marques'] = Marque.objects.all().order_by('marque')
+        # Référence tous garages confondus (sans aucun filtre de la requête) :
+        # sert uniquement aux badges de la section Garage, pour que chaque
+        # option affiche son propre total indépendamment du garage
+        # actuellement sélectionné.
+        qs_tous_garages = GarageLectureMixin.get_queryset(self)
+        garage_actif_courant = get_garage_actif(self.request)
+
+        f_garage = params.get('garage', 'actif')
+        if f_garage == 'actif':
+            base_qs = qs_tous_garages.filter(garage=garage_actif_courant) if garage_actif_courant else qs_tous_garages.none()
+        else:
+            base_qs = qs_tous_garages
+
+        ctx['marques'] = Marque.objects.filter(vehicule__in=base_qs).distinct().order_by('marque')
 
         ctx['energie_filters'] = [
             {
                 'value': value,
                 'label': label,
-                'count': Vehicule.objects.filter(energie=value).count(),
+                'count': base_qs.filter(energie=value).count(),
             }
             for value, label in Vehicule.Energie.choices
         ]
@@ -73,14 +91,18 @@ class ListVehiculeView(GarageLectureMixin, ListView):
             {
                 'value': value,
                 'label': label,
-                'count': Vehicule.objects.filter(transmission=value).count(),
+                'count': base_qs.filter(transmission=value).count(),
             }
             for value, label in Vehicule.Transmission.choices
         ]
 
-        ctx['count_total'] = Vehicule.objects.count()
-        ctx['count_stock'] = Vehicule.objects.filter(date_vente__isnull=True).count()
-        ctx['count_vendu'] = Vehicule.objects.filter(date_vente__isnull=False).count()
+        ctx['count_total'] = base_qs.count()
+        ctx['count_stock'] = base_qs.filter(date_vente__isnull=True).count()
+        ctx['count_vendu'] = base_qs.filter(date_vente__isnull=False).count()
+        ctx['count_tous_garages'] = qs_tous_garages.count()
+        ctx['count_garage_actif'] = (
+            qs_tous_garages.filter(garage=garage_actif_courant).count() if garage_actif_courant else 0
+        )
 
         ctx['f_statut']        = params.get('statut', 'tous')
         ctx['f_energies']      = params.getlist('energie')
@@ -88,6 +110,7 @@ class ListVehiculeView(GarageLectureMixin, ListView):
         ctx['f_transmissions'] = params.getlist('transmission')
         ctx['f_search']        = params.get('q', '')
         ctx['f_tri']           = params.get('tri', 'marque')
+        ctx['f_garage']        = f_garage
 
         return ctx
 
@@ -134,6 +157,16 @@ class AjoutVehiculeView(GarageEcritureMixin, CreateView):
             form.instance.modele = modele
 
         return super().form_valid(form)
+
+
+class VendreVehiculeView(GarageEcritureMixin, UpdateView):
+    model = Vehicule
+    form_class = VenteForm
+    template_name = 'vehicules/vendre_vehicule.html'
+    context_object_name = 'vehicule'
+
+    def get_success_url(self):
+        return reverse_lazy('vehicules:detail-vehicule', kwargs={'pk': self.object.pk})
 
 
 class ModifierVehiculeView(GarageEcritureMixin, UpdateView):

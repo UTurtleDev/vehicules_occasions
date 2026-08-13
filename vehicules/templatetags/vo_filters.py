@@ -21,7 +21,7 @@ def toggle_qs(request, key, value):
 @register.simple_tag
 def set_qs(request, key, value):
     params = request.GET.copy()
-    if value in (None, '', 'tous'):
+    if value in (None, ''):
         params.pop(key, None)
     else:
         params[key] = value

@@ -235,6 +235,15 @@
     flex-wrap: wrap;
 }
 .vo-list .row-veh-sub .immat { font-family: 'Syne', sans-serif; letter-spacing: 0.03em; }
+.vo-list .row-veh-sub .row-veh-garage {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 8px;
+    border-radius: 100px;
+    background: var(--surface3);
+    color: var(--muted2);
+}
 
 .vo-list .row-date { display: flex; flex-direction: column; gap: 2px; }
 .vo-list .row-date-val {
