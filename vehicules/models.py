@@ -46,7 +46,7 @@ class Vehicule(models.Model):
 
 
     # Gestion multi-garage
-    garage = models.ForeignKey(Garage, on_delete=models.CASCADE, related_name='garages')
+    garage = models.ForeignKey(Garage, on_delete=models.CASCADE, related_name='vehicules')
 
     # Acquisition
     date_achat = models.DateField()

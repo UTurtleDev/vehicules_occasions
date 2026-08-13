@@ -6,6 +6,7 @@ __pycache__/
 *.pyc
 *.pyo
 notes.txt
+.DS_Store
 
 
 

@@ -1,4 +1,8 @@
+from datetime import timedelta
+
 from django.contrib import admin
+from django.utils import timezone
+
 from .models import Garage, GarageMembre
 
 
@@ -7,8 +11,8 @@ class GarageMembreInline(admin.TabularInline):
     extra = 1
 
 
-class Essaie_actif(admin.SimpleListFilter):
-    title = ('Essai actif')
+class EssaiActifFilter(admin.SimpleListFilter):
+    title = 'Essai actif'
     parameter_name = 'essai_actif'
 
     def lookups(self, request, model_admin):
@@ -18,14 +22,13 @@ class Essaie_actif(admin.SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
+        # Même règle que la propriété Garage.essai_actif : un essai démarré
+        # il y a plus de 30 jours n'est plus actif.
+        debut_minimum = timezone.now().date() - timedelta(days=30)
         if self.value() == 'true':
-            return queryset.filter(date_debut_essai__isnull=False)
+            return queryset.filter(date_debut_essai__gt=debut_minimum)
         elif self.value() == 'false':
-            return queryset.filter(date_debut_essai__isnull=True)
-
-
-
-
+            return queryset.exclude(date_debut_essai__gt=debut_minimum)
 
 
 class GarageAdmin(admin.ModelAdmin):
@@ -41,12 +44,9 @@ class GarageAdmin(admin.ModelAdmin):
         ('Abonnement', {'fields': ('abonnement', 'date_debut_essai', 'essai_actif')}),
     )
 
-    list_filter = ('abonnement', Essaie_actif)
+    list_filter = ('abonnement', EssaiActifFilter)
 
     inlines = [GarageMembreInline]
-
-
-
 
 
 admin.site.register(Garage, GarageAdmin)

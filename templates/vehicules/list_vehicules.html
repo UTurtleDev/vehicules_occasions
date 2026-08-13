@@ -111,12 +111,14 @@
             <h1 class="main-title">Stock véhicules</h1>
             <span class="main-count">{{ paginator.count }} véhicule{{ paginator.count|pluralize }}</span>
             <div class="main-spacer"></div>
-            <a class="btn-ajouter" href="{% url 'vehicules:ajouter-vehicule' %}">
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M7 1.6V12.4M1.6 7H12.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path>
-                </svg>
-                Ajouter un véhicule
-            </a>
+            {% if garage_ecriture %}
+                <a class="btn-ajouter" href="{% url 'vehicules:ajouter-vehicule' %}">
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                        <path d="M7 1.6V12.4M1.6 7H12.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path>
+                    </svg>
+                    Ajouter un véhicule
+                </a>
+            {% endif %}
             <div class="sort-control">
                 <span class="sort-label">Trier</span>
                 <select class="sort-select" onchange="window.location.href = this.value;">

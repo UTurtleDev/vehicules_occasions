@@ -76,13 +76,41 @@ class ListVehiculeView(GarageLectureMixin, ListView):
         else:
             base_qs = qs_tous_garages
 
-        ctx['marques'] = Marque.objects.filter(vehicule__in=base_qs).distinct().order_by('marque')
+        # Compteurs "Statut" : reflètent le garage sélectionné, mais pas le
+        # statut lui-même (sinon on ne pourrait plus voir combien de véhicules
+        # sont vendus une fois qu'on filtre sur "En stock").
+        ctx['count_total'] = base_qs.count()
+        ctx['count_stock'] = base_qs.filter(date_vente__isnull=True).count()
+        ctx['count_vendu'] = base_qs.filter(date_vente__isnull=False).count()
+
+        f_statut = params.get('statut', 'tous')
+
+        def appliquer_statut(qs):
+            if f_statut == 'en-stock':
+                return qs.filter(date_vente__isnull=True)
+            elif f_statut == 'vendu':
+                return qs.filter(date_vente__isnull=False)
+            return qs
+
+        # Compteurs "Garage" : reflètent le statut sélectionné, mais pas le
+        # garage lui-même (chaque option affiche son propre total).
+        qs_tous_garages_statut = appliquer_statut(qs_tous_garages)
+        ctx['count_tous_garages'] = qs_tous_garages_statut.count()
+        ctx['count_garage_actif'] = (
+            qs_tous_garages_statut.filter(garage=garage_actif_courant).count() if garage_actif_courant else 0
+        )
+
+        # Marque / Énergie / Transmission : reflètent le garage et le statut
+        # sélectionnés.
+        base_qs_facettes = appliquer_statut(base_qs)
+
+        ctx['marques'] = Marque.objects.filter(vehicule__in=base_qs_facettes).distinct().order_by('marque')
 
         ctx['energie_filters'] = [
             {
                 'value': value,
                 'label': label,
-                'count': base_qs.filter(energie=value).count(),
+                'count': base_qs_facettes.filter(energie=value).count(),
             }
             for value, label in Vehicule.Energie.choices
         ]
@@ -91,20 +119,12 @@ class ListVehiculeView(GarageLectureMixin, ListView):
             {
                 'value': value,
                 'label': label,
-                'count': base_qs.filter(transmission=value).count(),
+                'count': base_qs_facettes.filter(transmission=value).count(),
             }
             for value, label in Vehicule.Transmission.choices
         ]
 
-        ctx['count_total'] = base_qs.count()
-        ctx['count_stock'] = base_qs.filter(date_vente__isnull=True).count()
-        ctx['count_vendu'] = base_qs.filter(date_vente__isnull=False).count()
-        ctx['count_tous_garages'] = qs_tous_garages.count()
-        ctx['count_garage_actif'] = (
-            qs_tous_garages.filter(garage=garage_actif_courant).count() if garage_actif_courant else 0
-        )
-
-        ctx['f_statut']        = params.get('statut', 'tous')
+        ctx['f_statut']        = f_statut
         ctx['f_energies']      = params.getlist('energie')
         ctx['f_marques']       = params.getlist('marque')
         ctx['f_transmissions'] = params.getlist('transmission')
