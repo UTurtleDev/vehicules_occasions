@@ -12,7 +12,9 @@
 <div class="vo-list vo-dash">
 
     {# ═══════════════ SIDEBAR ═══════════════ #}
-    <aside class="sidebar">
+    {# Sous 1024px cet aside devient un tiroir, ouvert par .sb-toggle (filtres_mobile.js). #}
+    <div class="sb-overlay"></div>
+    <aside class="sidebar" id="filtres">
 
         <div class="sb-group">
             <div class="sb-group-head"><span class="sb-group-title">Période de vente</span></div>
@@ -104,6 +106,12 @@
     <main class="main">
 
         <div class="main-topbar">
+            <button type="button" class="sb-toggle" aria-controls="filtres" aria-expanded="false">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2 4h12M4 8h8M6.5 12h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+                </svg>
+                Filtres
+            </button>
             <h1 class="main-title">Tableau de bord</h1>
             {% comment %} <span class="main-count">
                 {% if periode_debut and periode_fin %}

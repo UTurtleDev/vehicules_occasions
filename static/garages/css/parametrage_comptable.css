@@ -82,7 +82,16 @@
     color: var(--text);
 }
 
-@media (max-width: 680px) {
+/* Un tableau à 4 colonnes ne se replie pas. Réduire la police et les
+   marges gagne un peu de place, le reste part en défilement horizontal
+   dans ce conteneur plutôt que de déborder de la page. */
+.vo-param .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.vo-param .table-scroll .param-exemple { min-width: 380px; }
+
+@media (max-width: 767px) {
     .vo-param .param-exemple { font-size: 12px; }
     .vo-param .param-exemple th,
     .vo-param .param-exemple td { padding-left: 6px; padding-right: 6px; }

@@ -6,7 +6,7 @@
    ============================================ */
 
 .vo-ajout {
-    margin-top: 64px;                 /* hauteur de la .navbar fixe (base.html) */
+    margin-top: var(--navbar-h);      /* hauteur de la .navbar fixe (style.css) */
     max-width: 760px;
     margin-left: auto;
     margin-right: auto;

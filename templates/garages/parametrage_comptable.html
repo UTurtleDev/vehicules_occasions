@@ -81,6 +81,8 @@
                 Pour un véhicule acheté 4 123 € et revendu 6 600 €, soit 2 477 € de marge,
                 au taux actuellement enregistré :
             </p>
+            {# Un tableau à 4 colonnes ne se replie pas : il défile plutôt que déborder. #}
+            <div class="table-scroll">
             <table class="param-exemple">
                 <thead>
                     <tr><th>Compte</th><th>Libellé</th><th>Débit</th><th>Crédit</th></tr>
@@ -106,6 +108,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </section>
 
         <div class="form-actions">

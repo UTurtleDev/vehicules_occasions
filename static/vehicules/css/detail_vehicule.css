@@ -5,7 +5,7 @@
    ============================================ */
 
 .vo-detail {
-    margin-top: 64px;
+    margin-top: var(--navbar-h);      /* hauteur de la .navbar fixe (style.css) */
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
@@ -485,4 +485,30 @@
     .vo-detail .achat-divider { display: none; }
     .vo-detail .wrap { padding: 20px 16px 60px; }
     .vo-detail .hero-title { font-size: 1.6rem; }
+}
+
+/* Téléphone. .spec est un flex label/valeur en space-between, et
+   .spec-value est en `white-space: nowrap` : sur une valeur longue (VIN,
+   numéro de vente) les deux se chevauchent. On les empile. */
+@media (max-width: 767px) {
+    .vo-detail .wrap { padding: 16px 14px 56px; }
+    .vo-detail .hero-title { font-size: 1.4rem; }
+
+    .vo-detail .spec {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+        padding: 10px 0;
+    }
+    .vo-detail .spec-value {
+        text-align: left;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    /* Le détail des frais est une page hors périmètre téléphone. On garde
+       la ligne, qui porte un montant utile, mais on retire le lien : ni
+       clic, ni signal visuel qu'il y en aurait un. */
+    .vo-detail .line-link { pointer-events: none; }
+    .vo-detail .line-link:hover { background: none; }
 }

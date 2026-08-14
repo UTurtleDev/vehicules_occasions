@@ -6,8 +6,8 @@
    ============================================ */
 
 .vo-list {
-    margin-top: 64px;                 /* hauteur de la .navbar fixe (base.html) */
-    height: calc(100vh - 64px);
+    margin-top: var(--navbar-h);      /* hauteur de la .navbar fixe (style.css) */
+    height: calc(100vh - var(--navbar-h));
     display: flex;
     overflow: hidden;
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -211,6 +211,11 @@
     gap: 16px;
     align-items: center;
 }
+/* Le groupe prix / marges n'existe que pour le petit écran, où il devient
+   une cellule unique. En bureau il s'efface : ses trois enfants restent
+   des items directs de la grille, qui garde donc ses 7 colonnes. */
+.vo-list .row-money { display: contents; }
+
 .vo-list .row {
     padding: 13px 26px;
     border-bottom: 1px solid var(--border);
@@ -408,4 +413,183 @@
 .vo-list .btn-ajouter:hover {
     box-shadow: 0 0 0 4px var(--accent-glow);
     filter: brightness(1.05);
+}
+
+/* ============================================
+   RESPONSIVE
+   Deux paliers, et deux seulement :
+     ≤ 1024px  tablette  — la sidebar devient un tiroir, la ligne passe
+                           de 7 à 5 colonnes.
+     ≤  767px  téléphone — la ligne devient une carte. 767 et non 768
+                           pour laisser l'iPad portrait, qui fait
+                           exactement 768px, en mode tablette.
+   ============================================ */
+
+/* Bouton et voile n'existent qu'en dessous de 1024px. */
+.vo-list .sb-toggle,
+.vo-list .sb-overlay { display: none; }
+
+@media (max-width: 1024px) {
+
+    /* ── Coquille ──
+       Le scroll repasse au document. Un conteneur à scroll interne se
+       manipule mal au doigt, et 100vh est faux sur mobile : la barre
+       d'URL du navigateur est comptée dans la hauteur, donc le bas de la
+       page est coupé. 100dvh suit la hauteur réellement visible. */
+    .vo-list {
+        height: auto;
+        min-height: calc(100dvh - var(--navbar-h));
+        overflow: visible;
+    }
+    .vo-list .main,
+    .vo-list .list { overflow: visible; }
+
+    /* Ces deux en-têtes collaient au conteneur .list ; elles collent
+       maintenant au document, donc sous la navbar fixe. */
+    .vo-list .group-header { top: var(--navbar-h); }
+
+    /* L'en-tête de colonnes disparaît : la grille n'a plus 7 colonnes à
+       nommer, et chaque cellule porte déjà son propre .col-label. */
+    .vo-list .row-head { display: none; }
+
+    /* ── Sidebar en tiroir ── */
+    .vo-list .sb-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-family: 'Syne', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 8px 16px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: color 0.15s, border-color 0.15s;
+    }
+    .vo-list .sb-toggle:hover { color: var(--text); border-color: rgba(255,255,255,0.18); }
+    .vo-list.filtres-ouverts .sb-toggle {
+        color: var(--accent);
+        background: var(--accent-dim);
+        border-color: var(--border-accent);
+    }
+
+    .vo-list .sidebar {
+        position: fixed;
+        top: var(--navbar-h);
+        bottom: 0;
+        left: 0;
+        z-index: 90;
+        width: min(300px, 85vw);
+        border-right: 1px solid var(--border);
+        transform: translateX(-100%);
+        transition: transform 0.22s ease;
+        overscroll-behavior: contain;
+    }
+    .vo-list.filtres-ouverts .sidebar { transform: none; }
+
+    .vo-list.filtres-ouverts .sb-overlay {
+        display: block;
+        position: fixed;
+        inset: var(--navbar-h) 0 0 0;
+        z-index: 89;
+        background: rgba(9, 9, 14, 0.6);
+    }
+
+    /* ── Ligne véhicule : 5 colonnes ──
+       Prix et marges sont regroupés dans .row-money, qui redevient un
+       vrai bloc et occupe une seule colonne. */
+    .vo-list .row {
+        grid-template-columns: 14px minmax(150px, 1.6fr) 1fr auto 84px;
+        gap: 14px;
+        padding: 13px 18px;
+    }
+    .vo-list .row-money {
+        display: flex;
+        gap: 18px;
+    }
+
+    .vo-list .main-topbar,
+    .vo-list .pagination { padding: 14px 18px; }
+    .vo-list .group-header { padding: 9px 18px; }
+}
+
+/* 900px : la grille à 5 colonnes ne tient plus. Le groupe prix/marges à
+   lui seul réclame ~330px incompressibles, la date ~140, le véhicule 150 :
+   on dépasse la largeur de l'écran. La ligne devient donc une carte, dès
+   la tablette en portrait. Elle porte exactement les mêmes données. */
+@media (max-width: 900px) {
+
+    /* ── Ligne véhicule : carte sur trois lignes ──
+       Même contenu que la ligne bureau, réorganisé. Rien n'est masqué. */
+    .vo-list .row {
+        grid-template-columns: 10px 1fr auto;
+        grid-template-areas:
+            "pastille titre  statut"
+            ".        date   date"
+            ".        argent argent";
+        gap: 5px 10px;
+        padding: 14px 16px;
+        align-items: start;
+    }
+    .vo-list .row > .dot        { grid-area: pastille; margin-top: 7px; }
+    .vo-list .row-veh           { grid-area: titre; min-width: 0; }
+    .vo-list .row > .badge-stock { grid-area: statut; }
+    .vo-list .row-date          { grid-area: date; }
+    .vo-list .row-money         { grid-area: argent; }
+
+    /* La date passe de colonne en ligne : elle n'a plus qu'une bande
+       horizontale à occuper. */
+    .vo-list .row-date {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 10px;
+    }
+    .vo-list .row-money {
+        flex-wrap: wrap;
+        gap: 6px 20px;
+        margin-top: 4px;
+    }
+
+    /* La barre de titre porte maintenant un bouton de plus (Filtres) : on
+       l'autorise à passer à la ligne. Le .main-spacer reste actif, donc
+       le tri se cale à droite tant qu'il y a la place. */
+    .vo-list .main-topbar {
+        flex-wrap: wrap;
+        gap: 10px 12px;
+        padding: 12px 16px;
+    }
+    .vo-list .main-title { font-size: 1.05rem; }
+
+    .vo-list .row,
+    .vo-list .group-header,
+    .vo-list .pagination { padding-left: 16px; padding-right: 16px; }
+}
+
+/* Téléphone : le tri passe pleine largeur, la pagination s'empile et les
+   boutons gagnent en surface tactile. */
+@media (max-width: 767px) {
+    .vo-list .main-title { font-size: 1rem; }
+    .vo-list .main-spacer { display: none; }
+    .vo-list .sort-control { width: 100%; }
+    .vo-list .sort-select { flex: 1; }
+
+    .vo-list .pagination {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .vo-list .pag-btns { flex-wrap: wrap; }
+    .vo-list .pag-btn { min-width: 34px; height: 34px; }
+
+    .vo-list .empty { padding: 48px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vo-list .sidebar { transition: none; }
 }

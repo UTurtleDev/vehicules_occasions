@@ -41,7 +41,7 @@
                         <span class="badge-stock en-stock">En stock</span>
                     {% endif %}
                     {% if garage_ecriture and vehicule.garage_id == garage_ecriture.id %}
-                        <a href="{% url 'vehicules:modifier-vehicule' vehicule.pk %}" class="btn-action btn-modifier">
+                        <a href="{% url 'vehicules:modifier-vehicule' vehicule.pk %}" class="hors-mobile btn-action btn-modifier">
                             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                                 <path d="M11.5 2.5 L13.5 4.5 L5.5 12.5 L3 13 L3.5 10.5 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
                             </svg>
@@ -53,7 +53,7 @@
                         <span class="badge-autre-garage">Autre point de vente — consultation seule</span>
                     {% endif %}
                     {% if not vehicule.vendu and garage_ecriture and vehicule.garage_id == garage_ecriture.id %}
-                        <a href="{% url 'vehicules:vendre-vehicule' vehicule.pk %}" class="btn-action btn-vendre">
+                        <a href="{% url 'vehicules:vendre-vehicule' vehicule.pk %}" class="hors-mobile btn-action btn-vendre">
                             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                                 <path d="M2 8.5 L8.5 2 H13.5 V7 L7 13.5 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
                                 <circle cx="10.6" cy="5.4" r="1" fill="currentColor"/>
@@ -270,7 +270,7 @@
                             Seuil de rentabilité <b>{{ vehicule.cout_revient|floatformat:0 }} €</b>
                         </div>
                         {% if garage_ecriture and vehicule.garage_id == garage_ecriture.id %}
-                            <a href="{% url 'vehicules:vendre-vehicule' vehicule.pk %}" class="btn-action btn-vendre">
+                            <a href="{% url 'vehicules:vendre-vehicule' vehicule.pk %}" class="hors-mobile btn-action btn-vendre">
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                                     <path d="M2 8.5 L8.5 2 H13.5 V7 L7 13.5 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
                                     <circle cx="10.6" cy="5.4" r="1" fill="currentColor"/>

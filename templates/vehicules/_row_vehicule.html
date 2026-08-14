@@ -6,7 +6,7 @@
 
     <span class="dot dot-{{ vehicule.energie }}"></span>
 
-    <div>
+    <div class="row-veh">
         <div class="row-veh-model">
             {{ vehicule.modele }} <span class="year">· {{ vehicule.annee_vehicule }}</span>
         </div>
@@ -32,31 +32,41 @@
         {% endif %}
     </div>
 
-    <div>
-        <div class="col-label">{% if vehicule.vendu %}Prix vente{% else %}Prix achat{% endif %}</div>
-        <div class="row-price">
-            {% if vehicule.vendu %}{{ vehicule.prix_vente|floatformat:0 }}{% else %}{{ vehicule.prix_achat|floatformat:0 }}{% endif %} €
-        </div>
-    </div>
+    {% comment %}
+      Les trois montants sont groupés pour ne former qu'une seule cellule sur
+      petit écran. En bureau ce conteneur est neutralisé par `display: contents`
+      (list_vehicules.css) : ses enfants restent des items directs de la grille,
+      qui garde donc ses 7 colonnes.
+    {% endcomment %}
+    <div class="row-money">
 
-    <div>
-        <div class="col-label">M. fiscale</div>
-        {% if vehicule.vendu %}
-            <div class="row-marge pos-amber">+{{ vehicule.marge_fiscale|floatformat:0 }} €</div>
-        {% else %}
-            <div class="row-marge none">—</div>
-        {% endif %}
-    </div>
-
-    <div>
-        <div class="col-label">M. interne</div>
-        {% if vehicule.vendu %}
-            <div class="row-marge {% if vehicule.marge_interne < 0 %}neg{% else %}pos-green{% endif %}">
-                {% if vehicule.marge_interne >= 0 %}+{% endif %}{{ vehicule.marge_interne|floatformat:0 }} €
+        <div class="row-cell-prix">
+            <div class="col-label">{% if vehicule.vendu %}Prix vente{% else %}Prix achat{% endif %}</div>
+            <div class="row-price">
+                {% if vehicule.vendu %}{{ vehicule.prix_vente|floatformat:0 }}{% else %}{{ vehicule.prix_achat|floatformat:0 }}{% endif %} €
             </div>
-        {% else %}
-            <div class="row-marge none">—</div>
-        {% endif %}
+        </div>
+
+        <div class="row-cell-fiscale">
+            <div class="col-label">M. fiscale</div>
+            {% if vehicule.vendu %}
+                <div class="row-marge pos-amber">+{{ vehicule.marge_fiscale|floatformat:0 }} €</div>
+            {% else %}
+                <div class="row-marge none">—</div>
+            {% endif %}
+        </div>
+
+        <div class="row-cell-interne">
+            <div class="col-label">M. interne</div>
+            {% if vehicule.vendu %}
+                <div class="row-marge {% if vehicule.marge_interne < 0 %}neg{% else %}pos-green{% endif %}">
+                    {% if vehicule.marge_interne >= 0 %}+{% endif %}{{ vehicule.marge_interne|floatformat:0 }} €
+                </div>
+            {% else %}
+                <div class="row-marge none">—</div>
+            {% endif %}
+        </div>
+
     </div>
 
     {% if vehicule.vendu %}

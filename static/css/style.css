@@ -24,6 +24,12 @@
     --red-dim:    rgba(229, 99, 74, 0.1);
     --radius:     14px;
     --radius-sm:  8px;
+
+    /* Hauteur de la .navbar fixe. Toutes les pages calent leur mise en page
+       dessus (margin-top, calc(100dvh - ...), position des tiroirs) : la
+       valeur doit rester unique, sinon la navbar rétrécit sur téléphone
+       sans que le contenu remonte. */
+    --navbar-h:   64px;
 }
 
 /* ---- RESET ---- */
@@ -79,7 +85,7 @@ h1 {
     right: 0;
     z-index: 100;
     padding: 0 48px;
-    height: 64px;
+    height: var(--navbar-h);
     /* Flex et non grid. Un `grid-template-columns: 1fr auto 1fr` impose la
        même largeur aux colonnes de gauche et de droite : la droite (le
        profil) se voyait offrir la place dont la gauche (la marque et les
@@ -276,6 +282,11 @@ h1 {
     display: none;
 }
 
+/* Le bouton profil porte deux libellés : le nom complet en bureau, les
+   initiales à partir de 900px (cf. base.html). Déclaré ici, avant les
+   media queries, sans quoi il les emporterait à spécificité égale. */
+.navbar-profile-initiales { display: none; }
+
 .navbar-profile summary:hover {
     color: var(--text);
     border-color: rgba(255, 255, 255, 0.2);
@@ -350,6 +361,72 @@ h1 {
 @media (max-width: 1000px) {
     .garage-select summary > span { max-width: 130px; }
     .navbar-profile summary { max-width: 150px; }
+}
+
+/* Tablette. Le menu garage est centré sous son bouton
+   (transform: translateX(-50%)) : sur écran étroit il sort de l'écran par
+   la droite. On l'ancre à droite comme le menu profil. */
+@media (max-width: 1024px) {
+    .navbar { padding: 0 20px; gap: 20px; }
+    .navbar-left { gap: 16px; }
+
+    .garage-select-menu {
+        left: auto;
+        right: 0;
+        transform: none;
+    }
+}
+
+/* 900px : la navbar est pleine. « Mes Véhicules d'occasion » + deux liens
+   + le nom du garage + le nom de l'utilisateur dépassent la largeur
+   disponible, et comme la navbar est `position: fixed` le débordement ne
+   crée même pas de barre de défilement : le menu profil sort simplement
+   de l'écran, hors d'atteinte.
+   On sacrifie donc les deux textes les moins utiles : la marque
+   (l'utilisateur est connecté, il sait où il est) et le nom complet, qui
+   cède la place à ses initiales. */
+@media (max-width: 900px) {
+    .navbar-brand { display: none; }
+    .navbar-link { font-size: 0.76rem; }
+
+    .garage-select summary,
+    .navbar-profile summary { padding: 6px 13px; font-size: 0.78rem; }
+    .garage-select summary { gap: 6px; }
+    .garage-select summary > span { max-width: 110px; }
+    .navbar-profile summary { max-width: none; }
+
+    .navbar-profile-nom { display: none; }
+    .navbar-profile-initiales { display: inline; }
+
+    .navbar-login { padding: 6px 14px; font-size: 0.78rem; }
+    .garage-select-single { font-size: 0.78rem; }
+}
+
+
+/* Téléphone : la navbar se resserre encore et perd 8px de hauteur. */
+@media (max-width: 767px) {
+    :root { --navbar-h: 56px; }
+
+    .navbar { padding: 0 14px; gap: 12px; }
+    .navbar-left { gap: 14px; }
+    .navbar-link { font-size: 0.74rem; }
+    .garage-select summary > span { max-width: 88px; }
+}
+
+/* ---- PÉRIMÈTRE DES PETITS ÉCRANS ----
+   Certaines pages ne sont pas prévues hors bureau : on retire leurs
+   points d'entrée, sans rien bloquer côté serveur (l'URL reste servie si
+   on y arrive autrement).
+     .hors-mobile   — disparaît sur téléphone (pages d'écriture)
+     .hors-tablette — disparaît dès la tablette (les exports, qui
+                      produisent des fichiers destinés au comptable et
+                      n'ont pas de sens sur un appareil mobile) */
+@media (max-width: 1024px) {
+    .hors-tablette { display: none !important; }
+}
+
+@media (max-width: 767px) {
+    .hors-mobile { display: none !important; }
 }
 
 /* ---- SECTION ---- */

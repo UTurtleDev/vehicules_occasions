@@ -211,3 +211,38 @@
     font-size: 12.5px;
     color: var(--muted2);
 }
+
+/* ============================================
+   RESPONSIVE
+   La coquille (tiroir de filtres, scroll rendu au document) vient de
+   list_vehicules.css. Il ne reste ici que le contenu du dashboard.
+   ============================================ */
+
+@media (max-width: 1024px) {
+    /* Le scroll interne de .dash-body suit celui de .list : il repasse
+       au document. */
+    .vo-dash .main { overflow: visible; }
+    .vo-dash .dash-body {
+        overflow: visible;
+        padding: 18px 18px 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    .vo-dash .dash-body { padding: 16px 16px 40px; gap: 12px; }
+
+    /* Deux tuiles KPI par ligne sur un écran de 390px, une seule sur les
+       plus étroits : c'est auto-fit qui décide. */
+    .vo-dash .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+    .vo-dash .kpi { padding: 13px 14px; }
+    .vo-dash .kpi-value { font-size: 1.3rem; }
+
+    /* 330px de minimum ne tiennent pas : une carte par ligne. */
+    .vo-dash .dash-tables { grid-template-columns: 1fr; }
+
+    .vo-dash .dash-row,
+    .vo-dash .dash-card-head { padding-left: 14px; padding-right: 14px; }
+    .vo-dash .dash-row { gap: 10px; }
+
+    .vo-dash .dash-link { font-size: 11.5px; padding: 6px 12px; }
+}

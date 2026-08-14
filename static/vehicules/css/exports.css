@@ -113,6 +113,9 @@
 }
 .vo-export .export-alerte li { margin-top: 2px; }
 
-@media (max-width: 720px) {
-    .vo-export .export-cards { grid-template-columns: 1fr; }
+/* 767px : palier téléphone commun au projet (cf. list_vehicules.css). */
+@media (max-width: 767px) {
+    .vo-export .export-cards { grid-template-columns: 1fr; gap: 12px; }
+    .vo-export .export-card { padding: 18px 16px 20px; }
+    .vo-export .export-card-title { font-size: 0.98rem; }
 }

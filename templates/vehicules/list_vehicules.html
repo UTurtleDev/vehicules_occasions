@@ -10,7 +10,9 @@
 <div class="vo-list">
 
     {# ═══════════════ SIDEBAR ═══════════════ #}
-    <aside class="sidebar">
+    {# Sous 1024px cet aside devient un tiroir, ouvert par .sb-toggle (filtres_mobile.js). #}
+    <div class="sb-overlay"></div>
+    <aside class="sidebar" id="filtres">
 
         <form method="get" class="sb-search">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -108,11 +110,17 @@
     <main class="main">
 
         <div class="main-topbar">
+            <button type="button" class="sb-toggle" aria-controls="filtres" aria-expanded="false">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2 4h12M4 8h8M6.5 12h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+                </svg>
+                Filtres
+            </button>
             <h1 class="main-title">Stock véhicules</h1>
             <span class="main-count">{{ paginator.count }} véhicule{{ paginator.count|pluralize }}</span>
             <div class="main-spacer"></div>
             {% if garage_ecriture %}
-                <a class="btn-ajouter" href="{% url 'vehicules:ajouter-vehicule' %}">
+                <a class="btn-ajouter hors-mobile" href="{% url 'vehicules:ajouter-vehicule' %}">
                     <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                         <path d="M7 1.6V12.4M1.6 7H12.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path>
                     </svg>

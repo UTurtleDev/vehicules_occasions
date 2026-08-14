@@ -51,13 +51,18 @@
         </div>
 
         <details class="navbar-profile">
-            <summary>{{ user.get_full_name|default:user.email }}</summary>
+            <summary>
+                {# Sur téléphone le nom complet cède la place aux initiales (style.css). #}
+                <span class="navbar-profile-nom">{{ user.get_full_name|default:user.email }}</span>
+                <span class="navbar-profile-initiales">{% if user.first_name or user.last_name %}{{ user.first_name|slice:":1"|upper }}{{ user.last_name|slice:":1"|upper }}{% else %}{{ user.email|slice:":1"|upper }}{% endif %}</span>
+            </summary>
             <div class="navbar-profile-menu">
-                <a href="{% url 'vehicules:exports' %}" class="navbar-profile-item">Exports</a>
+                <a href="{% url 'vehicules:exports' %}" class="navbar-profile-item hors-tablette">Exports</a>
                 {% if garage_ecriture %}
-                    <a href="{% url 'garages:parametrage-comptable' %}" class="navbar-profile-item">Paramètres comptables</a>
+                    <a href="{% url 'garages:parametrage-comptable' %}" class="navbar-profile-item hors-tablette">Paramètres comptables</a>
                 {% endif %}
-                <hr class="navbar-profile-sep">
+                {# Dès la tablette il ne reste que la déconnexion : plus rien à séparer. #}
+                <hr class="navbar-profile-sep hors-tablette">
                 <form method="post" action="{% url 'users:logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="navbar-profile-logout">Déconnexion</button>
@@ -77,5 +82,6 @@
 <div id="modal"></div>
 
 <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+<script src="{% static "js/filtres_mobile.js" %}"></script>
 </body>
 </html>
