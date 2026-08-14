@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% load static %}
+{% load vo_filters %}
+
+{% block title %}<title>Tableau de bord</title>{% endblock title %}
+
+{% block content %}
+{# Réutilise la coquille de la liste (sidebar + main) pour ne pas dupliquer ses styles #}
+<link rel="stylesheet" href="{% static 'vehicules/css/list_vehicules.css' %}">
+<link rel="stylesheet" href="{% static 'vehicules/css/tableau_de_bord.css' %}">
+
+<div class="vo-list vo-dash">
+
+    {# ═══════════════ SIDEBAR ═══════════════ #}
+    <aside class="sidebar">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Période de vente</span></div>
+            {% for code, label in periodes %}
+                <a class="sb-item {% if f_periode == code %}on{% endif %}" href="{% set_qs request 'periode' code %}">
+                    <span class="sb-item-left">{{ label }}</span>
+                </a>
+            {% endfor %}
+            <form method="get" class="sb-dates {% if f_periode == 'perso' %}on{% endif %}">
+                <input type="hidden" name="periode" value="perso">
+                {% if f_garage != 'actif' %}<input type="hidden" name="garage" value="{{ f_garage }}">{% endif %}
+                {% for m in f_marques %}<input type="hidden" name="marque" value="{{ m }}">{% endfor %}
+                {% for e in f_energies %}<input type="hidden" name="energie" value="{{ e }}">{% endfor %}
+                {% for t in f_transmissions %}<input type="hidden" name="transmission" value="{{ t }}">{% endfor %}
+                <div class="sb-dates-row">
+                    <label>Du</label><input type="date" name="du" value="{{ f_du }}">
+                </div>
+                <div class="sb-dates-row">
+                    <label>Au</label><input type="date" name="au" value="{{ f_au }}">
+                </div>
+                <button type="submit">Appliquer</button>
+            </form>
+        </div>
+
+        <hr class="sb-divider">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Garage</span></div>
+            <a class="sb-item {% if f_garage == 'tous' %}on{% endif %}" href="{% set_qs request 'garage' 'tous' %}">
+                <span class="sb-item-left">Tous les garages</span>
+                <span class="sb-badge">{{ count_tous_garages }}</span>
+            </a>
+            <a class="sb-item {% if f_garage == 'actif' %}on{% endif %}" href="{% set_qs request 'garage' 'actif' %}">
+                <span class="sb-item-left">Garage actif uniquement</span>
+                <span class="sb-badge">{{ count_garage_actif }}</span>
+            </a>
+        </div>
+
+        <hr class="sb-divider">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Énergie</span></div>
+            {% for e in energie_filters %}
+                <a class="sb-item {% is_active request 'energie' e.value as on %}{% if on %}on{% endif %}"
+                   href="{% toggle_qs request 'energie' e.value %}">
+                    <span class="sb-item-left">
+                        <span class="dot dot-{{ e.value }}"></span>
+                        {{ e.label }}
+                    </span>
+                    <span class="sb-badge">{{ e.count }}</span>
+                </a>
+            {% endfor %}
+        </div>
+
+        <hr class="sb-divider">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Transmission</span></div>
+            {% for t in transmission_filters %}
+                <a class="sb-item {% is_active request 'transmission' t.value as on %}{% if on %}on{% endif %}"
+                   href="{% toggle_qs request 'transmission' t.value %}">
+                    <span class="sb-item-left">{{ t.label }}</span>
+                    <span class="sb-badge">{{ t.count }}</span>
+                </a>
+            {% endfor %}
+        </div>
+
+        <hr class="sb-divider">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Marque</span></div>
+            {% for m in marque_filters %}
+                <a class="sb-item {% is_active request 'marque' m.value as on %}{% if on %}on{% endif %}"
+                   href="{% toggle_qs request 'marque' m.value %}">
+                    <span class="sb-item-left">{{ m.label }}</span>
+                    <span class="sb-badge">{{ m.count }}</span>
+                </a>
+            {% endfor %}
+        </div>
+
+        {% if filtres_actifs %}
+            <hr class="sb-divider">
+            <a class="sb-reset" href="?">↺ Réinitialiser les filtres</a>
+        {% endif %}
+
+    </aside>
+
+    {# ═══════════════ MAIN ═══════════════ #}
+    <main class="main">
+
+        <div class="main-topbar">
+            <h1 class="main-title">Tableau de bord</h1>
+            {% comment %} <span class="main-count">
+                {% if periode_debut and periode_fin %}
+                    Ventes du {{ periode_debut|date:"d/m/Y" }} au {{ periode_fin|date:"d/m/Y" }}
+                {% else %}
+                    Toutes les ventes
+                {% endif %}
+            </span> {% endcomment %}
+            <div class="main-spacer"></div>
+            <a class="dash-link" href="{% url 'vehicules:garages' %}">Voir le stock →</a>
+        </div>
+
+        <div class="dash-body">
+
+            {# ── STOCK ── #}
+            <div class="dash-section-head">
+                <span class="dash-section-title">Stock</span>
+                <span class="dash-section-note">Photo à ce jour, indépendante de la période</span>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi">
+                    <span class="kpi-label">Véhicules en stock</span>
+                    <span class="kpi-value">{{ stock.nb }}</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Capital immobilisé</span>
+                    <span class="kpi-value">{{ stock.valeur|euros }}</span>
+                    <span class="kpi-hint">Coût de revient, frais compris</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Âge moyen du stock</span>
+                    <span class="kpi-value">{% if stock.age_moyen is not None %}{{ stock.age_moyen }} <small>j</small>{% else %}—{% endif %}</span>
+                </div>
+                <div class="kpi {% if stock.nb_dormant %}alerte{% endif %}">
+                    <span class="kpi-label">Stock dormant</span>
+                    <span class="kpi-value">{{ stock.nb_dormant }}</span>
+                    <span class="kpi-hint">
+                        Plus de {{ seuil_dormant }} jours · {{ stock.capital_dormant|euros }} immobilisés
+                    </span>
+                </div>
+            </div>
+
+            {# ── ACTIVITÉ ── #}
+            <div class="dash-section-head">
+                <span class="dash-section-title">Activité sur la période</span>
+                <span class="dash-section-note">Véhicules vendus, bornés sur la date de vente</span>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi">
+                    <span class="kpi-label">Véhicules vendus</span>
+                    <span class="kpi-value">{{ activite.nb }}</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Chiffre d'affaires</span>
+                    <span class="kpi-value">{{ activite.ca|euros }}</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Marge interne</span>
+                    <span class="kpi-value {% if activite.marge < 0 %}neg{% else %}pos{% endif %}">{{ activite.marge|euros }}</span>
+                    <span class="kpi-hint">Marge fiscale : {{ activite.marge_fiscale|euros }}</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Taux de marge</span>
+                    <span class="kpi-value">{% if activite.taux_marge is not None %}{{ activite.taux_marge }} <small>%</small>{% else %}—{% endif %}</span>
+                    <span class="kpi-hint">Marge moyenne : {{ activite.marge_moyenne|euros }}</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Délai de rotation</span>
+                    <span class="kpi-value">{% if activite.rotation is not None %}{{ activite.rotation }} <small>j</small>{% else %}—{% endif %}</span>
+                    <span class="kpi-hint">De l'achat à la vente, en moyenne</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Remise en état moyenne</span>
+                    <span class="kpi-value">{{ activite.frais_moyens|euros }}</span>
+                    <span class="kpi-hint">Par véhicule vendu</span>
+                </div>
+            </div>
+
+            {# ── TABLES ── #}
+            <div class="dash-tables">
+
+                <div class="dash-card">
+                    <div class="dash-card-head">
+                        <span class="dash-card-title">Meilleures marges</span>
+                    </div>
+                    {% for v in meilleures_marges %}
+                        <a class="dash-row" href="{% url 'vehicules:detail-vehicule' pk=v.pk %}">
+                            <span class="dash-row-main">
+                                {{ v.marque }} {{ v.modele }}
+                                <small>{{ v.immatriculation }} · {{ v.jours_detention }} j</small>
+                            </span>
+                            <span class="dash-row-num pos">{{ v.marge_interne_calc|euros }}</span>
+                        </a>
+                    {% empty %}
+                        <div class="dash-empty">Aucune vente sur la période.</div>
+                    {% endfor %}
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-head">
+                        <span class="dash-card-title">Marges les plus faibles</span>
+                        {% if nb_ventes_a_perte %}
+                            <span class="dash-card-alert">{{ nb_ventes_a_perte }} vente{{ nb_ventes_a_perte|pluralize }} à perte</span>
+                        {% endif %}
+                    </div>
+                    {% for v in pires_marges %}
+                        <a class="dash-row" href="{% url 'vehicules:detail-vehicule' pk=v.pk %}">
+                            <span class="dash-row-main">
+                                {{ v.marque }} {{ v.modele }}
+                                <small>{{ v.immatriculation }} · {{ v.jours_detention }} j</small>
+                            </span>
+                            <span class="dash-row-num {% if v.marge_interne_calc < 0 %}neg{% else %}pos{% endif %}">
+                                {{ v.marge_interne_calc|euros }}
+                            </span>
+                        </a>
+                    {% empty %}
+                        <div class="dash-empty">Aucune vente sur la période.</div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="dash-card">
+                <div class="dash-card-head">
+                    <span class="dash-card-title">Stock dormant</span>
+                    <span class="dash-card-note">En stock depuis plus de {{ seuil_dormant }} jours, les plus anciens d'abord</span>
+                </div>
+                {% for v in dormants %}
+                    <a class="dash-row large" href="{% url 'vehicules:detail-vehicule' pk=v.pk %}">
+                        <span class="dash-row-main">
+                            {{ v.marque }} {{ v.modele }}
+                            <small>{{ v.immatriculation }} · acheté le {{ v.date_achat|date:"d/m/Y" }}{% if f_garage == 'tous' %} · {{ v.garage.nom }}{% endif %}</small>
+                        </span>
+                        <span class="dash-row-age">{{ v.jours_detention }} j</span>
+                        <span class="dash-row-num">{{ v.cout_revient_calc|euros }}</span>
+                    </a>
+                {% empty %}
+                    <div class="dash-empty">Aucun véhicule immobilisé depuis plus de {{ seuil_dormant }} jours.</div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+{% endblock content %}

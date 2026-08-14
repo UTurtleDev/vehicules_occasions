@@ -1,12 +1,26 @@
+from datetime import timedelta
+
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from django.db.models import Q
+from django.utils.text import slugify
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView, View
+from django.db.models import Q, Count, Sum
+from django.utils import timezone
 
 from garages.mixins import GarageLectureMixin, GarageEcritureMixin
+from garages.models import ParametrageComptable
 from garages.utils import get_garage_actif
 from vehicules.models import Vehicule, Marque, Modele
 from vehicules.forms import VehiculeForm, VenteForm
+from vehicules.exports import (
+    PERIODES_EXPORT, PERIODE_DEFAUT, ecrire_csv, libelle_periode,
+    lignes_ecritures, suffixe_fichier, synthese, ventes_ecartees,
+)
+from vehicules.pdf import rendre_synthese_pdf
+from vehicules.utils import (
+    PERIODES, bornes_periode, date_ou_none, moyenne_entiere, pourcentage,
+)
 
 
 class ListVehiculeView(GarageLectureMixin, ListView):
@@ -220,3 +234,278 @@ class ModifierVehiculeView(GarageEcritureMixin, UpdateView):
             form.instance.modele = modele
 
         return super().form_valid(form)
+
+
+# ═══════════════════ TABLEAU DE BORD ═══════════════════
+
+SEUIL_DORMANT_JOURS = 90
+
+
+class TableauDeBordView(GarageLectureMixin, TemplateView):
+    """
+    Deux lectures indépendantes du même stock.
+
+    « Stock » est une photo à l'instant T : ce que le garage détient
+    aujourd'hui, et le capital que ça immobilise. La période ne s'y applique
+    pas, filtrer le stock actuel sur « mois en cours » n'aurait pas de sens.
+
+    « Activité » couvre les véhicules vendus pendant la période, bornés sur
+    la date de vente.
+
+    Les filtres marque / énergie / transmission, eux, s'appliquent aux deux.
+    """
+
+    template_name = 'vehicules/tableau_de_bord.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        params = self.request.GET
+        aujourdhui = timezone.now().date()
+
+        # ── Périmètre : quel garage ──────────────────────────────────
+        tous_garages = self.get_queryset()
+        garage_actif = get_garage_actif(self.request)
+        f_garage = params.get('garage', 'actif')
+
+        if f_garage == 'actif':
+            perimetre = tous_garages.filter(garage=garage_actif) if garage_actif else tous_garages.none()
+        else:
+            perimetre = tous_garages
+
+        # ── Filtres portant sur le véhicule lui-même ─────────────────
+        # Les pk de marque viennent de l'URL : on ne garde que des entiers,
+        # sinon un ?marque=abc ferait remonter une ValueError.
+        f_marques = [v for v in params.getlist('marque') if v.isdigit()]
+        f_energies = params.getlist('energie')
+        f_transmissions = params.getlist('transmission')
+
+        qs = perimetre
+        if f_marques:
+            qs = qs.filter(marque__pk__in=f_marques)
+        if f_energies:
+            qs = qs.filter(energie__in=f_energies)
+        if f_transmissions:
+            qs = qs.filter(transmission__in=f_transmissions)
+
+        # ── Période, appliquée à la seule activité ───────────────────
+        f_periode = params.get('periode', '12mois')
+        if f_periode == 'perso':
+            debut, fin = date_ou_none(params.get('du')), date_ou_none(params.get('au'))
+        else:
+            if f_periode not in dict(PERIODES):
+                f_periode = '12mois'
+            debut, fin = bornes_periode(f_periode, aujourdhui)
+
+        chiffre = qs.avec_couts()
+
+        # ══════════════ BLOC STOCK ══════════════
+        stock = chiffre.en_stock()
+        stock_agg = stock.aggregate(nb=Count('pk'), valeur=Sum('cout_revient_calc'))
+
+        ages = [(aujourdhui - achat).days
+                for achat in qs.en_stock().values_list('date_achat', flat=True)]
+
+        dormants = stock.filter(
+            date_achat__lte=aujourdhui - timedelta(days=SEUIL_DORMANT_JOURS)
+        ).order_by('date_achat')
+        dormants_agg = dormants.aggregate(nb=Count('pk'), capital=Sum('cout_revient_calc'))
+
+        ctx['stock'] = {
+            'nb': stock_agg['nb'],
+            'valeur': stock_agg['valeur'] or 0,
+            'age_moyen': moyenne_entiere(ages),
+            'nb_dormant': dormants_agg['nb'],
+            'capital_dormant': dormants_agg['capital'] or 0,
+        }
+
+        # ══════════════ BLOC ACTIVITÉ ══════════════
+        vendus = chiffre.vendus()
+        if debut:
+            vendus = vendus.filter(date_vente__gte=debut)
+        if fin:
+            vendus = vendus.filter(date_vente__lte=fin)
+
+        activite = vendus.aggregate(
+            nb=Count('pk'),
+            ca=Sum('prix_vente'),
+            marge=Sum('marge_interne_calc'),
+            marge_fiscale=Sum('marge_fiscale_calc'),
+            frais=Sum('frais_reel_calc'),
+        )
+        nb_vendus = activite['nb']
+        ca = activite['ca'] or 0
+        marge = activite['marge'] or 0
+        frais = activite['frais'] or 0
+
+        rotations = [(vente - achat).days
+                     for achat, vente in vendus.values_list('date_achat', 'date_vente')]
+
+        ctx['activite'] = {
+            'nb': nb_vendus,
+            'ca': ca,
+            'marge': marge,
+            'marge_fiscale': activite['marge_fiscale'] or 0,
+            'marge_moyenne': marge / nb_vendus if nb_vendus else None,
+            'taux_marge': pourcentage(marge, ca),
+            'rotation': moyenne_entiere(rotations),
+            'frais_moyens': frais / nb_vendus if nb_vendus else None,
+        }
+
+        # ══════════════ TABLES ══════════════
+        details = ('marque', 'modele', 'garage')
+        ctx['meilleures_marges'] = vendus.select_related(*details).order_by('-marge_interne_calc')[:5]
+        ctx['pires_marges'] = vendus.select_related(*details).order_by('marge_interne_calc')[:5]
+        ctx['nb_ventes_a_perte'] = vendus.filter(marge_interne_calc__lt=0).count()
+        ctx['dormants'] = dormants.select_related(*details).order_by('date_achat')[:10]
+
+        # ══════════════ FACETTES DE LA SIDEBAR ══════════════
+        # Comptées sur le périmètre garage, sans les filtres véhicule : chaque
+        # option affiche donc son propre total, et ne tombe jamais à zéro
+        # juste parce qu'une autre option est cochée.
+        def compter(champ):
+            return dict(perimetre.values(champ).annotate(n=Count('pk')).values_list(champ, 'n'))
+
+        compte_marques = compter('marque')
+        ctx['marque_filters'] = [
+            {'value': m.pk, 'label': m.marque, 'count': compte_marques[m.pk]}
+            for m in Marque.objects.filter(pk__in=compte_marques).order_by('marque')
+        ]
+
+        compte_energies = compter('energie')
+        ctx['energie_filters'] = [
+            {'value': v, 'label': label, 'count': compte_energies.get(v, 0)}
+            for v, label in Vehicule.Energie.choices
+        ]
+
+        compte_transmissions = compter('transmission')
+        ctx['transmission_filters'] = [
+            {'value': v, 'label': label, 'count': compte_transmissions.get(v, 0)}
+            for v, label in Vehicule.Transmission.choices
+        ]
+
+        ctx['count_tous_garages'] = tous_garages.count()
+        ctx['count_garage_actif'] = tous_garages.filter(garage=garage_actif).count() if garage_actif else 0
+
+        # ══════════════ ÉTAT DES FILTRES ══════════════
+        ctx['periodes'] = PERIODES
+        ctx['f_periode'] = f_periode
+        ctx['f_garage'] = f_garage
+        ctx['f_marques'] = f_marques
+        ctx['f_energies'] = f_energies
+        ctx['f_transmissions'] = f_transmissions
+        ctx['f_du'] = params.get('du', '')
+        ctx['f_au'] = params.get('au', '')
+        ctx['periode_debut'] = debut
+        ctx['periode_fin'] = fin
+        ctx['seuil_dormant'] = SEUIL_DORMANT_JOURS
+        ctx['filtres_actifs'] = bool(
+            f_marques or f_energies or f_transmissions
+            or f_garage != 'actif' or f_periode != '12mois'
+        )
+
+        return ctx
+
+
+# ═══════════════════ EXPORTS ═══════════════════
+
+class ExportMixin(GarageLectureMixin):
+    """
+    Socle des trois vues d'export : même période, même périmètre.
+
+    Le périmètre est le garage actif seul, et non tous les garages de
+    l'utilisateur comme sur le tableau de bord. Un export part chez un
+    dirigeant ou chez un comptable : mélanger les écritures de deux garages
+    dans un même fichier n'aurait aucun sens.
+    """
+
+    def resoudre_periode(self):
+        params = self.request.GET
+        aujourdhui = timezone.now().date()
+        code = params.get('periode', PERIODE_DEFAUT)
+
+        if code == 'perso':
+            debut, fin = date_ou_none(params.get('du')), date_ou_none(params.get('au'))
+        else:
+            if code not in dict(PERIODES_EXPORT):
+                code = PERIODE_DEFAUT
+            debut, fin = bornes_periode(code, aujourdhui)
+
+        return code, debut, fin, aujourdhui
+
+    def get_perimetre(self):
+        garage = get_garage_actif(self.request)
+        qs = self.get_queryset()
+        qs = qs.filter(garage=garage) if garage else qs.none()
+        return qs.avec_couts()
+
+    def donnees_export(self):
+        """(garage, code, données de la synthèse, bornes) — le tronc commun."""
+        code, debut, fin, aujourdhui = self.resoudre_periode()
+        donnees = synthese(self.get_perimetre(), debut, fin, aujourdhui)
+        return {
+            'garage': get_garage_actif(self.request),
+            'code': code,
+            'debut': debut,
+            'fin': fin,
+            'aujourdhui': aujourdhui,
+            'donnees': donnees,
+            'libelle': libelle_periode(code, debut, fin),
+        }
+
+    def nom_fichier(self, base, extension):
+        _, debut, fin, aujourdhui = self.resoudre_periode()
+        garage = get_garage_actif(self.request)
+        morceaux = [base]
+        # Le nom du garage n'est utile que s'il y en a plusieurs à distinguer.
+        if garage and self.request.user.garages.count() > 1:
+            morceaux.append(slugify(garage.nom))
+        morceaux.append(suffixe_fichier(debut, fin, aujourdhui))
+        return f"{'-'.join(morceaux)}.{extension}"
+
+
+class ExportsView(ExportMixin, TemplateView):
+    """Choix de la période, aperçu des chiffres, et les deux téléchargements."""
+
+    template_name = 'vehicules/exports.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        contexte = self.donnees_export()
+        params = self.request.GET
+
+        ctx.update(contexte)
+        ctx['periodes'] = PERIODES_EXPORT
+        ctx['f_periode'] = contexte['code']
+        ctx['f_du'] = params.get('du', '')
+        ctx['f_au'] = params.get('au', '')
+        ctx['parametrage'] = ParametrageComptable.pour(contexte['garage'])
+        # Signalées explicitement : ces ventes sortent dans le PDF mais pas
+        # dans le CSV, et une disparition silencieuse serait un piège.
+        ctx['ecartees'] = ventes_ecartees(contexte['donnees']['ventes'])
+        return ctx
+
+
+class ExportSynthesePdfView(ExportMixin, View):
+    def get(self, request, *args, **kwargs):
+        contexte = self.donnees_export()
+        pdf = rendre_synthese_pdf(
+            contexte['garage'], contexte['libelle'],
+            contexte['donnees'], contexte['aujourdhui'],
+        )
+        reponse = HttpResponse(pdf, content_type='application/pdf')
+        nom = self.nom_fichier('synthese-ventes', 'pdf')
+        reponse['Content-Disposition'] = f'attachment; filename="{nom}"'
+        return reponse
+
+
+class ExportComptableCsvView(ExportMixin, View):
+    def get(self, request, *args, **kwargs):
+        contexte = self.donnees_export()
+        parametrage = ParametrageComptable.pour(contexte['garage'])
+        contenu = ecrire_csv(
+            lignes_ecritures(contexte['donnees']['ventes'], parametrage)
+        )
+        reponse = HttpResponse(contenu, content_type='text/csv; charset=utf-8')
+        nom = self.nom_fichier('ecritures', 'csv')
+        reponse['Content-Disposition'] = f'attachment; filename="{nom}"'
+        return reponse

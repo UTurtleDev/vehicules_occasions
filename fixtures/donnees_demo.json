@@ -1,0 +1,6456 @@
+[
+  {
+    "model": "abonnements.abonnement",
+    "pk": 1,
+    "fields": {
+      "plan": "free",
+      "prix": "0.00",
+      "duree": 30,
+      "description": "Offre de découverte : 1 garage, 20 véhicules en stock."
+    }
+  },
+  {
+    "model": "abonnements.abonnement",
+    "pk": 2,
+    "fields": {
+      "plan": "pro",
+      "prix": "29.90",
+      "duree": 30,
+      "description": "Stock illimité, multi-utilisateurs, export comptable."
+    }
+  },
+  {
+    "model": "abonnements.abonnement",
+    "pk": 3,
+    "fields": {
+      "plan": "entreprise",
+      "prix": "990.00",
+      "duree": 365,
+      "description": "Multi-garages, support dédié, facturation annuelle."
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 1,
+    "fields": {
+      "marque": "VOLKSWAGEN"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 1,
+    "fields": {
+      "marque": 1,
+      "modele": "GOLF VII"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 301,
+    "fields": {
+      "marque": 1,
+      "modele": "POLO VI"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 302,
+    "fields": {
+      "marque": 1,
+      "modele": "TIGUAN"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 2,
+    "fields": {
+      "marque": "MERCEDES"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 2,
+    "fields": {
+      "marque": 2,
+      "modele": "CLASS A"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 303,
+    "fields": {
+      "marque": 2,
+      "modele": "CLASSE C"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 304,
+    "fields": {
+      "marque": 2,
+      "modele": "VITO"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 3,
+    "fields": {
+      "marque": "BMW"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 3,
+    "fields": {
+      "marque": 3,
+      "modele": "SERIE 3"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 305,
+    "fields": {
+      "marque": 3,
+      "modele": "SERIE 1"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 306,
+    "fields": {
+      "marque": 3,
+      "modele": "X1"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 4,
+    "fields": {
+      "marque": "SEAT"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 4,
+    "fields": {
+      "marque": 4,
+      "modele": "IBIZA"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 307,
+    "fields": {
+      "marque": 4,
+      "modele": "LEON"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 308,
+    "fields": {
+      "marque": 4,
+      "modele": "ARONA"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 201,
+    "fields": {
+      "marque": "RENAULT"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 309,
+    "fields": {
+      "marque": 201,
+      "modele": "CLIO IV"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 310,
+    "fields": {
+      "marque": 201,
+      "modele": "CLIO V"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 311,
+    "fields": {
+      "marque": 201,
+      "modele": "CAPTUR"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 312,
+    "fields": {
+      "marque": 201,
+      "modele": "MEGANE IV"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 313,
+    "fields": {
+      "marque": 201,
+      "modele": "ZOE"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 202,
+    "fields": {
+      "marque": "PEUGEOT"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 314,
+    "fields": {
+      "marque": 202,
+      "modele": "208"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 315,
+    "fields": {
+      "marque": 202,
+      "modele": "308"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 316,
+    "fields": {
+      "marque": 202,
+      "modele": "2008"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 317,
+    "fields": {
+      "marque": 202,
+      "modele": "3008"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 318,
+    "fields": {
+      "marque": 202,
+      "modele": "PARTNER"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 203,
+    "fields": {
+      "marque": "CITROEN"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 319,
+    "fields": {
+      "marque": 203,
+      "modele": "C3"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 320,
+    "fields": {
+      "marque": 203,
+      "modele": "C4"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 321,
+    "fields": {
+      "marque": 203,
+      "modele": "BERLINGO"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 204,
+    "fields": {
+      "marque": "DACIA"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 322,
+    "fields": {
+      "marque": 204,
+      "modele": "SANDERO"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 323,
+    "fields": {
+      "marque": 204,
+      "modele": "DUSTER"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 205,
+    "fields": {
+      "marque": "TOYOTA"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 324,
+    "fields": {
+      "marque": 205,
+      "modele": "YARIS"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 325,
+    "fields": {
+      "marque": 205,
+      "modele": "COROLLA"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 326,
+    "fields": {
+      "marque": 205,
+      "modele": "RAV4"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 206,
+    "fields": {
+      "marque": "FORD"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 327,
+    "fields": {
+      "marque": 206,
+      "modele": "FIESTA"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 328,
+    "fields": {
+      "marque": 206,
+      "modele": "FOCUS"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 329,
+    "fields": {
+      "marque": 206,
+      "modele": "KUGA"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 207,
+    "fields": {
+      "marque": "AUDI"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 330,
+    "fields": {
+      "marque": 207,
+      "modele": "A1"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 331,
+    "fields": {
+      "marque": 207,
+      "modele": "A3"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 332,
+    "fields": {
+      "marque": 207,
+      "modele": "Q3"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 208,
+    "fields": {
+      "marque": "OPEL"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 333,
+    "fields": {
+      "marque": 208,
+      "modele": "CORSA"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 334,
+    "fields": {
+      "marque": 208,
+      "modele": "ASTRA"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 209,
+    "fields": {
+      "marque": "FIAT"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 335,
+    "fields": {
+      "marque": 209,
+      "modele": "500"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 336,
+    "fields": {
+      "marque": 209,
+      "modele": "PANDA"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 210,
+    "fields": {
+      "marque": "NISSAN"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 337,
+    "fields": {
+      "marque": 210,
+      "modele": "QASHQAI"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 338,
+    "fields": {
+      "marque": 210,
+      "modele": "JUKE"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 211,
+    "fields": {
+      "marque": "KIA"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 339,
+    "fields": {
+      "marque": 211,
+      "modele": "PICANTO"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 340,
+    "fields": {
+      "marque": 211,
+      "modele": "SPORTAGE"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 212,
+    "fields": {
+      "marque": "HYUNDAI"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 341,
+    "fields": {
+      "marque": 212,
+      "modele": "I20"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 342,
+    "fields": {
+      "marque": 212,
+      "modele": "TUCSON"
+    }
+  },
+  {
+    "model": "vehicules.marque",
+    "pk": 213,
+    "fields": {
+      "marque": "TESLA"
+    }
+  },
+  {
+    "model": "vehicules.modele",
+    "pk": 343,
+    "fields": {
+      "marque": 213,
+      "modele": "MODEL 3"
+    }
+  },
+  {
+    "model": "garages.garage",
+    "pk": 101,
+    "fields": {
+      "nom": "Auto Prestige 93",
+      "adresse": "42 avenue de la Résistance",
+      "ville": "Montfermeil",
+      "code_postal": "93370",
+      "telephone": "0143885512",
+      "email": "contact@autoprestige93.fr",
+      "abonnement": 2,
+      "date_debut_essai": null
+    }
+  },
+  {
+    "model": "garages.garage",
+    "pk": 102,
+    "fields": {
+      "nom": "Garage du Vieux Port",
+      "adresse": "8 quai de Rive Neuve",
+      "ville": "Marseille",
+      "code_postal": "13007",
+      "telephone": "0491334208",
+      "email": "contact@garagevieuxport.fr",
+      "abonnement": 3,
+      "date_debut_essai": null
+    }
+  },
+  {
+    "model": "garages.garage",
+    "pk": 103,
+    "fields": {
+      "nom": "Occasions Atlantique",
+      "adresse": "17 route de Vannes",
+      "ville": "Nantes",
+      "code_postal": "44300",
+      "telephone": "0240761190",
+      "email": "contact@occasions-atlantique.fr",
+      "abonnement": 2,
+      "date_debut_essai": null
+    }
+  },
+  {
+    "model": "garages.garage",
+    "pk": 104,
+    "fields": {
+      "nom": "Alpes Motors",
+      "adresse": "3 rue des Glacières",
+      "ville": "Grenoble",
+      "code_postal": "38000",
+      "telephone": "0476445077",
+      "email": "contact@alpes-motors.fr",
+      "abonnement": 1,
+      "date_debut_essai": "2026-07-28"
+    }
+  },
+  {
+    "model": "garages.garage",
+    "pk": 105,
+    "fields": {
+      "nom": "Nord Auto Sélection",
+      "adresse": "126 boulevard de la Liberté",
+      "ville": "Lille",
+      "code_postal": "59000",
+      "telephone": "0320551943",
+      "email": "contact@nordautoselection.fr",
+      "abonnement": 3,
+      "date_debut_essai": null
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1001,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "karim.benali@autoprestige93.fr",
+      "first_name": "Karim",
+      "last_name": "Benali",
+      "email": "karim.benali@autoprestige93.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1001,
+    "fields": {
+      "user": 1001,
+      "garage": 101,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1002,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "sophie.marchand@autoprestige93.fr",
+      "first_name": "Sophie",
+      "last_name": "Marchand",
+      "email": "sophie.marchand@autoprestige93.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1002,
+    "fields": {
+      "user": 1002,
+      "garage": 101,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1003,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "laurent.deschamps@autoprestige93.fr",
+      "first_name": "Laurent",
+      "last_name": "Deschamps",
+      "email": "laurent.deschamps@autoprestige93.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1003,
+    "fields": {
+      "user": 1003,
+      "garage": 101,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1004,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "nadia.amrani@autoprestige93.fr",
+      "first_name": "Nadia",
+      "last_name": "Amrani",
+      "email": "nadia.amrani@autoprestige93.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1004,
+    "fields": {
+      "user": 1004,
+      "garage": 101,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1005,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "julien.sarrazin@garagevieuxport.fr",
+      "first_name": "Julien",
+      "last_name": "Sarrazin",
+      "email": "julien.sarrazin@garagevieuxport.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1005,
+    "fields": {
+      "user": 1005,
+      "garage": 102,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1006,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "elodie.ferrand@garagevieuxport.fr",
+      "first_name": "Élodie",
+      "last_name": "Ferrand",
+      "email": "elodie.ferrand@garagevieuxport.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1006,
+    "fields": {
+      "user": 1006,
+      "garage": 102,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1007,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "pascal.roussel@garagevieuxport.fr",
+      "first_name": "Pascal",
+      "last_name": "Roussel",
+      "email": "pascal.roussel@garagevieuxport.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1007,
+    "fields": {
+      "user": 1007,
+      "garage": 102,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1008,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "camille.bonnet@garagevieuxport.fr",
+      "first_name": "Camille",
+      "last_name": "Bonnet",
+      "email": "camille.bonnet@garagevieuxport.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1008,
+    "fields": {
+      "user": 1008,
+      "garage": 102,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1009,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "yann.le-goff@occasions-atlantique.fr",
+      "first_name": "Yann",
+      "last_name": "Le Goff",
+      "email": "yann.le-goff@occasions-atlantique.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1009,
+    "fields": {
+      "user": 1009,
+      "garage": 103,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1010,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "marion.guerin@occasions-atlantique.fr",
+      "first_name": "Marion",
+      "last_name": "Guérin",
+      "email": "marion.guerin@occasions-atlantique.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1010,
+    "fields": {
+      "user": 1010,
+      "garage": 103,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1011,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "thibault.renaud@occasions-atlantique.fr",
+      "first_name": "Thibault",
+      "last_name": "Renaud",
+      "email": "thibault.renaud@occasions-atlantique.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1011,
+    "fields": {
+      "user": 1011,
+      "garage": 103,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1012,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "helene.moreau@occasions-atlantique.fr",
+      "first_name": "Hélène",
+      "last_name": "Moreau",
+      "email": "helene.moreau@occasions-atlantique.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1012,
+    "fields": {
+      "user": 1012,
+      "garage": 103,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1013,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "fabrice.cordier@alpes-motors.fr",
+      "first_name": "Fabrice",
+      "last_name": "Cordier",
+      "email": "fabrice.cordier@alpes-motors.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1013,
+    "fields": {
+      "user": 1013,
+      "garage": 104,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1014,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "aurelie.vasseur@alpes-motors.fr",
+      "first_name": "Aurélie",
+      "last_name": "Vasseur",
+      "email": "aurelie.vasseur@alpes-motors.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1014,
+    "fields": {
+      "user": 1014,
+      "garage": 104,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1015,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "damien.bertrand@alpes-motors.fr",
+      "first_name": "Damien",
+      "last_name": "Bertrand",
+      "email": "damien.bertrand@alpes-motors.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1015,
+    "fields": {
+      "user": 1015,
+      "garage": 104,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1016,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "lea.chevalier@alpes-motors.fr",
+      "first_name": "Léa",
+      "last_name": "Chevalier",
+      "email": "lea.chevalier@alpes-motors.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1016,
+    "fields": {
+      "user": 1016,
+      "garage": 104,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1017,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "gregory.dhaene@nordautoselection.fr",
+      "first_name": "Grégory",
+      "last_name": "Dhaene",
+      "email": "gregory.dhaene@nordautoselection.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1017,
+    "fields": {
+      "user": 1017,
+      "garage": 105,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1018,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "amandine.leclercq@nordautoselection.fr",
+      "first_name": "Amandine",
+      "last_name": "Leclercq",
+      "email": "amandine.leclercq@nordautoselection.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1018,
+    "fields": {
+      "user": 1018,
+      "garage": 105,
+      "role": "gestionnaire"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1019,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "mehdi.tazi@nordautoselection.fr",
+      "first_name": "Mehdi",
+      "last_name": "Tazi",
+      "email": "mehdi.tazi@nordautoselection.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1019,
+    "fields": {
+      "user": 1019,
+      "garage": 105,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1020,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rf79AtjsTDjgnYTIs9PYOY$O3SUB7OHlv7EJ44nwD5PKM3Iik7KMFg72nOKb/95lhY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "celine.delattre@nordautoselection.fr",
+      "first_name": "Céline",
+      "last_name": "Delattre",
+      "email": "celine.delattre@nordautoselection.fr",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-15T09:00:00+01:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1020,
+    "fields": {
+      "user": 1020,
+      "garage": 105,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "garages.garagemembre",
+    "pk": 1021,
+    "fields": {
+      "user": 1002,
+      "garage": 105,
+      "role": "lecture"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1001,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2024-12-30",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "17150.00",
+      "prix_enchere": "685.00",
+      "prix_transport": "450.00",
+      "immatriculation": "RE-955-QZ",
+      "vin": null,
+      "marque": 4,
+      "modele": 308,
+      "couleur": "Argent",
+      "annee_vehicule": 2024,
+      "crit_air": 2,
+      "kilometrage_achat": 26900,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": "2025-05-04",
+      "numero_vente": 1,
+      "facture_vente": "",
+      "acheteur": "SARL Transports Merlin",
+      "prix_vente": "18450.00",
+      "kilometrage_vente": 26952
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1001,
+    "fields": {
+      "vehicule": 1001,
+      "type_ree": "pieces",
+      "description": "Filtres (huile, air, habitacle)",
+      "montant": "80.88"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1002,
+    "fields": {
+      "vehicule": 1001,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "195.89"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1002,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-01-23",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "9500.00",
+      "prix_enchere": "540.00",
+      "prix_transport": "0.00",
+      "immatriculation": "YJ-382-HM",
+      "vin": "VF7L2V78FA0B4LECD",
+      "marque": 203,
+      "modele": 320,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2013,
+      "crit_air": 2,
+      "kilometrage_achat": 199700,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": "2025-02-27",
+      "numero_vente": 2,
+      "facture_vente": "",
+      "acheteur": "M. Dubois",
+      "prix_vente": "11950.00",
+      "kilometrage_vente": 199739
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1003,
+    "fields": {
+      "vehicule": 1002,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "117.08"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1004,
+    "fields": {
+      "vehicule": 1002,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "14.27"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1005,
+    "fields": {
+      "vehicule": 1002,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "118.78"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1006,
+    "fields": {
+      "vehicule": 1002,
+      "type_ree": "mo",
+      "description": "Réfection pare-chocs arrière",
+      "montant": "223.51"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1007,
+    "fields": {
+      "vehicule": 1002,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "84.27"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1003,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-05-29",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "13000.00",
+      "prix_enchere": "405.00",
+      "prix_transport": "520.00",
+      "immatriculation": "FX-181-RF",
+      "vin": "VFSB5M4JG60YBDV5E",
+      "marque": 201,
+      "modele": 310,
+      "couleur": "Blanc",
+      "annee_vehicule": 2020,
+      "crit_air": 2,
+      "kilometrage_achat": 102000,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 100,
+      "chevaux_fiscaux": 12,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1004,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2026-07-09",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "10050.00",
+      "prix_enchere": "595.00",
+      "prix_transport": "0.00",
+      "immatriculation": "QK-867-NE",
+      "vin": "VF40M1A2B5J978XDZ",
+      "marque": 201,
+      "modele": 309,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2024,
+      "crit_air": 2,
+      "kilometrage_achat": 12000,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 190,
+      "chevaux_fiscaux": 22,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1008,
+    "fields": {
+      "vehicule": 1004,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "183.77"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1009,
+    "fields": {
+      "vehicule": 1004,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "88.10"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1010,
+    "fields": {
+      "vehicule": 1004,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "132.18"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1005,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-06-10",
+      "vendeur": "Autobiz Trade",
+      "facture_achat": "",
+      "prix_vehicule": "11400.00",
+      "prix_enchere": "765.00",
+      "prix_transport": "0.00",
+      "immatriculation": "WD-858-RF",
+      "vin": "VF5JPKP9ZGSD9LDLU",
+      "marque": 210,
+      "modele": 338,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2011,
+      "crit_air": 1,
+      "kilometrage_achat": 241500,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 163,
+      "chevaux_fiscaux": 19,
+      "date_vente": "2025-12-08",
+      "numero_vente": 3,
+      "facture_vente": "",
+      "acheteur": "Mme Lefèvre",
+      "prix_vente": "14600.00",
+      "kilometrage_vente": 241584
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1011,
+    "fields": {
+      "vehicule": 1005,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "244.38"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1012,
+    "fields": {
+      "vehicule": 1005,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "23.28"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1013,
+    "fields": {
+      "vehicule": 1005,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "91.22"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1014,
+    "fields": {
+      "vehicule": 1005,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "95.00"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1015,
+    "fields": {
+      "vehicule": 1005,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "526.57"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1006,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-08-07",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "10650.00",
+      "prix_enchere": "835.00",
+      "prix_transport": "520.00",
+      "immatriculation": "LR-662-RX",
+      "vin": "VFAU070JG8CJTM4VG",
+      "marque": 212,
+      "modele": 341,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2020,
+      "crit_air": 1,
+      "kilometrage_achat": 124800,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 190,
+      "chevaux_fiscaux": 22,
+      "date_vente": "2025-12-14",
+      "numero_vente": 4,
+      "facture_vente": "",
+      "acheteur": "M. Lambert",
+      "prix_vente": "14100.00",
+      "kilometrage_vente": 124952
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1016,
+    "fields": {
+      "vehicule": 1006,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "318.06"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1007,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2026-06-15",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "17100.00",
+      "prix_enchere": "795.00",
+      "prix_transport": "250.00",
+      "immatriculation": "BL-466-BZ",
+      "vin": "VFFKBTDWVCKPACKGY",
+      "marque": 1,
+      "modele": 302,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2014,
+      "crit_air": 1,
+      "kilometrage_achat": 212800,
+      "transmission": "manuel",
+      "energie": "hybride",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1017,
+    "fields": {
+      "vehicule": 1007,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "76.54"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1018,
+    "fields": {
+      "vehicule": 1007,
+      "type_ree": "pieces",
+      "description": "Filtres (huile, air, habitacle)",
+      "montant": "70.76"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1019,
+    "fields": {
+      "vehicule": 1007,
+      "type_ree": "mo",
+      "description": "Réfection pare-chocs arrière",
+      "montant": "303.68"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1020,
+    "fields": {
+      "vehicule": 1007,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "221.98"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1008,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2026-06-25",
+      "vendeur": "Alcopa Auction",
+      "facture_achat": "",
+      "prix_vehicule": "11750.00",
+      "prix_enchere": "875.00",
+      "prix_transport": "0.00",
+      "immatriculation": "SA-507-KE",
+      "vin": "VFZT3ALDAUE7LMG61",
+      "marque": 202,
+      "modele": 315,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2014,
+      "crit_air": 1,
+      "kilometrage_achat": 147900,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 75,
+      "chevaux_fiscaux": 9,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1021,
+    "fields": {
+      "vehicule": 1008,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "288.31"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1009,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2026-01-27",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "8250.00",
+      "prix_enchere": "555.00",
+      "prix_transport": "610.00",
+      "immatriculation": "PL-689-NZ",
+      "vin": "VFZ7MEJ56T5LCCED0",
+      "marque": 212,
+      "modele": 341,
+      "couleur": "Noir",
+      "annee_vehicule": 2013,
+      "crit_air": 2,
+      "kilometrage_achat": 196838,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 100,
+      "chevaux_fiscaux": 12,
+      "date_vente": "2026-02-25",
+      "numero_vente": 5,
+      "facture_vente": "",
+      "acheteur": "M. Nguyen",
+      "prix_vente": "11850.00",
+      "kilometrage_vente": 196851
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1022,
+    "fields": {
+      "vehicule": 1009,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "276.43"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1023,
+    "fields": {
+      "vehicule": 1009,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "102.34"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1024,
+    "fields": {
+      "vehicule": 1009,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "80.10"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1010,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2026-02-26",
+      "vendeur": "BCAuto Enchères",
+      "facture_achat": "",
+      "prix_vehicule": "10350.00",
+      "prix_enchere": "810.00",
+      "prix_transport": "390.00",
+      "immatriculation": "QH-904-KB",
+      "vin": "VFUZ4TVBE9NTGRWVS",
+      "marque": 209,
+      "modele": 335,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2016,
+      "crit_air": 2,
+      "kilometrage_achat": 152400,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 100,
+      "chevaux_fiscaux": 12,
+      "date_vente": "2026-05-01",
+      "numero_vente": 6,
+      "facture_vente": "",
+      "acheteur": "M. Zahiri",
+      "prix_vente": "15150.00",
+      "kilometrage_vente": 152440
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1025,
+    "fields": {
+      "vehicule": 1010,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "381.47"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1026,
+    "fields": {
+      "vehicule": 1010,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "5.65"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1027,
+    "fields": {
+      "vehicule": 1010,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "632.20"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1011,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2024-10-18",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "16700.00",
+      "prix_enchere": "840.00",
+      "prix_transport": "520.00",
+      "immatriculation": "BE-802-TL",
+      "vin": "VF2LDHN0PNS2SEMTY",
+      "marque": 4,
+      "modele": 308,
+      "couleur": "Rouge",
+      "annee_vehicule": 2021,
+      "crit_air": 2,
+      "kilometrage_achat": 70400,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1028,
+    "fields": {
+      "vehicule": 1011,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "97.21"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1029,
+    "fields": {
+      "vehicule": 1011,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "506.24"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1030,
+    "fields": {
+      "vehicule": 1011,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "372.38"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1031,
+    "fields": {
+      "vehicule": 1011,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "145.67"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1032,
+    "fields": {
+      "vehicule": 1011,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "196.95"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1012,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-10-15",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "14400.00",
+      "prix_enchere": "840.00",
+      "prix_transport": "610.00",
+      "immatriculation": "QB-353-VX",
+      "vin": "VFEJMXZWZSA0H312F",
+      "marque": 201,
+      "modele": 313,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2023,
+      "crit_air": 0,
+      "kilometrage_achat": 45400,
+      "transmission": "manuel",
+      "energie": "electrique",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 1,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1033,
+    "fields": {
+      "vehicule": 1012,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "148.81"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1034,
+    "fields": {
+      "vehicule": 1012,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "374.68"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1013,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2026-07-13",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "35500.00",
+      "prix_enchere": "2365.00",
+      "prix_transport": "450.00",
+      "immatriculation": "NX-672-PH",
+      "vin": null,
+      "marque": 213,
+      "modele": 343,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2023,
+      "crit_air": 0,
+      "kilometrage_achat": 41300,
+      "transmission": "automatique",
+      "energie": "electrique",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 1,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1035,
+    "fields": {
+      "vehicule": 1013,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "642.72"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1036,
+    "fields": {
+      "vehicule": 1013,
+      "type_ree": "mo",
+      "description": "Remplacement distribution",
+      "montant": "573.33"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1014,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-06-08",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "7500.00",
+      "prix_enchere": "460.00",
+      "prix_transport": "520.00",
+      "immatriculation": "KG-663-SW",
+      "vin": null,
+      "marque": 203,
+      "modele": 319,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2011,
+      "crit_air": 2,
+      "kilometrage_achat": 221800,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": "2025-08-13",
+      "numero_vente": 7,
+      "facture_vente": "",
+      "acheteur": "Mme Fontaine",
+      "prix_vente": "9900.00",
+      "kilometrage_vente": 221874
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1037,
+    "fields": {
+      "vehicule": 1014,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "266.28"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1038,
+    "fields": {
+      "vehicule": 1014,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "523.53"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1039,
+    "fields": {
+      "vehicule": 1014,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "67.99"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1040,
+    "fields": {
+      "vehicule": 1014,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "178.50"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1015,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-10-20",
+      "vendeur": "BCAuto Enchères",
+      "facture_achat": "",
+      "prix_vehicule": "13950.00",
+      "prix_enchere": "1015.00",
+      "prix_transport": "320.00",
+      "immatriculation": "RK-701-GJ",
+      "vin": "VF91AM4E4GX94N9EM",
+      "marque": 201,
+      "modele": 310,
+      "couleur": "Noir",
+      "annee_vehicule": 2021,
+      "crit_air": 2,
+      "kilometrage_achat": 80400,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2025-11-07",
+      "numero_vente": 8,
+      "facture_vente": "",
+      "acheteur": "Mme Perrot",
+      "prix_vente": "17750.00",
+      "kilometrage_vente": 80421
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1041,
+    "fields": {
+      "vehicule": 1015,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "247.20"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1042,
+    "fields": {
+      "vehicule": 1015,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "355.71"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1016,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-07-17",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "2350.00",
+      "prix_enchere": "90.00",
+      "prix_transport": "0.00",
+      "immatriculation": "KT-369-KM",
+      "vin": "VFT2PGGPNNDHGNFH0",
+      "marque": 206,
+      "modele": 328,
+      "couleur": "Beige",
+      "annee_vehicule": 2001,
+      "crit_air": 4,
+      "kilometrage_achat": 259927,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 163,
+      "chevaux_fiscaux": 19,
+      "date_vente": "2025-12-03",
+      "numero_vente": 9,
+      "facture_vente": "",
+      "acheteur": "SARL Transports Merlin",
+      "prix_vente": "3900.00",
+      "kilometrage_vente": 259991
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1043,
+    "fields": {
+      "vehicule": 1016,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "624.03"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1044,
+    "fields": {
+      "vehicule": 1016,
+      "type_ree": "mo",
+      "description": "Remplacement distribution",
+      "montant": "468.96"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1017,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2025-05-05",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "10450.00",
+      "prix_enchere": "540.00",
+      "prix_transport": "180.00",
+      "immatriculation": "ED-800-YS",
+      "vin": "VF38BFVA1F7UAMJ02",
+      "marque": 209,
+      "modele": 335,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2016,
+      "crit_air": 1,
+      "kilometrage_achat": 159000,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 190,
+      "chevaux_fiscaux": 22,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1045,
+    "fields": {
+      "vehicule": 1017,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "121.63"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1046,
+    "fields": {
+      "vehicule": 1017,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "389.71"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1047,
+    "fields": {
+      "vehicule": 1017,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "851.36"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1018,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2024-12-05",
+      "vendeur": "Alcopa Auction",
+      "facture_achat": "",
+      "prix_vehicule": "12100.00",
+      "prix_enchere": "760.00",
+      "prix_transport": "0.00",
+      "immatriculation": "CE-103-XA",
+      "vin": null,
+      "marque": 204,
+      "modele": 323,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2015,
+      "crit_air": 1,
+      "kilometrage_achat": 134200,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1048,
+    "fields": {
+      "vehicule": 1018,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "10.47"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1049,
+    "fields": {
+      "vehicule": 1018,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "213.85"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1050,
+    "fields": {
+      "vehicule": 1018,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "87.22"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1051,
+    "fields": {
+      "vehicule": 1018,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "443.12"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1052,
+    "fields": {
+      "vehicule": 1018,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "124.18"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1019,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2026-05-01",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "11650.00",
+      "prix_enchere": "480.00",
+      "prix_transport": "390.00",
+      "immatriculation": "CJ-401-YR",
+      "vin": "VFKE0SRBP1VV598R2",
+      "marque": 2,
+      "modele": 2,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2009,
+      "crit_air": 2,
+      "kilometrage_achat": 255700,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1053,
+    "fields": {
+      "vehicule": 1019,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "300.27"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1054,
+    "fields": {
+      "vehicule": 1019,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "84.46"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1055,
+    "fields": {
+      "vehicule": 1019,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "206.56"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1056,
+    "fields": {
+      "vehicule": 1019,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "511.29"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1020,
+    "fields": {
+      "garage": 101,
+      "date_achat": "2024-12-30",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "12750.00",
+      "prix_enchere": "1000.00",
+      "prix_transport": "0.00",
+      "immatriculation": "KB-707-XB",
+      "vin": "VFRC44BNFVXCRC23W",
+      "marque": 1,
+      "modele": 301,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2024,
+      "crit_air": 1,
+      "kilometrage_achat": 54600,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1057,
+    "fields": {
+      "vehicule": 1020,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "102.23"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1058,
+    "fields": {
+      "vehicule": 1020,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "79.59"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1021,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2024-10-05",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "26150.00",
+      "prix_enchere": "1575.00",
+      "prix_transport": "450.00",
+      "immatriculation": "ED-547-XA",
+      "vin": "VFYZY847K0W4EV3GW",
+      "marque": 207,
+      "modele": 332,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2021,
+      "crit_air": 1,
+      "kilometrage_achat": 63100,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1059,
+    "fields": {
+      "vehicule": 1021,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "158.92"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1060,
+    "fields": {
+      "vehicule": 1021,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "304.95"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1061,
+    "fields": {
+      "vehicule": 1021,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "783.17"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1062,
+    "fields": {
+      "vehicule": 1021,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "85.48"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1022,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2025-04-27",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "12650.00",
+      "prix_enchere": "765.00",
+      "prix_transport": "180.00",
+      "immatriculation": "WX-784-DX",
+      "vin": "VF3UNDL5YS6VZML9X",
+      "marque": 204,
+      "modele": 323,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2014,
+      "crit_air": 1,
+      "kilometrage_achat": 182400,
+      "transmission": "automatique",
+      "energie": "hybride",
+      "chevaux_dine": 190,
+      "chevaux_fiscaux": 22,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1063,
+    "fields": {
+      "vehicule": 1022,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "81.92"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1064,
+    "fields": {
+      "vehicule": 1022,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "90.14"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1023,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2025-06-26",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "8350.00",
+      "prix_enchere": "485.00",
+      "prix_transport": "450.00",
+      "immatriculation": "TQ-220-RE",
+      "vin": "VFBRK93TAJVDGHMPU",
+      "marque": 203,
+      "modele": 320,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2009,
+      "crit_air": 2,
+      "kilometrage_achat": 225651,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2025-10-04",
+      "numero_vente": 1,
+      "facture_vente": "",
+      "acheteur": "SAS BatiPro",
+      "prix_vente": "10850.00",
+      "kilometrage_vente": 225693
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1024,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2024-09-25",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "8200.00",
+      "prix_enchere": "275.00",
+      "prix_transport": "250.00",
+      "immatriculation": "QL-840-WL",
+      "vin": "VFL0HL2MMNPVGG5WT",
+      "marque": 202,
+      "modele": 318,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2012,
+      "crit_air": 1,
+      "kilometrage_achat": 208400,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1065,
+    "fields": {
+      "vehicule": 1024,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "104.81"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1066,
+    "fields": {
+      "vehicule": 1024,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "250.11"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1025,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2026-03-27",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "13350.00",
+      "prix_enchere": "550.00",
+      "prix_transport": "0.00",
+      "immatriculation": "AA-352-KD",
+      "vin": "VFEM4FBESG1LPVC12",
+      "marque": 1,
+      "modele": 1,
+      "couleur": "Marron",
+      "annee_vehicule": 2015,
+      "crit_air": 1,
+      "kilometrage_achat": 187000,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 75,
+      "chevaux_fiscaux": 9,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1067,
+    "fields": {
+      "vehicule": 1025,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "208.23"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1068,
+    "fields": {
+      "vehicule": 1025,
+      "type_ree": "pieces",
+      "description": "Filtres (huile, air, habitacle)",
+      "montant": "64.96"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1069,
+    "fields": {
+      "vehicule": 1025,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "397.94"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1026,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2024-09-19",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "13450.00",
+      "prix_enchere": "955.00",
+      "prix_transport": "180.00",
+      "immatriculation": "HL-174-SG",
+      "vin": "VFUEJJCNHGLVL34AN",
+      "marque": 201,
+      "modele": 312,
+      "couleur": "Gris métallisé",
+      "annee_vehicule": 2020,
+      "crit_air": 1,
+      "kilometrage_achat": 105000,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2024-11-28",
+      "numero_vente": 2,
+      "facture_vente": "",
+      "acheteur": "Mme Lefèvre",
+      "prix_vente": "17300.00",
+      "kilometrage_vente": 105026
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1070,
+    "fields": {
+      "vehicule": 1026,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "243.69"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1071,
+    "fields": {
+      "vehicule": 1026,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "128.85"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1027,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2024-09-02",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "24050.00",
+      "prix_enchere": "1065.00",
+      "prix_transport": "180.00",
+      "immatriculation": "NP-920-VR",
+      "vin": "VFAGVRJY77R75U7NC",
+      "marque": 1,
+      "modele": 302,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2023,
+      "crit_air": 2,
+      "kilometrage_achat": 73800,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": "2024-10-21",
+      "numero_vente": 3,
+      "facture_vente": "",
+      "acheteur": "Auto Discount 77",
+      "prix_vente": "32350.00",
+      "kilometrage_vente": 73830
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1072,
+    "fields": {
+      "vehicule": 1027,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "102.51"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1073,
+    "fields": {
+      "vehicule": 1027,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "107.75"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1074,
+    "fields": {
+      "vehicule": 1027,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "125.69"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1028,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2026-03-31",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "19850.00",
+      "prix_enchere": "1385.00",
+      "prix_transport": "0.00",
+      "immatriculation": "KB-877-XL",
+      "vin": "VFVGBLWYCUF9KFF8G",
+      "marque": 205,
+      "modele": 325,
+      "couleur": "Bordeaux",
+      "annee_vehicule": 2021,
+      "crit_air": 1,
+      "kilometrage_achat": 110900,
+      "transmission": "automatique",
+      "energie": "hybride",
+      "chevaux_dine": 163,
+      "chevaux_fiscaux": 19,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1029,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2024-11-17",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "10950.00",
+      "prix_enchere": "620.00",
+      "prix_transport": "320.00",
+      "immatriculation": "PD-307-XW",
+      "vin": null,
+      "marque": 206,
+      "modele": 327,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2021,
+      "crit_air": 2,
+      "kilometrage_achat": 63500,
+      "transmission": "automatique",
+      "energie": "diesel",
+      "chevaux_dine": 150,
+      "chevaux_fiscaux": 18,
+      "date_vente": "2025-03-01",
+      "numero_vente": 4,
+      "facture_vente": "",
+      "acheteur": "Mme Perrot",
+      "prix_vente": "15750.00",
+      "kilometrage_vente": 63542
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1075,
+    "fields": {
+      "vehicule": 1029,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "85.29"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1076,
+    "fields": {
+      "vehicule": 1029,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "395.76"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1077,
+    "fields": {
+      "vehicule": 1029,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "234.33"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1030,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2026-07-02",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "11400.00",
+      "prix_enchere": "900.00",
+      "prix_transport": "0.00",
+      "immatriculation": "LA-289-NS",
+      "vin": null,
+      "marque": 1,
+      "modele": 301,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2017,
+      "crit_air": 1,
+      "kilometrage_achat": 157900,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1078,
+    "fields": {
+      "vehicule": 1030,
+      "type_ree": "mo",
+      "description": "Remplacement distribution",
+      "montant": "457.14"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1079,
+    "fields": {
+      "vehicule": 1030,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "86.04"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1031,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2025-03-05",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "3100.00",
+      "prix_enchere": "140.00",
+      "prix_transport": "390.00",
+      "immatriculation": "FQ-223-ER",
+      "vin": "VF1CVLCMMHHSFG3FS",
+      "marque": 206,
+      "modele": 327,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2004,
+      "crit_air": 4,
+      "kilometrage_achat": 196318,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": "2025-09-27",
+      "numero_vente": 5,
+      "facture_vente": "",
+      "acheteur": "SARL Transports Merlin",
+      "prix_vente": "4400.00",
+      "kilometrage_vente": 196498
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1080,
+    "fields": {
+      "vehicule": 1031,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "88.75"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1032,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2026-05-06",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "13400.00",
+      "prix_enchere": "815.00",
+      "prix_transport": "450.00",
+      "immatriculation": "MR-116-KD",
+      "vin": "VFAFLEPTSTKX62S03",
+      "marque": 202,
+      "modele": 315,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2020,
+      "crit_air": 1,
+      "kilometrage_achat": 81300,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1081,
+    "fields": {
+      "vehicule": 1032,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "896.30"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1082,
+    "fields": {
+      "vehicule": 1032,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "81.87"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1083,
+    "fields": {
+      "vehicule": 1032,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "222.48"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1033,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2025-11-08",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "12000.00",
+      "prix_enchere": "940.00",
+      "prix_transport": "450.00",
+      "immatriculation": "GM-158-TE",
+      "vin": "VF6JM2GLBC9FL32LR",
+      "marque": 205,
+      "modele": 324,
+      "couleur": "Marron",
+      "annee_vehicule": 2014,
+      "crit_air": 1,
+      "kilometrage_achat": 197300,
+      "transmission": "manuel",
+      "energie": "hybride",
+      "chevaux_dine": 150,
+      "chevaux_fiscaux": 18,
+      "date_vente": "2025-11-20",
+      "numero_vente": 6,
+      "facture_vente": "",
+      "acheteur": "Mme Perrot",
+      "prix_vente": "14950.00",
+      "kilometrage_vente": 197333
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1084,
+    "fields": {
+      "vehicule": 1033,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "141.55"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1034,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2026-05-12",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "11300.00",
+      "prix_enchere": "880.00",
+      "prix_transport": "250.00",
+      "immatriculation": "SF-388-GH",
+      "vin": null,
+      "marque": 201,
+      "modele": 313,
+      "couleur": "Marron",
+      "annee_vehicule": 2016,
+      "crit_air": 0,
+      "kilometrage_achat": 138700,
+      "transmission": "automatique",
+      "energie": "electrique",
+      "chevaux_dine": 204,
+      "chevaux_fiscaux": 1,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1085,
+    "fields": {
+      "vehicule": 1034,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "130.37"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1086,
+    "fields": {
+      "vehicule": 1034,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "105.59"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1035,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2025-12-05",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "23000.00",
+      "prix_enchere": "1550.00",
+      "prix_transport": "450.00",
+      "immatriculation": "MM-632-CA",
+      "vin": "VFGB5CB0U99EFLLFN",
+      "marque": 205,
+      "modele": 325,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2024,
+      "crit_air": 1,
+      "kilometrage_achat": 22200,
+      "transmission": "automatique",
+      "energie": "hybride",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2026-02-20",
+      "numero_vente": 7,
+      "facture_vente": "",
+      "acheteur": "M. Dubois",
+      "prix_vente": "29150.00",
+      "kilometrage_vente": 22248
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1087,
+    "fields": {
+      "vehicule": 1035,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "600.06"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1036,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2026-06-17",
+      "vendeur": "Alcopa Auction",
+      "facture_achat": "",
+      "prix_vehicule": "15650.00",
+      "prix_enchere": "990.00",
+      "prix_transport": "390.00",
+      "immatriculation": "DX-884-TD",
+      "vin": "VF37Y4ACB1RCRXTL5",
+      "marque": 210,
+      "modele": 337,
+      "couleur": "Marron",
+      "annee_vehicule": 2021,
+      "crit_air": 2,
+      "kilometrage_achat": 60600,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1037,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2025-10-04",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "16400.00",
+      "prix_enchere": "1190.00",
+      "prix_transport": "450.00",
+      "immatriculation": "AZ-633-AN",
+      "vin": "VFGRLP4J9UNT77SKS",
+      "marque": 3,
+      "modele": 305,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2020,
+      "crit_air": 2,
+      "kilometrage_achat": 108300,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": "2026-04-06",
+      "numero_vente": 8,
+      "facture_vente": "",
+      "acheteur": "M. Dubois",
+      "prix_vente": "22550.00",
+      "kilometrage_vente": 108540
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1088,
+    "fields": {
+      "vehicule": 1037,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "257.47"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1089,
+    "fields": {
+      "vehicule": 1037,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "204.20"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1038,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2025-09-18",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "11400.00",
+      "prix_enchere": "390.00",
+      "prix_transport": "520.00",
+      "immatriculation": "TA-873-WM",
+      "vin": "VFZ9GPVULFJZ3D0Y7",
+      "marque": 209,
+      "modele": 335,
+      "couleur": "Bordeaux",
+      "annee_vehicule": 2020,
+      "crit_air": 2,
+      "kilometrage_achat": 87800,
+      "transmission": "automatique",
+      "energie": "diesel",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1090,
+    "fields": {
+      "vehicule": 1038,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "96.50"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1091,
+    "fields": {
+      "vehicule": 1038,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "548.79"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1039,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2026-07-03",
+      "vendeur": "BCAuto Enchères",
+      "facture_achat": "",
+      "prix_vehicule": "16200.00",
+      "prix_enchere": "720.00",
+      "prix_transport": "610.00",
+      "immatriculation": "DD-993-MN",
+      "vin": "VFEHUFMBGCTC196SR",
+      "marque": 206,
+      "modele": 329,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2013,
+      "crit_air": 1,
+      "kilometrage_achat": 172200,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1092,
+    "fields": {
+      "vehicule": 1039,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "287.59"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1093,
+    "fields": {
+      "vehicule": 1039,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "89.33"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1094,
+    "fields": {
+      "vehicule": 1039,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "98.38"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1095,
+    "fields": {
+      "vehicule": 1039,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "217.07"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1040,
+    "fields": {
+      "garage": 102,
+      "date_achat": "2024-10-24",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "14750.00",
+      "prix_enchere": "680.00",
+      "prix_transport": "180.00",
+      "immatriculation": "QV-715-QL",
+      "vin": "VFFUEP2160P7FFRYC",
+      "marque": 4,
+      "modele": 308,
+      "couleur": "Noir",
+      "annee_vehicule": 2018,
+      "crit_air": 2,
+      "kilometrage_achat": 110700,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1096,
+    "fields": {
+      "vehicule": 1040,
+      "type_ree": "mo",
+      "description": "Remplacement distribution",
+      "montant": "443.49"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1041,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2025-09-14",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "22450.00",
+      "prix_enchere": "745.00",
+      "prix_transport": "320.00",
+      "immatriculation": "SH-669-TE",
+      "vin": "VFEBYZPF4EX9JZRG1",
+      "marque": 212,
+      "modele": 342,
+      "couleur": "Beige",
+      "annee_vehicule": 2024,
+      "crit_air": 1,
+      "kilometrage_achat": 2800,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 116,
+      "chevaux_fiscaux": 14,
+      "date_vente": "2025-10-11",
+      "numero_vente": 1,
+      "facture_vente": "",
+      "acheteur": "M. Lambert",
+      "prix_vente": "29200.00",
+      "kilometrage_vente": 2822
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1097,
+    "fields": {
+      "vehicule": 1041,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "179.56"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1098,
+    "fields": {
+      "vehicule": 1041,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "354.29"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1099,
+    "fields": {
+      "vehicule": 1041,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "91.76"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1042,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-01-23",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "19850.00",
+      "prix_enchere": "1090.00",
+      "prix_transport": "390.00",
+      "immatriculation": "GH-844-SX",
+      "vin": "VFAKF5LDMS605PD6T",
+      "marque": 210,
+      "modele": 337,
+      "couleur": "Rouge",
+      "annee_vehicule": 2023,
+      "crit_air": 2,
+      "kilometrage_achat": 44100,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 75,
+      "chevaux_fiscaux": 9,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1100,
+    "fields": {
+      "vehicule": 1042,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "101.74"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1101,
+    "fields": {
+      "vehicule": 1042,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "760.99"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1043,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2025-03-28",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "14700.00",
+      "prix_enchere": "925.00",
+      "prix_transport": "520.00",
+      "immatriculation": "JE-486-VB",
+      "vin": "VFXA1TRAV00MFXBG5",
+      "marque": 202,
+      "modele": 314,
+      "couleur": "Marron",
+      "annee_vehicule": 2023,
+      "crit_air": 1,
+      "kilometrage_achat": 83800,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 75,
+      "chevaux_fiscaux": 9,
+      "date_vente": "2025-10-08",
+      "numero_vente": 2,
+      "facture_vente": "",
+      "acheteur": "SARL Transports Merlin",
+      "prix_vente": "20500.00",
+      "kilometrage_vente": 83938
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1102,
+    "fields": {
+      "vehicule": 1043,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "254.25"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1103,
+    "fields": {
+      "vehicule": 1043,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "162.11"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1104,
+    "fields": {
+      "vehicule": 1043,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "376.27"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1105,
+    "fields": {
+      "vehicule": 1043,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "344.15"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1106,
+    "fields": {
+      "vehicule": 1043,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "401.07"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1044,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-06-11",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "10850.00",
+      "prix_enchere": "390.00",
+      "prix_transport": "610.00",
+      "immatriculation": "GW-138-FG",
+      "vin": "VFWX7F9XUA1VJLXDC",
+      "marque": 3,
+      "modele": 305,
+      "couleur": "Argent",
+      "annee_vehicule": 2010,
+      "crit_air": 3,
+      "kilometrage_achat": 285300,
+      "transmission": "automatique",
+      "energie": "diesel",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1107,
+    "fields": {
+      "vehicule": 1044,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "180.48"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1108,
+    "fields": {
+      "vehicule": 1044,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "94.48"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1045,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2025-01-18",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "10150.00",
+      "prix_enchere": "685.00",
+      "prix_transport": "520.00",
+      "immatriculation": "NS-433-EP",
+      "vin": "VF49YXMSNUYX0X769",
+      "marque": 206,
+      "modele": 328,
+      "couleur": "Argent",
+      "annee_vehicule": 2015,
+      "crit_air": 2,
+      "kilometrage_achat": 187300,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 163,
+      "chevaux_fiscaux": 19,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1109,
+    "fields": {
+      "vehicule": 1045,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "470.62"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1046,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-04-07",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "24300.00",
+      "prix_enchere": "1305.00",
+      "prix_transport": "0.00",
+      "immatriculation": "HR-237-VB",
+      "vin": "VFZDGX329TGLWK80F",
+      "marque": 3,
+      "modele": 306,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2023,
+      "crit_air": 2,
+      "kilometrage_achat": 24400,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1110,
+    "fields": {
+      "vehicule": 1046,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "109.09"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1111,
+    "fields": {
+      "vehicule": 1046,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "268.84"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1112,
+    "fields": {
+      "vehicule": 1046,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "178.59"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1047,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2024-09-29",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "22300.00",
+      "prix_enchere": "1640.00",
+      "prix_transport": "250.00",
+      "immatriculation": "FE-399-ZY",
+      "vin": "VFMN7TH21BK3E9M2A",
+      "marque": 1,
+      "modele": 302,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2017,
+      "crit_air": 1,
+      "kilometrage_achat": 155300,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 190,
+      "chevaux_fiscaux": 22,
+      "date_vente": "2024-12-10",
+      "numero_vente": 3,
+      "facture_vente": "",
+      "acheteur": "Mme Perrot",
+      "prix_vente": "27950.00",
+      "kilometrage_vente": 155330
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1113,
+    "fields": {
+      "vehicule": 1047,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "102.59"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1048,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2024-11-17",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "16150.00",
+      "prix_enchere": "560.00",
+      "prix_transport": "0.00",
+      "immatriculation": "QL-633-AQ",
+      "vin": "VF12U98UU39RF4C17",
+      "marque": 3,
+      "modele": 305,
+      "couleur": "Rouge",
+      "annee_vehicule": 2018,
+      "crit_air": 1,
+      "kilometrage_achat": 129700,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": "2024-12-19",
+      "numero_vente": 4,
+      "facture_vente": "",
+      "acheteur": "M. Nguyen",
+      "prix_vente": "19900.00",
+      "kilometrage_vente": 129733
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1114,
+    "fields": {
+      "vehicule": 1048,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "236.34"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1115,
+    "fields": {
+      "vehicule": 1048,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "675.84"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1049,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-04-12",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "20450.00",
+      "prix_enchere": "1340.00",
+      "prix_transport": "0.00",
+      "immatriculation": "TA-939-XD",
+      "vin": "VFN1RF5T94J297M7U",
+      "marque": 205,
+      "modele": 325,
+      "couleur": "Argent",
+      "annee_vehicule": 2023,
+      "crit_air": 1,
+      "kilometrage_achat": 20300,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1116,
+    "fields": {
+      "vehicule": 1049,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "274.00"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1050,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2024-10-15",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "21900.00",
+      "prix_enchere": "675.00",
+      "prix_transport": "610.00",
+      "immatriculation": "RY-597-SD",
+      "vin": "VFPAWHPVA7ALW25DH",
+      "marque": 3,
+      "modele": 3,
+      "couleur": "Noir",
+      "annee_vehicule": 2019,
+      "crit_air": 1,
+      "kilometrage_achat": 126600,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 163,
+      "chevaux_fiscaux": 19,
+      "date_vente": "2025-04-13",
+      "numero_vente": 5,
+      "facture_vente": "",
+      "acheteur": "Auto Discount 77",
+      "prix_vente": "25250.00",
+      "kilometrage_vente": 126774
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1117,
+    "fields": {
+      "vehicule": 1050,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "63.78"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1051,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-03-11",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "8250.00",
+      "prix_enchere": "470.00",
+      "prix_transport": "0.00",
+      "immatriculation": "BE-514-WR",
+      "vin": "VF624RAWVFZFZZ2Y6",
+      "marque": 212,
+      "modele": 341,
+      "couleur": "Argent",
+      "annee_vehicule": 2015,
+      "crit_air": 1,
+      "kilometrage_achat": 180300,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 75,
+      "chevaux_fiscaux": 9,
+      "date_vente": "2026-06-21",
+      "numero_vente": 6,
+      "facture_vente": "",
+      "acheteur": "SAS BatiPro",
+      "prix_vente": "11700.00",
+      "kilometrage_vente": 180339
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1118,
+    "fields": {
+      "vehicule": 1051,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "363.08"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1119,
+    "fields": {
+      "vehicule": 1051,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "181.65"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1120,
+    "fields": {
+      "vehicule": 1051,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "205.74"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1121,
+    "fields": {
+      "vehicule": 1051,
+      "type_ree": "mo",
+      "description": "Réfection pare-chocs arrière",
+      "montant": "468.00"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1052,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2025-01-15",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "15450.00",
+      "prix_enchere": "1020.00",
+      "prix_transport": "250.00",
+      "immatriculation": "GJ-228-YH",
+      "vin": null,
+      "marque": 210,
+      "modele": 338,
+      "couleur": "Blanc",
+      "annee_vehicule": 2024,
+      "crit_air": 2,
+      "kilometrage_achat": 23800,
+      "transmission": "automatique",
+      "energie": "diesel",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2025-04-27",
+      "numero_vente": 7,
+      "facture_vente": "",
+      "acheteur": "Mme Perrot",
+      "prix_vente": "19850.00",
+      "kilometrage_vente": 23827
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1122,
+    "fields": {
+      "vehicule": 1052,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "89.01"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1123,
+    "fields": {
+      "vehicule": 1052,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "86.27"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1053,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2025-12-31",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "13850.00",
+      "prix_enchere": "765.00",
+      "prix_transport": "610.00",
+      "immatriculation": "JP-606-FB",
+      "vin": "VFNZ0YYWBF45SFHCW",
+      "marque": 208,
+      "modele": 334,
+      "couleur": "Beige",
+      "annee_vehicule": 2021,
+      "crit_air": 1,
+      "kilometrage_achat": 63100,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": "2026-06-28",
+      "numero_vente": 8,
+      "facture_vente": "",
+      "acheteur": "Mme Perrot",
+      "prix_vente": "19200.00",
+      "kilometrage_vente": 63195
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1124,
+    "fields": {
+      "vehicule": 1053,
+      "type_ree": "ct",
+      "description": "Contrôle technique + pollution",
+      "montant": "103.72"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1054,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2025-12-02",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "9850.00",
+      "prix_enchere": "485.00",
+      "prix_transport": "390.00",
+      "immatriculation": "NV-615-VE",
+      "vin": null,
+      "marque": 206,
+      "modele": 327,
+      "couleur": "Beige",
+      "annee_vehicule": 2020,
+      "crit_air": 2,
+      "kilometrage_achat": 77700,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 75,
+      "chevaux_fiscaux": 9,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1125,
+    "fields": {
+      "vehicule": 1054,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "113.69"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1126,
+    "fields": {
+      "vehicule": 1054,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "23.79"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1127,
+    "fields": {
+      "vehicule": 1054,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "119.53"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1055,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-06-21",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "21950.00",
+      "prix_enchere": "1710.00",
+      "prix_transport": "610.00",
+      "immatriculation": "NW-100-KG",
+      "vin": null,
+      "marque": 2,
+      "modele": 303,
+      "couleur": "Beige",
+      "annee_vehicule": 2014,
+      "crit_air": 2,
+      "kilometrage_achat": 128100,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": "2026-07-15",
+      "numero_vente": 9,
+      "facture_vente": "",
+      "acheteur": "Mme Lefèvre",
+      "prix_vente": "27600.00",
+      "kilometrage_vente": 128132
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1128,
+    "fields": {
+      "vehicule": 1055,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "511.63"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1129,
+    "fields": {
+      "vehicule": 1055,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "443.16"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1130,
+    "fields": {
+      "vehicule": 1055,
+      "type_ree": "pieces",
+      "description": "Filtres (huile, air, habitacle)",
+      "montant": "62.38"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1056,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2024-09-12",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "19150.00",
+      "prix_enchere": "725.00",
+      "prix_transport": "0.00",
+      "immatriculation": "YR-957-SD",
+      "vin": "VFZ3D33UXBW588PF7",
+      "marque": 3,
+      "modele": 3,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2013,
+      "crit_air": 1,
+      "kilometrage_achat": 186300,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1131,
+    "fields": {
+      "vehicule": 1056,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "465.94"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1132,
+    "fields": {
+      "vehicule": 1056,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "199.96"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1133,
+    "fields": {
+      "vehicule": 1056,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "675.71"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1057,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-03-12",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "9750.00",
+      "prix_enchere": "545.00",
+      "prix_transport": "250.00",
+      "immatriculation": "FE-907-EE",
+      "vin": "VFK9V2U2JLR1J0PET",
+      "marque": 203,
+      "modele": 319,
+      "couleur": "Argent",
+      "annee_vehicule": 2020,
+      "crit_air": 1,
+      "kilometrage_achat": 126000,
+      "transmission": "automatique",
+      "energie": "hybride",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1134,
+    "fields": {
+      "vehicule": 1057,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "485.20"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1135,
+    "fields": {
+      "vehicule": 1057,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "586.88"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1058,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-03-06",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "10650.00",
+      "prix_enchere": "490.00",
+      "prix_transport": "0.00",
+      "immatriculation": "WM-480-WS",
+      "vin": "VFB7CCMU80YWH9W18",
+      "marque": 4,
+      "modele": 4,
+      "couleur": "Argent",
+      "annee_vehicule": 2020,
+      "crit_air": 2,
+      "kilometrage_achat": 105400,
+      "transmission": "automatique",
+      "energie": "diesel",
+      "chevaux_dine": 150,
+      "chevaux_fiscaux": 18,
+      "date_vente": "2026-04-20",
+      "numero_vente": 10,
+      "facture_vente": "",
+      "acheteur": "Auto Discount 77",
+      "prix_vente": "12350.00",
+      "kilometrage_vente": 105437
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1136,
+    "fields": {
+      "vehicule": 1058,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "90.56"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1137,
+    "fields": {
+      "vehicule": 1058,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "94.42"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1059,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2025-11-19",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "21850.00",
+      "prix_enchere": "1485.00",
+      "prix_transport": "0.00",
+      "immatriculation": "WR-272-BW",
+      "vin": "VFMTS1PGVB8XXA1XD",
+      "marque": 205,
+      "modele": 325,
+      "couleur": "Beige",
+      "annee_vehicule": 2022,
+      "crit_air": 1,
+      "kilometrage_achat": 63800,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1138,
+    "fields": {
+      "vehicule": 1059,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "209.52"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1139,
+    "fields": {
+      "vehicule": 1059,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "210.35"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1140,
+    "fields": {
+      "vehicule": 1059,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "616.41"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1141,
+    "fields": {
+      "vehicule": 1059,
+      "type_ree": "mo",
+      "description": "Remplacement distribution",
+      "montant": "570.92"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1060,
+    "fields": {
+      "garage": 103,
+      "date_achat": "2026-06-13",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "11900.00",
+      "prix_enchere": "660.00",
+      "prix_transport": "520.00",
+      "immatriculation": "VR-289-ZV",
+      "vin": "VFTJTKP4TS04DVBRL",
+      "marque": 1,
+      "modele": 1,
+      "couleur": "Marron",
+      "annee_vehicule": 2013,
+      "crit_air": 2,
+      "kilometrage_achat": 204700,
+      "transmission": "automatique",
+      "energie": "diesel",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1142,
+    "fields": {
+      "vehicule": 1060,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "629.92"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1143,
+    "fields": {
+      "vehicule": 1060,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "156.22"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1144,
+    "fields": {
+      "vehicule": 1060,
+      "type_ree": "mo",
+      "description": "Remplacement distribution",
+      "montant": "529.61"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1061,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2026-03-04",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "17850.00",
+      "prix_enchere": "1390.00",
+      "prix_transport": "0.00",
+      "immatriculation": "KN-640-YC",
+      "vin": "VF1L5FJA99V3EC4E2",
+      "marque": 211,
+      "modele": 340,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2018,
+      "crit_air": 2,
+      "kilometrage_achat": 127400,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": "2026-05-14",
+      "numero_vente": 1,
+      "facture_vente": "",
+      "acheteur": "M. Dubois",
+      "prix_vente": "20100.00",
+      "kilometrage_vente": 127436
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1062,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-03-19",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "11100.00",
+      "prix_enchere": "570.00",
+      "prix_transport": "520.00",
+      "immatriculation": "CZ-812-MZ",
+      "vin": null,
+      "marque": 1,
+      "modele": 1,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2012,
+      "crit_air": 2,
+      "kilometrage_achat": 194000,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 116,
+      "chevaux_fiscaux": 14,
+      "date_vente": "2025-06-24",
+      "numero_vente": 2,
+      "facture_vente": "",
+      "acheteur": "Auto Discount 77",
+      "prix_vente": "14850.00",
+      "kilometrage_vente": 194078
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1145,
+    "fields": {
+      "vehicule": 1062,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "338.07"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1146,
+    "fields": {
+      "vehicule": 1062,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "554.28"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1063,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2026-02-16",
+      "vendeur": "Autobiz Trade",
+      "facture_achat": "",
+      "prix_vehicule": "21550.00",
+      "prix_enchere": "710.00",
+      "prix_transport": "610.00",
+      "immatriculation": "CN-508-RE",
+      "vin": "VF5CE16BR25YU9C9T",
+      "marque": 207,
+      "modele": 331,
+      "couleur": "Marron",
+      "annee_vehicule": 2017,
+      "crit_air": 1,
+      "kilometrage_achat": 121200,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 100,
+      "chevaux_fiscaux": 12,
+      "date_vente": "2026-05-20",
+      "numero_vente": 3,
+      "facture_vente": "",
+      "acheteur": "SAS BatiPro",
+      "prix_vente": "27800.00",
+      "kilometrage_vente": 121227
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1147,
+    "fields": {
+      "vehicule": 1063,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "592.19"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1148,
+    "fields": {
+      "vehicule": 1063,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "90.66"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1149,
+    "fields": {
+      "vehicule": 1063,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "352.18"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1064,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-09-02",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "11650.00",
+      "prix_enchere": "450.00",
+      "prix_transport": "0.00",
+      "immatriculation": "DA-219-HL",
+      "vin": "VFL4315JUZGVHKALH",
+      "marque": 1,
+      "modele": 1,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2012,
+      "crit_air": 1,
+      "kilometrage_achat": 206900,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 150,
+      "chevaux_fiscaux": 18,
+      "date_vente": "2025-12-15",
+      "numero_vente": 4,
+      "facture_vente": "",
+      "acheteur": "M. Zahiri",
+      "prix_vente": "15000.00",
+      "kilometrage_vente": 206945
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1065,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-09-27",
+      "vendeur": "Alcopa Auction",
+      "facture_achat": "",
+      "prix_vehicule": "14450.00",
+      "prix_enchere": "825.00",
+      "prix_transport": "0.00",
+      "immatriculation": "HZ-775-QK",
+      "vin": "VFZZ563YXM4E4FYCT",
+      "marque": 210,
+      "modele": 338,
+      "couleur": "Marron",
+      "annee_vehicule": 2020,
+      "crit_air": 1,
+      "kilometrage_achat": 107100,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 116,
+      "chevaux_fiscaux": 14,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1150,
+    "fields": {
+      "vehicule": 1065,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "149.55"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1151,
+    "fields": {
+      "vehicule": 1065,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "90.86"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1152,
+    "fields": {
+      "vehicule": 1065,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "573.17"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1153,
+    "fields": {
+      "vehicule": 1065,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "186.40"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1066,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-09-29",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "8450.00",
+      "prix_enchere": "270.00",
+      "prix_transport": "520.00",
+      "immatriculation": "RE-450-BK",
+      "vin": "VF6MSF8DWB39MAF22",
+      "marque": 201,
+      "modele": 309,
+      "couleur": "Blanc",
+      "annee_vehicule": 2015,
+      "crit_air": 1,
+      "kilometrage_achat": 190200,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2026-04-03",
+      "numero_vente": 5,
+      "facture_vente": "",
+      "acheteur": "M. Nguyen",
+      "prix_vente": "11300.00",
+      "kilometrage_vente": 190314
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1154,
+    "fields": {
+      "vehicule": 1066,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "78.50"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1155,
+    "fields": {
+      "vehicule": 1066,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "484.16"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1067,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-04-19",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "31000.00",
+      "prix_enchere": "1870.00",
+      "prix_transport": "0.00",
+      "immatriculation": "JS-375-VE",
+      "vin": null,
+      "marque": 213,
+      "modele": 343,
+      "couleur": "Blanc",
+      "annee_vehicule": 2020,
+      "crit_air": 0,
+      "kilometrage_achat": 98000,
+      "transmission": "automatique",
+      "energie": "electrique",
+      "chevaux_dine": 109,
+      "chevaux_fiscaux": 1,
+      "date_vente": "2025-10-22",
+      "numero_vente": 6,
+      "facture_vente": "",
+      "acheteur": "SAS BatiPro",
+      "prix_vente": "37450.00",
+      "kilometrage_vente": 98132
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1156,
+    "fields": {
+      "vehicule": 1067,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "85.46"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1157,
+    "fields": {
+      "vehicule": 1067,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "21.84"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1068,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2026-02-15",
+      "vendeur": "Alcopa Auction",
+      "facture_achat": "",
+      "prix_vehicule": "22050.00",
+      "prix_enchere": "1070.00",
+      "prix_transport": "0.00",
+      "immatriculation": "KX-738-SS",
+      "vin": "VFVT52KK8UMUCFMKG",
+      "marque": 207,
+      "modele": 332,
+      "couleur": "Gris métallisé",
+      "annee_vehicule": 2012,
+      "crit_air": 1,
+      "kilometrage_achat": 215000,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 190,
+      "chevaux_fiscaux": 22,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1158,
+    "fields": {
+      "vehicule": 1068,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "149.69"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1069,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-02-21",
+      "vendeur": "Alcopa Auction",
+      "facture_achat": "",
+      "prix_vehicule": "10450.00",
+      "prix_enchere": "415.00",
+      "prix_transport": "0.00",
+      "immatriculation": "MR-341-HQ",
+      "vin": "VFV1FTHNBPABECBNE",
+      "marque": 208,
+      "modele": 333,
+      "couleur": "Gris métallisé",
+      "annee_vehicule": 2022,
+      "crit_air": 1,
+      "kilometrage_achat": 48200,
+      "transmission": "manuel",
+      "energie": "hybride",
+      "chevaux_dine": 100,
+      "chevaux_fiscaux": 12,
+      "date_vente": "2025-07-22",
+      "numero_vente": 7,
+      "facture_vente": "",
+      "acheteur": "Mme Ostrowski",
+      "prix_vente": "13100.00",
+      "kilometrage_vente": 48285
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1159,
+    "fields": {
+      "vehicule": 1069,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "112.39"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1160,
+    "fields": {
+      "vehicule": 1069,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "717.02"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1161,
+    "fields": {
+      "vehicule": 1069,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "382.45"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1070,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2026-04-23",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "2250.00",
+      "prix_enchere": "130.00",
+      "prix_transport": "450.00",
+      "immatriculation": "TP-696-NS",
+      "vin": "VF7E1MASN9LTJZLUC",
+      "marque": 208,
+      "modele": 333,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2003,
+      "crit_air": 4,
+      "kilometrage_achat": 208789,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 100,
+      "chevaux_fiscaux": 12,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1071,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-08-25",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "14100.00",
+      "prix_enchere": "830.00",
+      "prix_transport": "610.00",
+      "immatriculation": "FW-879-CA",
+      "vin": null,
+      "marque": 203,
+      "modele": 320,
+      "couleur": "Noir",
+      "annee_vehicule": 2021,
+      "crit_air": 1,
+      "kilometrage_achat": 113600,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 75,
+      "chevaux_fiscaux": 9,
+      "date_vente": "2025-09-07",
+      "numero_vente": 8,
+      "facture_vente": "",
+      "acheteur": "Mme Ostrowski",
+      "prix_vente": "18300.00",
+      "kilometrage_vente": 113625
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1162,
+    "fields": {
+      "vehicule": 1071,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "816.49"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1163,
+    "fields": {
+      "vehicule": 1071,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "416.32"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1164,
+    "fields": {
+      "vehicule": 1071,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "15.14"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1072,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-06-02",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "5700.00",
+      "prix_enchere": "255.00",
+      "prix_transport": "320.00",
+      "immatriculation": "FL-335-YA",
+      "vin": "VF0STR0358M5LL0UV",
+      "marque": 3,
+      "modele": 3,
+      "couleur": "Rouge",
+      "annee_vehicule": 2003,
+      "crit_air": 3,
+      "kilometrage_achat": 248892,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1165,
+    "fields": {
+      "vehicule": 1072,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "421.71"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1166,
+    "fields": {
+      "vehicule": 1072,
+      "type_ree": "mo",
+      "description": "Réfection pare-chocs arrière",
+      "montant": "253.22"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1073,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2026-02-10",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "20200.00",
+      "prix_enchere": "1275.00",
+      "prix_transport": "0.00",
+      "immatriculation": "JN-432-XP",
+      "vin": "VF49M82USSE5AU5LJ",
+      "marque": 2,
+      "modele": 304,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2017,
+      "crit_air": 1,
+      "kilometrage_achat": 165900,
+      "transmission": "manuel",
+      "energie": "hybride",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1167,
+    "fields": {
+      "vehicule": 1073,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "225.06"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1074,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-05-02",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "18450.00",
+      "prix_enchere": "920.00",
+      "prix_transport": "0.00",
+      "immatriculation": "KY-494-BY",
+      "vin": "VF1DG5UBU67LGV7AZ",
+      "marque": 2,
+      "modele": 303,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2012,
+      "crit_air": 1,
+      "kilometrage_achat": 206000,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": "2025-11-05",
+      "numero_vente": 9,
+      "facture_vente": "",
+      "acheteur": "M. Zahiri",
+      "prix_vente": "20150.00",
+      "kilometrage_vente": 206222
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1168,
+    "fields": {
+      "vehicule": 1074,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "197.47"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1075,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-01-15",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "31650.00",
+      "prix_enchere": "1265.00",
+      "prix_transport": "0.00",
+      "immatriculation": "QR-548-GB",
+      "vin": "VFMP79Z53B2T7CVM8",
+      "marque": 213,
+      "modele": 343,
+      "couleur": "Noir",
+      "annee_vehicule": 2017,
+      "crit_air": 0,
+      "kilometrage_achat": 116300,
+      "transmission": "manuel",
+      "energie": "electrique",
+      "chevaux_dine": 82,
+      "chevaux_fiscaux": 1,
+      "date_vente": "2025-05-07",
+      "numero_vente": 10,
+      "facture_vente": "",
+      "acheteur": "Mme Lefèvre",
+      "prix_vente": "33100.00",
+      "kilometrage_vente": 116411
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1169,
+    "fields": {
+      "vehicule": 1075,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "3.98"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1170,
+    "fields": {
+      "vehicule": 1075,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "188.24"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1171,
+    "fields": {
+      "vehicule": 1075,
+      "type_ree": "mo",
+      "description": "Révision complète",
+      "montant": "205.79"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1172,
+    "fields": {
+      "vehicule": 1075,
+      "type_ree": "mo",
+      "description": "Réfection pare-chocs arrière",
+      "montant": "504.89"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1173,
+    "fields": {
+      "vehicule": 1075,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "706.91"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1076,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2026-05-16",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "7050.00",
+      "prix_enchere": "545.00",
+      "prix_transport": "0.00",
+      "immatriculation": "CT-542-TD",
+      "vin": "VF0A9KCDRPVTTKGKK",
+      "marque": 206,
+      "modele": 327,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2010,
+      "crit_air": 3,
+      "kilometrage_achat": 234400,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1174,
+    "fields": {
+      "vehicule": 1076,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "164.62"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1077,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2024-10-16",
+      "vendeur": "Autobiz Trade",
+      "facture_achat": "",
+      "prix_vehicule": "13050.00",
+      "prix_enchere": "890.00",
+      "prix_transport": "450.00",
+      "immatriculation": "MK-604-KM",
+      "vin": "VFF1ZCB9RFCWMNYHR",
+      "marque": 201,
+      "modele": 310,
+      "couleur": "Beige",
+      "annee_vehicule": 2020,
+      "crit_air": 1,
+      "kilometrage_achat": 91900,
+      "transmission": "automatique",
+      "energie": "hybride",
+      "chevaux_dine": 163,
+      "chevaux_fiscaux": 19,
+      "date_vente": "2025-04-06",
+      "numero_vente": 11,
+      "facture_vente": "",
+      "acheteur": "M. Dubois",
+      "prix_vente": "16400.00",
+      "kilometrage_vente": 92095
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1175,
+    "fields": {
+      "vehicule": 1077,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "11.05"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1176,
+    "fields": {
+      "vehicule": 1077,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "559.01"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1177,
+    "fields": {
+      "vehicule": 1077,
+      "type_ree": "pieces",
+      "description": "Filtres (huile, air, habitacle)",
+      "montant": "135.52"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1078,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2026-01-17",
+      "vendeur": "BCAuto Enchères",
+      "facture_achat": "",
+      "prix_vehicule": "10050.00",
+      "prix_enchere": "480.00",
+      "prix_transport": "0.00",
+      "immatriculation": "RD-322-DB",
+      "vin": "VF1C3RF5CPPRPAH6N",
+      "marque": 201,
+      "modele": 309,
+      "couleur": "Marron",
+      "annee_vehicule": 2022,
+      "crit_air": 1,
+      "kilometrage_achat": 53200,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": "2026-05-28",
+      "numero_vente": 12,
+      "facture_vente": "",
+      "acheteur": "M. Lambert",
+      "prix_vente": "12450.00",
+      "kilometrage_vente": 53340
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1178,
+    "fields": {
+      "vehicule": 1078,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "174.83"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1179,
+    "fields": {
+      "vehicule": 1078,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "708.20"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1079,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2025-10-09",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "10100.00",
+      "prix_enchere": "795.00",
+      "prix_transport": "320.00",
+      "immatriculation": "CA-567-TA",
+      "vin": "VF0659F4PC9U3A9FL",
+      "marque": 206,
+      "modele": 327,
+      "couleur": "Rouge",
+      "annee_vehicule": 2019,
+      "crit_air": 1,
+      "kilometrage_achat": 94200,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 116,
+      "chevaux_fiscaux": 14,
+      "date_vente": "2026-04-26",
+      "numero_vente": 13,
+      "facture_vente": "",
+      "acheteur": "M. Cadiou",
+      "prix_vente": "14050.00",
+      "kilometrage_vente": 94242
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1180,
+    "fields": {
+      "vehicule": 1079,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "116.01"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1181,
+    "fields": {
+      "vehicule": 1079,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "856.60"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1182,
+    "fields": {
+      "vehicule": 1079,
+      "type_ree": "pieces",
+      "description": "Amortisseurs arrière",
+      "montant": "276.99"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1080,
+    "fields": {
+      "garage": 104,
+      "date_achat": "2024-10-22",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "5950.00",
+      "prix_enchere": "380.00",
+      "prix_transport": "520.00",
+      "immatriculation": "QF-157-MX",
+      "vin": null,
+      "marque": 204,
+      "modele": 322,
+      "couleur": "Bleu ciel",
+      "annee_vehicule": 2012,
+      "crit_air": 1,
+      "kilometrage_achat": 215600,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 100,
+      "chevaux_fiscaux": 12,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1081,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-03-04",
+      "vendeur": "Mandataire Kaufmann",
+      "facture_achat": "",
+      "prix_vehicule": "26900.00",
+      "prix_enchere": "1045.00",
+      "prix_transport": "0.00",
+      "immatriculation": "SY-629-GA",
+      "vin": "VF9KY82D3DKXTZYTF",
+      "marque": 205,
+      "modele": 326,
+      "couleur": "Noir",
+      "annee_vehicule": 2019,
+      "crit_air": 1,
+      "kilometrage_achat": 118300,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": "2025-05-20",
+      "numero_vente": 1,
+      "facture_vente": "",
+      "acheteur": "SARL Transports Merlin",
+      "prix_vente": "33050.00",
+      "kilometrage_vente": 118376
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1183,
+    "fields": {
+      "vehicule": 1081,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "70.51"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1184,
+    "fields": {
+      "vehicule": 1081,
+      "type_ree": "pieces",
+      "description": "Filtres (huile, air, habitacle)",
+      "montant": "93.40"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1185,
+    "fields": {
+      "vehicule": 1081,
+      "type_ree": "pieces",
+      "description": "Train de 4 pneus",
+      "montant": "491.47"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1082,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-07-13",
+      "vendeur": "Alcopa Auction",
+      "facture_achat": "",
+      "prix_vehicule": "11250.00",
+      "prix_enchere": "820.00",
+      "prix_transport": "450.00",
+      "immatriculation": "BX-512-ST",
+      "vin": "VFJMW5TAKMFXK39S1",
+      "marque": 206,
+      "modele": 328,
+      "couleur": "Gris métallisé",
+      "annee_vehicule": 2017,
+      "crit_air": 2,
+      "kilometrage_achat": 146300,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": "2025-10-14",
+      "numero_vente": 2,
+      "facture_vente": "",
+      "acheteur": "M. Lambert",
+      "prix_vente": "13050.00",
+      "kilometrage_vente": 146411
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1083,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2024-11-12",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "9450.00",
+      "prix_enchere": "680.00",
+      "prix_transport": "180.00",
+      "immatriculation": "QS-484-XS",
+      "vin": null,
+      "marque": 201,
+      "modele": 309,
+      "couleur": "Marron",
+      "annee_vehicule": 2022,
+      "crit_air": 1,
+      "kilometrage_achat": 65300,
+      "transmission": "automatique",
+      "energie": "essence",
+      "chevaux_dine": 70,
+      "chevaux_fiscaux": 8,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1084,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-03-07",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "15800.00",
+      "prix_enchere": "780.00",
+      "prix_transport": "450.00",
+      "immatriculation": "AC-893-SZ",
+      "vin": "VFKNP4GENDNMYM5WN",
+      "marque": 201,
+      "modele": 310,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2023,
+      "crit_air": 2,
+      "kilometrage_achat": 72000,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 116,
+      "chevaux_fiscaux": 14,
+      "date_vente": "2025-07-28",
+      "numero_vente": 3,
+      "facture_vente": "",
+      "acheteur": "Auto Discount 77",
+      "prix_vente": "16450.00",
+      "kilometrage_vente": 72028
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1186,
+    "fields": {
+      "vehicule": 1084,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "106.74"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1187,
+    "fields": {
+      "vehicule": 1084,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "81.37"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1085,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-11-11",
+      "vendeur": "BCAuto Enchères",
+      "facture_achat": "",
+      "prix_vehicule": "15100.00",
+      "prix_enchere": "1165.00",
+      "prix_transport": "610.00",
+      "immatriculation": "QG-795-KL",
+      "vin": "VFVPGMN9XEGAP1WJ1",
+      "marque": 206,
+      "modele": 329,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2011,
+      "crit_air": 2,
+      "kilometrage_achat": 200440,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 163,
+      "chevaux_fiscaux": 19,
+      "date_vente": "2026-04-01",
+      "numero_vente": 4,
+      "facture_vente": "",
+      "acheteur": "M. Nguyen",
+      "prix_vente": "19500.00",
+      "kilometrage_vente": 200488
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1188,
+    "fields": {
+      "vehicule": 1085,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "79.15"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1086,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2026-05-23",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "11100.00",
+      "prix_enchere": "440.00",
+      "prix_transport": "180.00",
+      "immatriculation": "AW-397-KG",
+      "vin": "VFA3XG5KZVGLLEVRE",
+      "marque": 1,
+      "modele": 1,
+      "couleur": "Argent",
+      "annee_vehicule": 2012,
+      "crit_air": 1,
+      "kilometrage_achat": 212160,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2026-07-22",
+      "numero_vente": 5,
+      "facture_vente": "",
+      "acheteur": "SARL Transports Merlin",
+      "prix_vente": "11350.00",
+      "kilometrage_vente": 212230
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1087,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2026-07-21",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "8500.00",
+      "prix_enchere": "640.00",
+      "prix_transport": "450.00",
+      "immatriculation": "TS-665-ED",
+      "vin": "VFHGEB9BEJKDKHVK1",
+      "marque": 209,
+      "modele": 336,
+      "couleur": "Rouge",
+      "annee_vehicule": 2021,
+      "crit_air": 2,
+      "kilometrage_achat": 84500,
+      "transmission": "automatique",
+      "energie": "diesel",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1189,
+    "fields": {
+      "vehicule": 1087,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "137.01"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1190,
+    "fields": {
+      "vehicule": 1087,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "89.18"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1088,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-12-08",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "13100.00",
+      "prix_enchere": "715.00",
+      "prix_transport": "0.00",
+      "immatriculation": "TY-414-MQ",
+      "vin": "VFZXL89T5WAP85S9A",
+      "marque": 203,
+      "modele": 320,
+      "couleur": "Gris métallisé",
+      "annee_vehicule": 2020,
+      "crit_air": 1,
+      "kilometrage_achat": 99000,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2026-02-21",
+      "numero_vente": 6,
+      "facture_vente": "",
+      "acheteur": "M. Cadiou",
+      "prix_vente": "16750.00",
+      "kilometrage_vente": 99054
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1191,
+    "fields": {
+      "vehicule": 1088,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "80.26"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1089,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-12-31",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "12900.00",
+      "prix_enchere": "980.00",
+      "prix_transport": "0.00",
+      "immatriculation": "NW-857-VJ",
+      "vin": "VFP034FFLV90TMRTS",
+      "marque": 211,
+      "modele": 340,
+      "couleur": "Noir",
+      "annee_vehicule": 2010,
+      "crit_air": 3,
+      "kilometrage_achat": 254552,
+      "transmission": "automatique",
+      "energie": "diesel",
+      "chevaux_dine": 116,
+      "chevaux_fiscaux": 14,
+      "date_vente": "2026-06-29",
+      "numero_vente": 7,
+      "facture_vente": "",
+      "acheteur": "M. Lambert",
+      "prix_vente": "13800.00",
+      "kilometrage_vente": 254708
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1192,
+    "fields": {
+      "vehicule": 1089,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "137.50"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1193,
+    "fields": {
+      "vehicule": 1089,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "82.02"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1090,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-08-23",
+      "vendeur": "Autobiz Trade",
+      "facture_achat": "",
+      "prix_vehicule": "18850.00",
+      "prix_enchere": "1050.00",
+      "prix_transport": "390.00",
+      "immatriculation": "ZE-707-XG",
+      "vin": null,
+      "marque": 206,
+      "modele": 329,
+      "couleur": "Bleu nuit",
+      "annee_vehicule": 2018,
+      "crit_air": 2,
+      "kilometrage_achat": 111800,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 163,
+      "chevaux_fiscaux": 19,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1194,
+    "fields": {
+      "vehicule": 1090,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "77.81"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1195,
+    "fields": {
+      "vehicule": 1090,
+      "type_ree": "ct",
+      "description": "Contre-visite après réparation",
+      "montant": "12.99"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1196,
+    "fields": {
+      "vehicule": 1090,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "349.39"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1197,
+    "fields": {
+      "vehicule": 1090,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "498.74"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1091,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2024-12-26",
+      "vendeur": "Leasys Rent",
+      "facture_achat": "",
+      "prix_vehicule": "11550.00",
+      "prix_enchere": "570.00",
+      "prix_transport": "250.00",
+      "immatriculation": "YS-379-MY",
+      "vin": "VFWDAPJ4YKVEJ3NGJ",
+      "marque": 1,
+      "modele": 301,
+      "couleur": "Gris métallisé",
+      "annee_vehicule": 2018,
+      "crit_air": 2,
+      "kilometrage_achat": 142000,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": "2025-07-24",
+      "numero_vente": 8,
+      "facture_vente": "",
+      "acheteur": "M. Dubois",
+      "prix_vente": "17050.00",
+      "kilometrage_vente": 142182
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1198,
+    "fields": {
+      "vehicule": 1091,
+      "type_ree": "pieces",
+      "description": "Filtres (huile, air, habitacle)",
+      "montant": "124.79"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1199,
+    "fields": {
+      "vehicule": 1091,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "281.49"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1200,
+    "fields": {
+      "vehicule": 1091,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "821.99"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1092,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2026-07-12",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "19500.00",
+      "prix_enchere": "1105.00",
+      "prix_transport": "0.00",
+      "immatriculation": "SX-574-SN",
+      "vin": "VFUAW08021VMAMAH1",
+      "marque": 205,
+      "modele": 326,
+      "couleur": "Blanc",
+      "annee_vehicule": 2012,
+      "crit_air": 1,
+      "kilometrage_achat": 197100,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1201,
+    "fields": {
+      "vehicule": 1092,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "383.37"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1202,
+    "fields": {
+      "vehicule": 1092,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "87.02"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1093,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-07-06",
+      "vendeur": "Concession Renault Retail",
+      "facture_achat": "",
+      "prix_vehicule": "11350.00",
+      "prix_enchere": "655.00",
+      "prix_transport": "180.00",
+      "immatriculation": "DP-451-NY",
+      "vin": "VFX8L50M05D7423T4",
+      "marque": 201,
+      "modele": 311,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2014,
+      "crit_air": 1,
+      "kilometrage_achat": 215300,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 190,
+      "chevaux_fiscaux": 22,
+      "date_vente": "2025-11-10",
+      "numero_vente": 9,
+      "facture_vente": "",
+      "acheteur": "M. Lambert",
+      "prix_vente": "13900.00",
+      "kilometrage_vente": 215432
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1203,
+    "fields": {
+      "vehicule": 1093,
+      "type_ree": "mo",
+      "description": "Diagnostic électronique",
+      "montant": "110.77"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1094,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-03-20",
+      "vendeur": "Reprise particulier",
+      "facture_achat": "",
+      "prix_vehicule": "16400.00",
+      "prix_enchere": "630.00",
+      "prix_transport": "610.00",
+      "immatriculation": "QN-446-NT",
+      "vin": "VFCLMFP9VKCP2HGVB",
+      "marque": 4,
+      "modele": 308,
+      "couleur": "Rouge",
+      "annee_vehicule": 2017,
+      "crit_air": 2,
+      "kilometrage_achat": 144900,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1095,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2024-12-10",
+      "vendeur": "BCAuto Enchères",
+      "facture_achat": "",
+      "prix_vehicule": "7450.00",
+      "prix_enchere": "580.00",
+      "prix_transport": "0.00",
+      "immatriculation": "FS-730-ZX",
+      "vin": "VF7HSYVE2SZ58ZY80",
+      "marque": 203,
+      "modele": 319,
+      "couleur": "Gris anthracite",
+      "annee_vehicule": 2015,
+      "crit_air": 1,
+      "kilometrage_achat": 155200,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": null,
+      "numero_vente": null,
+      "facture_vente": "",
+      "acheteur": null,
+      "prix_vente": null,
+      "kilometrage_vente": null
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1204,
+    "fields": {
+      "vehicule": 1095,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "782.26"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1205,
+    "fields": {
+      "vehicule": 1095,
+      "type_ree": "mo",
+      "description": "Remplacement distribution",
+      "montant": "525.65"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1206,
+    "fields": {
+      "vehicule": 1095,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "93.38"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1096,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-10-22",
+      "vendeur": "Alcopa Auction",
+      "facture_achat": "",
+      "prix_vehicule": "32350.00",
+      "prix_enchere": "1775.00",
+      "prix_transport": "320.00",
+      "immatriculation": "YK-974-PY",
+      "vin": "VF95ANXWB2P2MXZV7",
+      "marque": 213,
+      "modele": 343,
+      "couleur": "Noir",
+      "annee_vehicule": 2018,
+      "crit_air": 0,
+      "kilometrage_achat": 121700,
+      "transmission": "automatique",
+      "energie": "electrique",
+      "chevaux_dine": 204,
+      "chevaux_fiscaux": 1,
+      "date_vente": "2026-04-12",
+      "numero_vente": 10,
+      "facture_vente": "",
+      "acheteur": "M. Dubois",
+      "prix_vente": "39400.00",
+      "kilometrage_vente": 121730
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1207,
+    "fields": {
+      "vehicule": 1096,
+      "type_ree": "pieces",
+      "description": "Rétroviseur droit",
+      "montant": "175.75"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1208,
+    "fields": {
+      "vehicule": 1096,
+      "type_ree": "pieces",
+      "description": "Batterie 12V",
+      "montant": "139.07"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1209,
+    "fields": {
+      "vehicule": 1096,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "98.60"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1097,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2024-09-15",
+      "vendeur": "Aramisauto",
+      "facture_achat": "",
+      "prix_vehicule": "11500.00",
+      "prix_enchere": "625.00",
+      "prix_transport": "180.00",
+      "immatriculation": "MK-689-AN",
+      "vin": "VFM8UDFTWMWAEEKG5",
+      "marque": 212,
+      "modele": 341,
+      "couleur": "Vert kaki",
+      "annee_vehicule": 2024,
+      "crit_air": 1,
+      "kilometrage_achat": 50900,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 90,
+      "chevaux_fiscaux": 11,
+      "date_vente": "2025-01-08",
+      "numero_vente": 11,
+      "facture_vente": "",
+      "acheteur": "Mme Ostrowski",
+      "prix_vente": "16700.00",
+      "kilometrage_vente": 50975
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1210,
+    "fields": {
+      "vehicule": 1097,
+      "type_ree": "mo",
+      "description": "Géométrie et parallélisme",
+      "montant": "80.09"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1211,
+    "fields": {
+      "vehicule": 1097,
+      "type_ree": "pieces",
+      "description": "Filtres (huile, air, habitacle)",
+      "montant": "141.41"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1212,
+    "fields": {
+      "vehicule": 1097,
+      "type_ree": "pieces",
+      "description": "Pare-brise",
+      "montant": "508.61"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1213,
+    "fields": {
+      "vehicule": 1097,
+      "type_ree": "mo",
+      "description": "Remplacement distribution",
+      "montant": "526.70"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1098,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-06-24",
+      "vendeur": "Groupe Emil Frey",
+      "facture_achat": "",
+      "prix_vehicule": "18200.00",
+      "prix_enchere": "1455.00",
+      "prix_transport": "390.00",
+      "immatriculation": "CJ-566-WZ",
+      "vin": null,
+      "marque": 207,
+      "modele": 331,
+      "couleur": "Rouge",
+      "annee_vehicule": 2011,
+      "crit_air": 1,
+      "kilometrage_achat": 228900,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 110,
+      "chevaux_fiscaux": 13,
+      "date_vente": "2025-07-09",
+      "numero_vente": 12,
+      "facture_vente": "",
+      "acheteur": "Auto Discount 77",
+      "prix_vente": "23700.00",
+      "kilometrage_vente": 228927
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1214,
+    "fields": {
+      "vehicule": 1098,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "183.43"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1215,
+    "fields": {
+      "vehicule": 1098,
+      "type_ree": "mo",
+      "description": "Réfection pare-chocs arrière",
+      "montant": "432.28"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1099,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2024-10-26",
+      "vendeur": "Autobiz Trade",
+      "facture_achat": "",
+      "prix_vehicule": "12100.00",
+      "prix_enchere": "735.00",
+      "prix_transport": "520.00",
+      "immatriculation": "CE-771-LT",
+      "vin": "VFX9645TC7V1DL82D",
+      "marque": 1,
+      "modele": 301,
+      "couleur": "Beige",
+      "annee_vehicule": 2017,
+      "crit_air": 2,
+      "kilometrage_achat": 100400,
+      "transmission": "manuel",
+      "energie": "diesel",
+      "chevaux_dine": 136,
+      "chevaux_fiscaux": 16,
+      "date_vente": "2025-02-10",
+      "numero_vente": 13,
+      "facture_vente": "",
+      "acheteur": "Mme Perrot",
+      "prix_vente": "15100.00",
+      "kilometrage_vente": 100481
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1216,
+    "fields": {
+      "vehicule": 1099,
+      "type_ree": "mo",
+      "description": "Polissage et lustrage carrosserie",
+      "montant": "159.32"
+    }
+  },
+  {
+    "model": "vehicules.vehicule",
+    "pk": 1100,
+    "fields": {
+      "garage": 105,
+      "date_achat": "2025-12-18",
+      "vendeur": "VPAuto",
+      "facture_achat": "",
+      "prix_vehicule": "9800.00",
+      "prix_enchere": "725.00",
+      "prix_transport": "320.00",
+      "immatriculation": "QZ-248-FW",
+      "vin": "VFW5GAAM0V46J57EE",
+      "marque": 4,
+      "modele": 4,
+      "couleur": "Noir",
+      "annee_vehicule": 2013,
+      "crit_air": 1,
+      "kilometrage_achat": 196400,
+      "transmission": "manuel",
+      "energie": "essence",
+      "chevaux_dine": 130,
+      "chevaux_fiscaux": 15,
+      "date_vente": "2026-02-18",
+      "numero_vente": 14,
+      "facture_vente": "",
+      "acheteur": "M. Zahiri",
+      "prix_vente": "14350.00",
+      "kilometrage_vente": 196470
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1217,
+    "fields": {
+      "vehicule": 1100,
+      "type_ree": "mo",
+      "description": "Nettoyage complet intérieur",
+      "montant": "131.95"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1218,
+    "fields": {
+      "vehicule": 1100,
+      "type_ree": "pieces",
+      "description": "Jeu de plaquettes et disques avant",
+      "montant": "277.58"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1219,
+    "fields": {
+      "vehicule": 1100,
+      "type_ree": "ct",
+      "description": "Contrôle technique périodique",
+      "montant": "84.68"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1220,
+    "fields": {
+      "vehicule": 1100,
+      "type_ree": "pieces",
+      "description": "Kit de distribution",
+      "montant": "367.02"
+    }
+  },
+  {
+    "model": "remise_en_etat.remiseenetat",
+    "pk": 1221,
+    "fields": {
+      "vehicule": 1100,
+      "type_ree": "pieces",
+      "description": "Embrayage complet",
+      "montant": "785.17"
+    }
+  }
+]

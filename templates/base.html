@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static "images/favicon.png" %}"  >
     <link rel="stylesheet" href="{% static "css/style.css" %}">
     {% block extra_css %}{% endblock extra_css %}
 
@@ -15,7 +16,13 @@
 
 <!-- ===================== NAVBAR ===================== -->
 <nav class="navbar">
-    <a href="/" class="navbar-brand">Mes <span>Véhicules d'occasion</span></a>
+    <div class="navbar-left">
+        <a href="/" class="navbar-brand">Mes <span>Véhicules d'occasion</span></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'vehicules:tableau-de-bord' %}" class="navbar-link">Tableau de bord</a> 
+            <a href="{% url 'vehicules:garages' %}" class="navbar-link">Stock</a>
+        {% endif %}
+    </div>
 
     {% if user.is_authenticated %}
         <div class="navbar-garage">
@@ -46,6 +53,11 @@
         <details class="navbar-profile">
             <summary>{{ user.get_full_name|default:user.email }}</summary>
             <div class="navbar-profile-menu">
+                <a href="{% url 'vehicules:exports' %}" class="navbar-profile-item">Exports</a>
+                {% if garage_ecriture %}
+                    <a href="{% url 'garages:parametrage-comptable' %}" class="navbar-profile-item">Paramètres comptables</a>
+                {% endif %}
+                <hr class="navbar-profile-sep">
                 <form method="post" action="{% url 'users:logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="navbar-profile-logout">Déconnexion</button>

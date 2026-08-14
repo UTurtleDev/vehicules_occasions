@@ -1,0 +1,89 @@
+/* ============================================
+   Paramétrage comptable
+   Complète ajouter_vehicule.css : la page porte les deux classes
+   (.vo-ajout .vo-param), la première apportant la coquille de
+   formulaire, la seconde ce qui lui est propre.
+   ============================================ */
+
+/* ── Confirmation d'enregistrement ── */
+.vo-param .param-message {
+    background: var(--green-dim);
+    border: 1px solid rgba(60, 206, 160, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 11px 16px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--green);
+}
+
+/* ── Chapeau explicatif ── */
+.vo-param .param-intro {
+    margin: 0 0 34px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--muted);
+}
+.vo-param .param-intro strong { color: var(--text); font-weight: 600; }
+
+/* ── Aide sous un champ ── */
+.vo-param .param-aide {
+    margin: 0;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--muted2);
+}
+
+/* Les numéros de compte se lisent chiffre à chiffre : chasse fixe, et un
+   peu d'interlettrage pour distinguer les suites de zéros. */
+.vo-param input[name^="compte_"] {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    letter-spacing: 0.06em;
+}
+
+/* Le taux est court : inutile de lui donner toute la largeur d'une colonne. */
+.vo-param input[name="taux_tva"] { max-width: 140px; }
+
+/* ── Tableau d'exemple ── */
+.vo-param .param-exemple-intro { margin-bottom: 14px; }
+
+.vo-param .param-exemple {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.vo-param .param-exemple th {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    text-align: left;
+    padding: 0 12px 9px;
+    border-bottom: 1px solid var(--border);
+}
+.vo-param .param-exemple td {
+    padding: 10px 12px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+}
+.vo-param .param-exemple tr:last-child td { border-bottom: none; }
+
+/* Colonnes chiffrées : alignées à droite et en chasse tabulaire, pour que
+   les montants se comparent verticalement. */
+.vo-param .param-exemple th:nth-child(n+3),
+.vo-param .param-exemple td.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+.vo-param .param-exemple td.num:first-child {
+    text-align: left;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    color: var(--text);
+}
+
+@media (max-width: 680px) {
+    .vo-param .param-exemple { font-size: 12px; }
+    .vo-param .param-exemple th,
+    .vo-param .param-exemple td { padding-left: 6px; padding-right: 6px; }
+}

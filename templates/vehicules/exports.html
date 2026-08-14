@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+{% load vo_filters %}
+
+{% block title %}<title>Exports</title>{% endblock title %}
+
+{% block content %}
+{# Réutilise la coquille de la liste (sidebar + main), comme le tableau de bord #}
+<link rel="stylesheet" href="{% static 'vehicules/css/list_vehicules.css' %}">
+<link rel="stylesheet" href="{% static 'vehicules/css/tableau_de_bord.css' %}">
+<link rel="stylesheet" href="{% static 'vehicules/css/exports.css' %}">
+
+<div class="vo-list vo-dash vo-export">
+
+    {# ═══════════════ SIDEBAR ═══════════════ #}
+    <aside class="sidebar">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Période</span></div>
+            {% for code, label in periodes %}
+                {% if code != 'perso' %}
+                    <a class="sb-item {% if f_periode == code %}on{% endif %}" href="{% set_qs request 'periode' code %}">
+                        <span class="sb-item-left">{{ label }}</span>
+                    </a>
+                {% endif %}
+            {% endfor %}
+            <a class="sb-item {% if f_periode == 'perso' %}on{% endif %}" href="{% set_qs request 'periode' 'perso' %}">
+                <span class="sb-item-left">Période personnalisée</span>
+            </a>
+            <form method="get" class="sb-dates {% if f_periode == 'perso' %}on{% endif %}">
+                <input type="hidden" name="periode" value="perso">
+                <div class="sb-dates-row">
+                    <label>Du</label><input type="date" name="du" value="{{ f_du }}">
+                </div>
+                <div class="sb-dates-row">
+                    <label>Au</label><input type="date" name="au" value="{{ f_au }}">
+                </div>
+                <button type="submit">Appliquer</button>
+            </form>
+        </div>
+
+        <hr class="sb-divider">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">Périmètre</span></div>
+            <p class="sb-note">
+                {% if garage %}
+                    Les exports portent sur <strong>{{ garage.nom }}</strong>, le garage actif.
+                    Changez de garage dans la barre du haut pour exporter l'autre.
+                {% else %}
+                    Aucun garage actif : il n'y a rien à exporter.
+                {% endif %}
+            </p>
+        </div>
+
+    </aside>
+
+    {# ═══════════════ MAIN ═══════════════ #}
+    <main class="main">
+
+        <div class="main-topbar">
+            <h1 class="main-title">Exports</h1>
+            <div class="main-spacer"></div>
+            <a class="dash-link" href="{% url 'vehicules:tableau-de-bord' %}">Tableau de bord →</a>
+        </div>
+
+        <div class="dash-body">
+
+            {# ── APERÇU ── #}
+            <div class="dash-section-head">
+                <span class="dash-section-title">{{ libelle }}</span>
+                <span class="dash-section-note">Ce que contiendront les fichiers</span>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi">
+                    <span class="kpi-label">Véhicules vendus</span>
+                    <span class="kpi-value">{{ donnees.nb_vendus }}</span>
+                    <span class="kpi-hint">Bornés sur la date de vente</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Véhicules achetés</span>
+                    <span class="kpi-value">{{ donnees.nb_achetes }}</span>
+                    <span class="kpi-hint">Bornés sur la date d'achat</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">Marge réalisée</span>
+                    <span class="kpi-value {% if donnees.marge < 0 %}neg{% else %}pos{% endif %}">{{ donnees.marge|euros }}</span>
+                    <span class="kpi-hint">Frais de remise en état déduits</span>
+                </div>
+                <div class="kpi">
+                    <span class="kpi-label">En stock à ce jour</span>
+                    <span class="kpi-value">{{ donnees.nb_stock }}</span>
+                    <span class="kpi-hint">Photo à ce jour, hors période</span>
+                </div>
+            </div>
+
+            {# ── TÉLÉCHARGEMENTS ── #}
+            <div class="dash-section-head">
+                <span class="dash-section-title">Télécharger</span>
+            </div>
+
+            <div class="export-cards">
+
+                <div class="export-card">
+                    <span class="export-card-kind">PDF</span>
+                    <h2 class="export-card-title">Synthèse des ventes</h2>
+                    <p class="export-card-desc">
+                        Pour le dirigeant. Le détail de chaque vente, avec prix d'achat,
+                        frais de remise en état, prix de vente et marge, puis les quatre
+                        indicateurs ci-dessus.
+                    </p>
+                    <a class="export-btn" href="{% url 'vehicules:export-synthese-pdf' %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}">
+                        Télécharger le PDF
+                    </a>
+                </div>
+
+                <div class="export-card">
+                    <span class="export-card-kind">CSV</span>
+                    <h2 class="export-card-title">Écritures comptables</h2>
+                    <p class="export-card-desc">
+                        Pour le comptable. Trois lignes par vente au régime de la TVA sur
+                        la marge : marge TTC au débit du {{ parametrage.compte_ventes_totales }},
+                        marge HT et TVA à {{ parametrage.taux_tva|floatformat }} % au crédit.
+                    </p>
+
+                    {% if garage_ecriture %}
+                        <a class="export-lien" href="{% url 'garages:parametrage-comptable' %}">Régler les comptes et le taux →</a>
+                    {% endif %}
+
+                    {% if ecartees %}
+                        <div class="export-alerte">
+                            <strong>{{ ecartees|length }}</strong>
+                            vente{{ ecartees|pluralize }} sans marge positive,
+                            absente{{ ecartees|pluralize }} du fichier : sans marge, il n'y a
+                            pas de TVA sur la marge à collecter.
+                            <ul>
+                                {% for v in ecartees %}
+                                    <li>{{ v.marque }} {{ v.modele }} · {{ v.immatriculation }} · {{ v.marge_fiscale_calc|euros }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <a class="export-btn" href="{% url 'vehicules:export-comptable-csv' %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}">
+                        Télécharger le CSV
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock content %}

@@ -3,12 +3,20 @@ from datetime import timedelta
 from django.contrib import admin
 from django.utils import timezone
 
-from .models import Garage, GarageMembre
+from .models import Garage, GarageMembre, ParametrageComptable
 
 
 class GarageMembreInline(admin.TabularInline):
     model = GarageMembre
     extra = 1
+
+
+class ParametrageComptableInline(admin.StackedInline):
+    model = ParametrageComptable
+    extra = 0
+    # Un garage n'a qu'un paramétrage : sans ce plafond, l'admin proposerait
+    # d'en ajouter un second, que la contrainte OneToOne refuserait ensuite.
+    max_num = 1
 
 
 class EssaiActifFilter(admin.SimpleListFilter):
@@ -46,7 +54,7 @@ class GarageAdmin(admin.ModelAdmin):
 
     list_filter = ('abonnement', EssaiActifFilter)
 
-    inlines = [GarageMembreInline]
+    inlines = [GarageMembreInline, ParametrageComptableInline]
 
 
 admin.site.register(Garage, GarageAdmin)

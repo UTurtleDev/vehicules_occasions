@@ -1,0 +1,213 @@
+/* ============================================
+   Tableau de bord
+   Se greffe sur .vo-list (list_vehicules.css) pour la coquille
+   sidebar + main. Ne définit ici que le contenu propre au dashboard,
+   scopé sous .vo-dash.
+   ============================================ */
+
+/* La liste gère son propre scroll dans .list ; ici c'est .dash-body */
+.vo-dash .main { overflow: hidden; }
+.vo-dash .dash-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px 26px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.vo-dash .dash-link {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: color 0.15s, border-color 0.15s;
+}
+.vo-dash .dash-link:hover { color: var(--accent); border-color: var(--border-accent); }
+
+/* ── Sélecteur de dates personnalisées ── */
+.vo-dash .sb-dates {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+    padding: 10px 9px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface2);
+}
+.vo-dash .sb-dates.on { border-color: var(--border-accent); background: var(--accent-dim); }
+.vo-dash .sb-dates-row { display: flex; align-items: center; gap: 8px; }
+.vo-dash .sb-dates-row label {
+    font-size: 11px;
+    color: var(--muted2);
+    width: 20px;
+    flex-shrink: 0;
+}
+.vo-dash .sb-dates input {
+    flex: 1;
+    min-width: 0;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 7px;
+    color: var(--text);
+    font-size: 11.5px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    outline: none;
+    color-scheme: dark;
+}
+.vo-dash .sb-dates button {
+    margin-top: 2px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+}
+.vo-dash .sb-dates button:hover { color: var(--accent); border-color: var(--border-accent); }
+
+/* ── Titres de section ── */
+.vo-dash .dash-section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 10px;
+}
+.vo-dash .dash-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+.vo-dash .dash-section-note { font-size: 11.5px; color: var(--muted2); }
+
+/* ── Tuiles KPI ── */
+.vo-dash .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 12px;
+}
+.vo-dash .kpi {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 15px 17px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+.vo-dash .kpi.alerte { border-color: rgba(229, 99, 74, 0.3); background: var(--red-dim); }
+
+.vo-dash .kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted2);
+}
+.vo-dash .kpi-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+.vo-dash .kpi-value small { font-size: 0.95rem; font-weight: 600; color: var(--muted); }
+.vo-dash .kpi-value.pos { color: var(--green); }
+.vo-dash .kpi-value.neg { color: var(--red); }
+.vo-dash .kpi-hint { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
+
+/* ── Cartes / tables ── */
+.vo-dash .dash-tables {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 12px;
+}
+.vo-dash .dash-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.vo-dash .dash-card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 13px 17px;
+    border-bottom: 1px solid var(--border);
+}
+.vo-dash .dash-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+.vo-dash .dash-card-note { font-size: 11px; color: var(--muted2); }
+.vo-dash .dash-card-alert {
+    font-size: 10.5px;
+    padding: 2px 9px;
+    border-radius: 100px;
+    background: var(--red-dim);
+    color: var(--red);
+}
+
+.vo-dash .dash-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 17px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+}
+.vo-dash .dash-row.large { grid-template-columns: 1fr auto auto; }
+.vo-dash .dash-row:last-child { border-bottom: none; }
+.vo-dash .dash-row:hover { background: var(--surface2); }
+
+.vo-dash .dash-row-main {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: var(--text);
+    min-width: 0;
+}
+.vo-dash .dash-row-main small { font-size: 11px; color: var(--muted2); }
+.vo-dash .dash-row-num {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+.vo-dash .dash-row-num.pos { color: var(--green); }
+.vo-dash .dash-row-num.neg { color: var(--red); }
+.vo-dash .dash-row-age {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 100px;
+    background: var(--surface3);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.vo-dash .dash-empty {
+    padding: 22px 17px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--muted2);
+}

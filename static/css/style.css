@@ -80,23 +80,48 @@ h1 {
     z-index: 100;
     padding: 0 48px;
     height: 64px;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    /* Flex et non grid. Un `grid-template-columns: 1fr auto 1fr` impose la
+       même largeur aux colonnes de gauche et de droite : la droite (le
+       profil) se voyait offrir la place dont la gauche (la marque et les
+       deux liens) avait besoin, et cette dernière débordait ou passait à
+       la ligne. En flex, chaque bloc prend la largeur de son contenu. */
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    white-space: nowrap;
     background: rgba(9, 9, 14, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
 }
 
+.navbar-left {
+    flex-shrink: 0;                    /* la marque et les liens ne se compriment jamais */
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.navbar-link {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: color 0.2s;
+}
+
+.navbar-link:hover { color: var(--accent); }
+
 .navbar-brand {
-    grid-column: 1;
-    justify-self: start;
+    /* Positionné par .navbar-left, qui est la cellule de grille */
     font-family: 'Syne', sans-serif;
     font-size: 1.25rem;
     font-weight: 800;
     letter-spacing: -0.03em;
     color: var(--text);
+    white-space: nowrap;
 }
 
 .navbar-brand span {
@@ -104,8 +129,7 @@ h1 {
 }
 
 .navbar-login {
-    grid-column: 3;
-    justify-self: end;
+    flex-shrink: 0;
     font-family: 'Syne', sans-serif;
     font-size: 0.85rem;
     font-weight: 700;
@@ -124,9 +148,11 @@ h1 {
 }
 
 /* ---- NAVBAR : SÉLECTEUR DE GARAGE ---- */
+/* Seul bloc autorisé à rétrécir : un nom de garage à rallonge se tronque
+   plutôt que de pousser la marque ou le profil. */
 .navbar-garage {
-    grid-column: 2;
-    justify-self: center;
+    flex: 0 1 auto;
+    min-width: 0;
 }
 
 .garage-select {
@@ -147,7 +173,15 @@ h1 {
     border-radius: 100px;
     cursor: pointer;
     user-select: none;
+    white-space: nowrap;
     transition: border-color 0.2s;
+}
+
+/* Un nom de garage à rallonge est tronqué plutôt que de pousser
+   les colonnes voisines. */
+.garage-select summary > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .garage-select summary::-webkit-details-marker {
@@ -161,6 +195,7 @@ h1 {
 
 .garage-select-caret {
     color: var(--muted);
+    flex-shrink: 0;
     transition: transform 0.2s;
 }
 
@@ -214,8 +249,7 @@ h1 {
 
 /* ---- NAVBAR : PROFIL ---- */
 .navbar-profile {
-    grid-column: 3;
-    justify-self: end;
+    flex-shrink: 0;
     position: relative;
 }
 
@@ -227,6 +261,9 @@ h1 {
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding: 8px 20px;
     border: 1px solid var(--border);
     border-radius: 100px;
@@ -248,12 +285,38 @@ h1 {
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
-    min-width: 160px;
+    /* Assez large pour « Paramètres comptables », la plus longue entrée. */
+    min-width: 210px;
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 6px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-profile-item {
+    display: block;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+
+.navbar-profile-item:hover {
+    background: var(--surface3);
+}
+
+/* Sépare les actions de navigation de la déconnexion, pour qu'on ne se
+   déconnecte pas en visant « Paramètres comptables ». */
+.navbar-profile-sep {
+    height: 0;
+    margin: 6px 8px;
+    border: none;
+    border-top: 1px solid var(--border);
 }
 
 .navbar-profile-logout {
@@ -273,6 +336,20 @@ h1 {
 
 .navbar-profile-logout:hover {
     background: var(--surface3);
+}
+
+/* ---- NAVBAR : ADAPTATION EN LARGEUR ----
+   On récupère d'abord de la place sur les marges, puis on plafonne les
+   deux textes variables (nom du garage, nom de l'utilisateur), qui sont
+   les seuls dont on ne maîtrise pas la longueur. */
+@media (max-width: 1200px) {
+    .navbar { padding: 0 24px; gap: 24px; }
+    .navbar-left { gap: 18px; }
+}
+
+@media (max-width: 1000px) {
+    .garage-select summary > span { max-width: 130px; }
+    .navbar-profile summary { max-width: 150px; }
 }
 
 /* ---- SECTION ---- */

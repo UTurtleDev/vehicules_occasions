@@ -15,11 +15,14 @@ class GarageLectureMixin:
         return Vehicule.objects.filter(garage__in=self.request.user.garages.all())
 
 
-class GarageEcritureMixin:
+class GarageEcritureRequisMixin:
     """
-    Queryset de Vehicule restreint au seul garage actif de la session, et
-    uniquement si l'utilisateur y est gestionnaire. Pour la création, la
-    modification et la suppression.
+    Refuse l'accès à qui n'est pas gestionnaire du garage actif, sans rien
+    dire du queryset.
+
+    Séparé de GarageEcritureMixin parce que toutes les vues en écriture ne
+    portent pas sur des véhicules : le paramétrage comptable, par exemple,
+    a besoin de la même garde mais travaille sur un autre modèle.
     """
 
     def get_garage_actif(self):
@@ -36,6 +39,14 @@ class GarageEcritureMixin:
         if self.get_garage_ecriture() is None:
             raise PermissionDenied("Vous n'avez pas les droits de modification sur ce garage.")
         return super().dispatch(request, *args, **kwargs)
+
+
+class GarageEcritureMixin(GarageEcritureRequisMixin):
+    """
+    Queryset de Vehicule restreint au seul garage actif de la session, et
+    uniquement si l'utilisateur y est gestionnaire. Pour la création, la
+    modification et la suppression.
+    """
 
     def get_queryset(self):
         return Vehicule.objects.filter(garage=self.get_garage_ecriture())

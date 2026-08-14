@@ -1,6 +1,25 @@
+from decimal import Decimal, InvalidOperation
+
 from django import template
 
 register = template.Library()
+
+ESPACE_FINE = ' '   # espace fine insécable : 12 345 € ne se coupe pas en fin de ligne
+
+
+@register.filter
+def euros(valeur, decimales=0):
+    """Formate un montant à la française : 12 345 € / -1 250,50 €."""
+    if valeur is None or valeur == '':
+        return '—'
+    try:
+        montant = Decimal(valeur)
+    except (InvalidOperation, TypeError, ValueError):
+        return '—'
+
+    entier, _, decimale = f'{montant:,.{decimales}f}'.partition('.')
+    entier = entier.replace(',', ESPACE_FINE)
+    return f'{entier},{decimale}{ESPACE_FINE}€' if decimale else f'{entier}{ESPACE_FINE}€'
 
 
 @register.simple_tag

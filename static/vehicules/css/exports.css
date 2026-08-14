@@ -1,0 +1,118 @@
+/* ============================================
+   Exports
+   La page porte .vo-list .vo-dash .vo-export : les deux premières
+   apportent la coquille sidebar/main et les cartes KPI, la dernière
+   ce qui est propre aux exports.
+   ============================================ */
+
+/* ── Note de périmètre en sidebar ── */
+.vo-export .sb-note {
+    margin: 4px 2px 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted2);
+}
+.vo-export .sb-note strong { color: var(--muted); font-weight: 600; }
+
+/* ── Cartes de téléchargement ── */
+.vo-export .export-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 14px;
+}
+
+.vo-export .export-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px 22px 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.vo-export .export-card-kind {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 3px 9px;
+    background: var(--accent-dim);
+    border-radius: 100px;
+}
+
+.vo-export .export-card-title {
+    margin: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+}
+
+.vo-export .export-card-desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+/* Pousse le bouton en bas : deux cartes de hauteurs différentes gardent
+   leurs boutons alignés. */
+.vo-export .export-btn { margin-top: auto; }
+
+.vo-export .export-btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    border-radius: 100px;
+    padding: 10px 22px;
+    text-decoration: none;
+    transition: box-shadow 0.2s, filter 0.18s;
+}
+.vo-export .export-btn:hover {
+    box-shadow: 0 0 0 4px var(--accent-glow);
+    filter: brightness(1.05);
+}
+
+/* Placé sous la description, et non sous le bouton : sinon il décalerait le
+   bouton vers le haut et les deux cartes n'auraient plus leurs boutons
+   alignés. */
+.vo-export .export-lien {
+    font-size: 12.5px;
+    color: var(--accent);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.18s;
+}
+.vo-export .export-lien:hover { opacity: 1; }
+
+/* ── Ventes écartées du CSV ── */
+.vo-export .export-alerte {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--red-dim);
+    border: 1px solid rgba(229, 99, 74, 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--muted);
+}
+.vo-export .export-alerte strong { color: var(--red); }
+.vo-export .export-alerte ul {
+    margin: 7px 0 0;
+    padding-left: 16px;
+    color: var(--muted2);
+}
+.vo-export .export-alerte li { margin-top: 2px; }
+
+@media (max-width: 720px) {
+    .vo-export .export-cards { grid-template-columns: 1fr; }
+}

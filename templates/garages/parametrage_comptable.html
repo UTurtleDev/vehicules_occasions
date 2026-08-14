@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>Paramétrage comptable · {{ garage.nom }}</title>{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'vehicules/css/ajouter_vehicule.css' %}">
+<link rel="stylesheet" href="{% static 'garages/css/parametrage_comptable.css' %}">
+
+<div class="vo-ajout vo-param">
+
+    <div class="ajout-header">
+        <h1>Paramétrage comptable</h1>
+        <a href="{% url 'vehicules:exports' %}">← Retour aux exports</a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="param-message">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <p class="param-intro">
+        Ces réglages ne servent qu'à l'export comptable de <strong>{{ garage.nom }}</strong>.
+        Les véhicules d'occasion relèvent de la TVA sur la marge : l'écriture générée
+        ne porte pas sur le prix de vente, mais sur la seule marge, ventilée entre
+        son montant HT et sa TVA.
+    </p>
+
+    <form method="post" class="ajout-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {# ═══════════ SECTION : COMPTES ═══════════ #}
+        <section class="form-section">
+            <h2 class="form-section-title">Comptes utilisés par l'écriture</h2>
+            <div class="form-grid param-grid">
+
+                <div class="form-field">
+                    <label for="{{ form.compte_ventes_totales.id_for_label }}">{{ form.compte_ventes_totales.label }}</label>
+                    {{ form.compte_ventes_totales }}
+                    <p class="param-aide">{{ form.compte_ventes_totales.help_text }}</p>
+                    {% if form.compte_ventes_totales.errors %}<p class="field-error">{{ form.compte_ventes_totales.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.compte_ventes_prix_achat.id_for_label }}">{{ form.compte_ventes_prix_achat.label }}</label>
+                    {{ form.compte_ventes_prix_achat }}
+                    <p class="param-aide">{{ form.compte_ventes_prix_achat.help_text }}</p>
+                    {% if form.compte_ventes_prix_achat.errors %}<p class="field-error">{{ form.compte_ventes_prix_achat.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.compte_tva_collectee.id_for_label }}">{{ form.compte_tva_collectee.label }}</label>
+                    {{ form.compte_tva_collectee }}
+                    <p class="param-aide">{{ form.compte_tva_collectee.help_text }}</p>
+                    {% if form.compte_tva_collectee.errors %}<p class="field-error">{{ form.compte_tva_collectee.errors.0 }}</p>{% endif %}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.taux_tva.id_for_label }}">{{ form.taux_tva.label }}</label>
+                    {{ form.taux_tva }}
+                    <p class="param-aide">Appliqué à la marge de chaque vente exportée.</p>
+                    {% if form.taux_tva.errors %}<p class="field-error">{{ form.taux_tva.errors.0 }}</p>{% endif %}
+                </div>
+
+            </div>
+        </section>
+
+        {# ═══════════ EXEMPLE ═══════════ #}
+        <section class="form-section">
+            <h2 class="form-section-title">Ce que ça donne</h2>
+            <p class="param-aide param-exemple-intro">
+                Pour un véhicule acheté 4 123 € et revendu 6 600 €, soit 2 477 € de marge,
+                au taux actuellement enregistré :
+            </p>
+            <table class="param-exemple">
+                <thead>
+                    <tr><th>Compte</th><th>Libellé</th><th>Débit</th><th>Crédit</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="num">{{ form.instance.compte_ventes_totales }}</td>
+                        <td>Marge TTC</td>
+                        <td class="num">{{ exemple.debit }}</td>
+                        <td class="num">—</td>
+                    </tr>
+                    <tr>
+                        <td class="num">{{ form.instance.compte_ventes_prix_achat }}</td>
+                        <td>Marge HT</td>
+                        <td class="num">—</td>
+                        <td class="num">{{ exemple.marge_ht }}</td>
+                    </tr>
+                    <tr>
+                        <td class="num">{{ form.instance.compte_tva_collectee }}</td>
+                        <td>TVA sur la marge</td>
+                        <td class="num">—</td>
+                        <td class="num">{{ exemple.tva }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="form-actions">
+            <a href="{% url 'vehicules:exports' %}">Annuler</a>
+            <button type="submit">Enregistrer</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock content %}
