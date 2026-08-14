@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     ListVehiculeView, DetailVehiculeView, AjoutVehiculeView,
     ModifierVehiculeView, VendreVehiculeView, TableauDeBordView,
-    ExportsView, ExportSynthesePdfView, ExportComptableCsvView,
+    ExportsView, ExportSynthesePdfView, ExportStockPdfView, ExportComptableCsvView,
 )
 
 
@@ -17,5 +17,6 @@ urlpatterns = [
     path('vendre/<int:pk>/', VendreVehiculeView.as_view(), name='vendre-vehicule'),
     path('exports/', ExportsView.as_view(), name='exports'),
     path('exports/synthese.pdf', ExportSynthesePdfView.as_view(), name='export-synthese-pdf'),
+    path('exports/stock.pdf', ExportStockPdfView.as_view(), name='export-stock-pdf'),
     path('exports/comptable.csv', ExportComptableCsvView.as_view(), name='export-comptable-csv'),
 ]

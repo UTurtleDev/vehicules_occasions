@@ -67,12 +67,21 @@ Rules when touching this:
 
 **Dashboard** (`vehicules.views.TableauDeBordView`, `/vehicules/tableau-de-bord/`): two independent readings of the same stock. "Stock" is a snapshot at today's date and **ignores the period filter**; "Activité" covers vehicles sold within the period, bounded on `date_vente`. Marque/énergie/transmission filters apply to both. Filters are plain GET params, built with the `vo_filters` template tags.
 
-**Exports** (`/vehicules/exports/`, reachable from the user-name menu in the navbar): one shared period selector, two files.
+**Exports** (`/vehicules/exports/`, reachable from the user-name menu in the navbar): three files, driven by **two independent controls**.
+
+| File | Control | Content |
+|------|---------|---------|
+| Synthèse des ventes (PDF) | period | sales in the period + 4 indicators |
+| État du stock (PDF) | single date `stock_au` | vehicles held on that date, by acquisition order |
+| Écritures comptables (CSV) | period | 3 accounting lines per sale |
 
 - Period helpers (`PERIODES`, `bornes_periode`, `date_ou_none`, `moyenne_entiere`, `pourcentage`) live in `vehicules/utils.py`, shared by the dashboard and the exports. The exports declare their own shorter list, `PERIODES_EXPORT`, and add the `mois_dernier` code.
-- `vehicules/exports.py` holds the pure logic (no HTTP): `synthese()`, `lignes_ecritures()`, `ecrire_csv()`. `vehicules/pdf.py` is the only module that imports ReportLab.
+- The stock export takes a **single date, not a period** (`stock_au` GET param, defaults to today): "what did I hold that day" has no start bound.
+- `vehicules/exports.py` holds the pure logic (no HTTP): `synthese()`, `stock_a_la_date()`, `lignes_ecritures()`, `ecrire_csv()`. `vehicules/pdf.py` is the only module that imports ReportLab; both documents share `_rendre()`, `_tableau()` and `_cartes()`, so restyling one restyles both.
 - Scope is the **active garage only**, not all the user's garages like the dashboard — a file leaving for an accountant must not mix two garages. Reading is enough (`lecture` role can export); only the *settings* page requires `gestionnaire`.
 - The synthesis (PDF) shows **`marge_interne`** (net of reconditioning costs); the accounting entries (CSV) use **`marge_fiscale`** (the taxable base, costs excluded). The same sale legitimately shows two different margins.
+
+**`stock_a_la_date()` is not `en_stock()`** and the difference matters: a vehicle was held on date D if `date_achat <= D` **and** (`date_vente` is null **or** `date_vente > D`). A vehicle sold since still counts for a past date — that is what makes a closing-date stock statement possible. `en_stock()` answers only "not yet sold today". Since `RemiseEnEtat` carries no date, the reconditioning column is the vehicle's *total* cost, including work done after D.
 
 **Accounting entries follow the second-hand-vehicle VAT-on-margin scheme**, which is *not* obvious and must not be "simplified":
 
@@ -81,7 +90,7 @@ Rules when touching this:
 - Accounts and rate are per-garage (`garages.models.ParametrageComptable`, defaults `707000000` / `707010000` / `445710090` and 20 %). `ParametrageComptable.pour(garage)` returns an **unsaved** instance when none exists — an export is a GET and must not write to the database.
 - Sales with a **zero or negative fiscal margin are excluded** from the CSV (no margin, no VAT to collect) and listed on the export page so nothing vanishes silently.
 - CSV format: `;` separator, UTF-8 **BOM**, CRLF, `dd/mm/yyyy` dates, comma decimals with no thousands separator and no `€`. Never pipe those amounts through the `euros` filter: its U+202F narrow space and `€` break Excel's number parsing.
-- Line 1 is the **header row** (`ENTETES_CSV` in `vehicules/exports.py`), taken verbatim from the accountant's model. The accounting software matches columns on those labels at import — do not rename them without checking on that side. An empty period still yields the header alone, which imports cleanly where a truly empty file often fails.
+- Line 1 is the **header row** (`ENTETES_CSV` in `vehicules/exports.py`), taken verbatim from the accountant's model. Those labels are deliberately **unaccented** — that is what lets the accounting software auto-detect the columns; with accents the user has to map them by hand at every import. `Numero de piece` is not a typo, do not "fix" it. Only the labels are affected: the libellé *content* keeps its accents (`Mme Lefèvre`), the UTF-8 BOM carries them fine. An empty period still yields the header alone, which imports cleanly where a truly empty file often fails.
 - Quantize every amount to 2 decimals — SQLite's float noise on annotated values is invisible on screen but lands verbatim in a CSV.
 - ReportLab's built-in fonts use `WinAnsiEncoding`, which lacks U+202F: `vehicules.pdf.montant()` swaps it for U+00A0, otherwise amounts print as `12?345?€`.
 

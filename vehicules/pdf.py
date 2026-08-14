@@ -75,13 +75,13 @@ def _styles():
     }
 
 
-def _entete(garage, libelle_periode, edite_le, s):
+def _entete(garage, titre, sous_titre, edite_le, s):
     """Bloc d'identification, en haut de la première page."""
     adresse = ' · '.join(
         m for m in [garage.adresse, f'{garage.code_postal} {garage.ville}'.strip()] if m
     ) if garage else ''
 
-    gauche = [Paragraph('Synthèse des ventes', s['titre'])]
+    gauche = [Paragraph(titre, s['titre'])]
     if garage:
         gauche.append(Spacer(1, 3))
         gauche.append(Paragraph(garage.nom, s['garage']))
@@ -103,15 +103,50 @@ def _entete(garage, libelle_periode, edite_le, s):
     return [
         tableau,
         Spacer(1, 10),
-        Paragraph(libelle_periode, s['periode']),
+        Paragraph(sous_titre, s['periode']),
         Spacer(1, 14),
     ]
 
 
+def _tableau(lignes, colonnes, premiere_colonne_chiffree=2):
+    """
+    Tableau à en-tête gris et ligne de total, commun aux deux documents.
+
+    `colonnes` porte les largeurs, dont une seule peut valoir None : elle
+    absorbe la place restante. `premiere_colonne_chiffree` dit à partir
+    d'où aligner à droite.
+    """
+    tableau = Table(lignes, colWidths=colonnes, repeatRows=1)
+    tableau.setStyle(TableStyle([
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, -1), 8.5),
+        ('TEXTCOLOR', (0, 0), (-1, -1), NOIR),
+        ('BACKGROUND', (0, 0), (-1, 0), GRIS_FOND),
+        ('ALIGN', (premiere_colonne_chiffree, 0), (-1, -1), 'RIGHT'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+        ('LEFTPADDING', (0, 0), (-1, -1), 5),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 5),
+        ('LINEBELOW', (0, 0), (-1, -2), 0.4, GRIS_CLAIR),
+        # Ligne de total : filet plus marqué au-dessus et gras.
+        ('LINEABOVE', (0, -1), (-1, -1), 0.9, NOIR),
+        ('FONTNAME', (0, -1), (-1, -1), 'Helvetica-Bold'),
+        ('TOPPADDING', (0, -1), (-1, -1), 7),
+    ]))
+    return tableau
+
+
+def _largeurs(colonnes, largeur):
+    """Donne à la colonne laissée à None toute la place restante."""
+    colonnes = list(colonnes)
+    colonnes[colonnes.index(None)] = largeur - sum(c for c in colonnes if c)
+    return colonnes
+
+
 def _tableau_ventes(donnees, s, largeur):
     """Le détail vente par vente, avec sa ligne de total."""
-    entetes = ['Date', 'Véhicule', "Prix d'achat", 'Frais', 'Prix de vente', 'Marge']
-    lignes = [entetes]
+    lignes = [['Date', 'Véhicule', "Prix d'achat", 'Frais', 'Prix de vente', 'Marge']]
 
     for v in donnees['ventes']:
         lignes.append([
@@ -132,61 +167,60 @@ def _tableau_ventes(donnees, s, largeur):
         montant(totaux['prix_vente']), montant(totaux['marge']),
     ])
 
-    colonnes = [20 * mm, None, 26 * mm, 22 * mm, 27 * mm, 26 * mm]
-    colonnes[1] = largeur - sum(c for c in colonnes if c)
-
-    tableau = Table(lignes, colWidths=colonnes, repeatRows=1)
-
-    style = [
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, -1), 8.5),
-        ('TEXTCOLOR', (0, 0), (-1, -1), NOIR),
-        ('BACKGROUND', (0, 0), (-1, 0), GRIS_FOND),
-        ('ALIGN', (2, 0), (-1, -1), 'RIGHT'),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('TOPPADDING', (0, 0), (-1, -1), 5),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
-        ('LEFTPADDING', (0, 0), (-1, -1), 5),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 5),
-        ('LINEBELOW', (0, 0), (-1, -2), 0.4, GRIS_CLAIR),
-        # Ligne de total : filet plus marqué au-dessus et gras.
-        ('LINEABOVE', (0, -1), (-1, -1), 0.9, NOIR),
-        ('FONTNAME', (0, -1), (-1, -1), 'Helvetica-Bold'),
-        ('TOPPADDING', (0, -1), (-1, -1), 7),
-    ]
+    colonnes = _largeurs([20 * mm, None, 26 * mm, 22 * mm, 27 * mm, 26 * mm], largeur)
+    tableau = _tableau(lignes, colonnes)
 
     # Une marge négative en rouge. Reste identifiable en niveaux de gris :
     # le signe « - » la porte déjà.
-    for i, v in enumerate(donnees['ventes'], start=1):
-        if (v.marge_interne_calc or 0) < 0:
-            style.append(('TEXTCOLOR', (5, i), (5, i), ROUGE))
-    if donnees['totaux']['marge'] < 0:
-        style.append(('TEXTCOLOR', (5, -1), (5, -1), ROUGE))
+    rouges = [
+        ('TEXTCOLOR', (5, i), (5, i), ROUGE)
+        for i, v in enumerate(donnees['ventes'], start=1)
+        if (v.marge_interne_calc or 0) < 0
+    ]
+    if totaux['marge'] < 0:
+        rouges.append(('TEXTCOLOR', (5, -1), (5, -1), ROUGE))
+    if rouges:
+        tableau.setStyle(TableStyle(rouges))
 
-    tableau.setStyle(TableStyle(style))
     return tableau
+
+
+def _tableau_stock(donnees, s, largeur):
+    """Les véhicules détenus, par ordre d'acquisition."""
+    lignes = [["Date d'achat", 'Véhicule', "Prix d'acquisition", 'Frais', 'Coût total']]
+
+    for v in donnees['lignes']:
+        lignes.append([
+            f'{v.date_achat:%d/%m/%Y}',
+            Paragraph(f'{v.marque} {v.modele}', s['cellule']),
+            montant(v.prix_achat_calc),
+            montant(v.frais_reel_calc),
+            montant(v.cout_revient_calc),
+        ])
+
+    totaux = donnees['totaux']
+    lignes.append([
+        '', 'Total',
+        montant(totaux['prix_achat']), montant(totaux['frais']), montant(totaux['cout']),
+    ])
+
+    colonnes = _largeurs([24 * mm, None, 32 * mm, 24 * mm, 28 * mm], largeur)
+    return _tableau(lignes, colonnes)
 
 
 ECART_CARTES = 6
 
 
-def _indicateurs(donnees, s, largeur):
+def _cartes(cases, s, largeur):
     """
-    Les quatre chiffres de pilotage, en cartes sur le même gris que
-    l'en-tête du tableau.
+    Une rangée de chiffres clés, en cartes sur le même gris que l'en-tête
+    du tableau. `cases` est une liste de (libellé, valeur déjà formatée).
 
     ReportLab ne sait pas espacer deux cellules voisines : on intercale
     donc des colonnes vides et étroites, laissées sans fond, qui font
     office de gouttière entre les cartes.
     """
-    cases = [
-        ('Véhicules vendus', str(donnees['nb_vendus'])),
-        ('Véhicules achetés', str(donnees['nb_achetes'])),
-        ('Marge réalisée', montant(donnees['marge'])),
-        ('En stock à ce jour', str(donnees['nb_stock'])),
-    ]
-
-    largeur_carte = (largeur - 3 * ECART_CARTES) / 4
+    largeur_carte = (largeur - (len(cases) - 1) * ECART_CARTES) / len(cases)
 
     ligne, colonnes, colonnes_cartes = [], [], []
     for index, (label, valeur) in enumerate(cases):
@@ -233,34 +267,86 @@ def _pied_de_page(canevas, doc):
     canevas.restoreState()
 
 
-def rendre_synthese_pdf(garage, libelle_periode, donnees, edite_le):
-    """Rend la synthèse et renvoie les octets du PDF."""
+def _rendre(garage, titre, sous_titre, edite_le, corps):
+    """
+    Fabrique le document : marges, en-tête, pied de page.
+
+    `corps` reçoit les styles et la largeur utile, et renvoie les flowables
+    à empiler sous l'en-tête. Les deux documents ne diffèrent que par là.
+    """
     tampon = io.BytesIO()
-    titre = f"Synthèse des ventes · {garage.nom}" if garage else 'Synthèse des ventes'
+    nom_doc = f'{titre} · {garage.nom}' if garage else titre
 
     doc = SimpleDocTemplate(
         tampon, pagesize=A4,
         leftMargin=MARGE, rightMargin=MARGE,
         topMargin=MARGE, bottomMargin=MARGE,
-        title=titre, author=garage.nom if garage else '',
+        title=nom_doc, author=garage.nom if garage else '',
     )
 
     s = _styles()
-    largeur = doc.width
-    elements = _entete(garage, libelle_periode, edite_le, s)
-
-    if donnees['ventes']:
-        elements.append(_tableau_ventes(donnees, s, largeur))
-    else:
-        elements.append(Paragraph('Aucune vente sur cette période.', s['vide']))
-
-    elements.append(Spacer(1, 18))
-    # KeepTogether : le bloc d'indicateurs ne se coupe pas entre son titre et
-    # ses chiffres si la page se termine juste là.
-    elements.append(KeepTogether([
-        Paragraph("SUR LA PÉRIODE", s['section']),
-        _indicateurs(donnees, s, largeur),
-    ]))
+    elements = _entete(garage, titre, sous_titre, edite_le, s)
+    elements.extend(corps(s, doc.width))
 
     doc.build(elements, onFirstPage=_pied_de_page, onLaterPages=_pied_de_page)
     return tampon.getvalue()
+
+
+def rendre_synthese_pdf(garage, libelle_periode, donnees, edite_le):
+    """Rend la synthèse des ventes et renvoie les octets du PDF."""
+
+    def corps(s, largeur):
+        if donnees['ventes']:
+            tableau = _tableau_ventes(donnees, s, largeur)
+        else:
+            tableau = Paragraph('Aucune vente sur cette période.', s['vide'])
+
+        return [
+            tableau,
+            Spacer(1, 18),
+            # KeepTogether : le bloc d'indicateurs ne se coupe pas entre son
+            # titre et ses chiffres si la page se termine juste là.
+            KeepTogether([
+                Paragraph('SUR LA PÉRIODE', s['section']),
+                _cartes(
+                    [
+                        ('Véhicules vendus', str(donnees['nb_vendus'])),
+                        ('Véhicules achetés', str(donnees['nb_achetes'])),
+                        ('Marge réalisée', montant(donnees['marge'])),
+                        ('En stock à ce jour', str(donnees['nb_stock'])),
+                    ],
+                    s, largeur,
+                ),
+            ]),
+        ]
+
+    return _rendre(garage, 'Synthèse des ventes', libelle_periode, edite_le, corps)
+
+
+def rendre_stock_pdf(garage, a_la_date, donnees, edite_le):
+    """Rend l'état du stock à une date et renvoie les octets du PDF."""
+
+    def corps(s, largeur):
+        if not donnees['lignes']:
+            return [Paragraph('Aucun véhicule en stock à cette date.', s['vide'])]
+
+        return [
+            _tableau_stock(donnees, s, largeur),
+            Spacer(1, 18),
+            KeepTogether([
+                Paragraph('À CETTE DATE', s['section']),
+                _cartes(
+                    [
+                        ('Véhicules en stock', str(donnees['nb'])),
+                        ("Prix d'acquisition", montant(donnees['totaux']['prix_achat'])),
+                        ('Frais de remise en état', montant(donnees['totaux']['frais'])),
+                        ('Capital immobilisé', montant(donnees['totaux']['cout'])),
+                    ],
+                    s, largeur,
+                ),
+            ]),
+        ]
+
+    return _rendre(
+        garage, 'État du stock', f'Au {a_la_date:%d/%m/%Y}', edite_le, corps,
+    )

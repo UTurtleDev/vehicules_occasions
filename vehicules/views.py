@@ -15,9 +15,10 @@ from vehicules.models import Vehicule, Marque, Modele
 from vehicules.forms import VehiculeForm, VenteForm
 from vehicules.exports import (
     PERIODES_EXPORT, PERIODE_DEFAUT, ecrire_csv, libelle_periode,
-    lignes_ecritures, suffixe_fichier, synthese, ventes_ecartees,
+    lignes_ecritures, stock_a_la_date, suffixe_fichier, synthese,
+    ventes_ecartees,
 )
-from vehicules.pdf import rendre_synthese_pdf
+from vehicules.pdf import rendre_stock_pdf, rendre_synthese_pdf
 from vehicules.utils import (
     PERIODES, bornes_periode, date_ou_none, moyenne_entiere, pourcentage,
 )
@@ -432,6 +433,17 @@ class ExportMixin(GarageLectureMixin):
 
         return code, debut, fin, aujourdhui
 
+    def resoudre_date_stock(self):
+        """
+        Date de la photo de stock, indépendante de la période.
+
+        L'état du stock répond à « que détenais-je ce jour-là », une
+        question à une seule date : la borner sur une période n'aurait pas
+        de sens. Par défaut, aujourd'hui.
+        """
+        aujourdhui = timezone.now().date()
+        return date_ou_none(self.request.GET.get('stock_au')) or aujourdhui
+
     def get_perimetre(self):
         garage = get_garage_actif(self.request)
         qs = self.get_queryset()
@@ -452,14 +464,16 @@ class ExportMixin(GarageLectureMixin):
             'libelle': libelle_periode(code, debut, fin),
         }
 
-    def nom_fichier(self, base, extension):
-        _, debut, fin, aujourdhui = self.resoudre_periode()
+    def nom_fichier(self, base, extension, suffixe=None):
         garage = get_garage_actif(self.request)
         morceaux = [base]
         # Le nom du garage n'est utile que s'il y en a plusieurs à distinguer.
         if garage and self.request.user.garages.count() > 1:
             morceaux.append(slugify(garage.nom))
-        morceaux.append(suffixe_fichier(debut, fin, aujourdhui))
+        if suffixe is None:
+            _, debut, fin, aujourdhui = self.resoudre_periode()
+            suffixe = suffixe_fichier(debut, fin, aujourdhui)
+        morceaux.append(suffixe)
         return f"{'-'.join(morceaux)}.{extension}"
 
 
@@ -482,6 +496,11 @@ class ExportsView(ExportMixin, TemplateView):
         # Signalées explicitement : ces ventes sortent dans le PDF mais pas
         # dans le CSV, et une disparition silencieuse serait un piège.
         ctx['ecartees'] = ventes_ecartees(contexte['donnees']['ventes'])
+
+        stock_au = self.resoudre_date_stock()
+        ctx['stock_au'] = stock_au
+        ctx['f_stock_au'] = params.get('stock_au', stock_au.isoformat())
+        ctx['stock'] = stock_a_la_date(self.get_perimetre(), stock_au)
         return ctx
 
 
@@ -494,6 +513,19 @@ class ExportSynthesePdfView(ExportMixin, View):
         )
         reponse = HttpResponse(pdf, content_type='application/pdf')
         nom = self.nom_fichier('synthese-ventes', 'pdf')
+        reponse['Content-Disposition'] = f'attachment; filename="{nom}"'
+        return reponse
+
+
+class ExportStockPdfView(ExportMixin, View):
+    def get(self, request, *args, **kwargs):
+        a_la_date = self.resoudre_date_stock()
+        donnees = stock_a_la_date(self.get_perimetre(), a_la_date)
+        pdf = rendre_stock_pdf(
+            get_garage_actif(request), a_la_date, donnees, timezone.now().date(),
+        )
+        reponse = HttpResponse(pdf, content_type='application/pdf')
+        nom = self.nom_fichier('etat-stock', 'pdf', suffixe=a_la_date.isoformat())
         reponse['Content-Disposition'] = f'attachment; filename="{nom}"'
         return reponse
 

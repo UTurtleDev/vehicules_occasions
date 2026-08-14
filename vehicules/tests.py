@@ -10,7 +10,7 @@ from garages.models import Garage, GarageMembre, ParametrageComptable
 from garages.utils import GARAGE_SESSION_KEY
 from remise_en_etat.models import RemiseEnEtat
 from vehicules.exports import (
-    ecrire_csv, lignes_ecritures, synthese, ventes_ecartees,
+    ecrire_csv, lignes_ecritures, stock_a_la_date, synthese, ventes_ecartees,
 )
 from vehicules.models import Marque, Modele, Vehicule
 from vehicules.utils import bornes_periode
@@ -617,3 +617,110 @@ class DroitsExportTests(BaseVehiculeTests):
         })
         self.assertEqual(reponse.status_code, 200)   # réaffiché avec l'erreur
         self.assertFalse(ParametrageComptable.objects.exists())
+
+
+class StockALaDateTests(BaseVehiculeTests):
+    """Une photo à une date passée, qui n'est pas le stock d'aujourd'hui."""
+
+    def setUp(self):
+        super().setUp()
+        # Acheté avant, vendu après : détenu au 30/06
+        self.detenu = self.creer_vehicule(
+            date_achat=date(2025, 3, 1),
+            date_vente=date(2025, 9, 1), prix_vente=Decimal('14000'),
+        )
+        RemiseEnEtat.objects.create(vehicule=self.detenu, montant=Decimal('400'))
+
+        # Acheté avant, vendu avant : plus détenu au 30/06
+        self.deja_vendu = self.creer_vehicule(
+            date_achat=date(2025, 1, 5),
+            date_vente=date(2025, 5, 20), prix_vente=Decimal('12000'),
+        )
+
+        # Acheté après : pas encore détenu au 30/06
+        self.pas_encore = self.creer_vehicule(date_achat=date(2025, 8, 1))
+
+        # Jamais vendu : détenu au 30/06 et encore aujourd'hui
+        self.toujours = self.creer_vehicule(date_achat=date(2025, 2, 10))
+
+    def au(self, jour):
+        return stock_a_la_date(
+            Vehicule.objects.filter(garage=self.garage).avec_couts(), jour,
+        )
+
+    def test_photo_a_une_date_passee(self):
+        donnees = self.au(date(2025, 6, 30))
+        self.assertEqual(
+            [v.pk for v in donnees['lignes']],
+            [self.toujours.pk, self.detenu.pk],   # ordre d'acquisition : 10/02 puis 01/03
+        )
+        self.assertEqual(donnees['nb'], 2)
+
+    def test_un_vehicule_vendu_depuis_compte_quand_meme(self):
+        # Le piège : self.detenu est vendu aujourd'hui, mais il était bien
+        # en stock au 30/06. en_stock() l'exclurait à tort.
+        self.assertIn(self.detenu, self.au(date(2025, 6, 30))['lignes'])
+        self.assertNotIn(self.detenu, self.au(date(2025, 12, 31))['lignes'])
+
+    def test_vente_le_jour_meme_sort_du_stock(self):
+        # Vendu le 20/05 : détenu le 19, plus détenu le 20.
+        self.assertIn(self.deja_vendu, self.au(date(2025, 5, 19))['lignes'])
+        self.assertNotIn(self.deja_vendu, self.au(date(2025, 5, 20))['lignes'])
+
+    def test_achat_le_jour_meme_entre_en_stock(self):
+        self.assertNotIn(self.pas_encore, self.au(date(2025, 7, 31))['lignes'])
+        self.assertIn(self.pas_encore, self.au(date(2025, 8, 1))['lignes'])
+
+    def test_tri_par_ordre_d_acquisition(self):
+        dates = [v.date_achat for v in self.au(date(2026, 1, 1))['lignes']]
+        self.assertEqual(dates, sorted(dates))
+
+    def test_totaux(self):
+        donnees = self.au(date(2025, 6, 30))
+        # deux véhicules à 10800 de prix d'achat, dont un avec 400 de frais
+        self.assertEqual(donnees['totaux']['prix_achat'], Decimal('21600.00'))
+        self.assertEqual(donnees['totaux']['frais'], Decimal('400.00'))
+        self.assertEqual(donnees['totaux']['cout'], Decimal('22000.00'))
+
+    def test_date_sans_aucun_vehicule(self):
+        donnees = self.au(date(2020, 1, 1))
+        self.assertEqual(donnees['nb'], 0)
+        self.assertEqual(donnees['totaux']['cout'], Decimal('0.00'))
+
+
+class VueExportStockTests(BaseVehiculeTests):
+    def setUp(self):
+        super().setUp()
+        self.creer_vehicule(date_achat=date(2025, 3, 1))
+        self.client.force_login(self.user)
+        session = self.client.session
+        session[GARAGE_SESSION_KEY] = self.garage.id
+        session.save()
+        self.url = reverse('vehicules:export-stock-pdf')
+
+    def test_pdf_telecharge(self):
+        reponse = self.client.get(self.url, {'stock_au': '2025-06-30'})
+        self.assertEqual(reponse.status_code, 200)
+        self.assertEqual(reponse['Content-Type'], 'application/pdf')
+        self.assertIn('etat-stock-2025-06-30.pdf', reponse['Content-Disposition'])
+        self.assertTrue(reponse.content.startswith(b'%PDF'))
+
+    def test_sans_date_prend_aujourdhui(self):
+        reponse = self.client.get(self.url)
+        aujourdhui = timezone.now().date().isoformat()
+        self.assertIn(f'etat-stock-{aujourdhui}.pdf', reponse['Content-Disposition'])
+
+    def test_date_illisible_retombe_sur_aujourdhui(self):
+        reponse = self.client.get(self.url, {'stock_au': 'avant-hier'})
+        self.assertEqual(reponse.status_code, 200)
+        self.assertTrue(reponse.content.startswith(b'%PDF'))
+
+    def test_date_sans_stock_produit_un_pdf_valide(self):
+        reponse = self.client.get(self.url, {'stock_au': '2019-01-01'})
+        self.assertTrue(reponse.content.startswith(b'%PDF'))
+
+    def test_le_garage_du_voisin_ne_fuit_pas(self):
+        voisin = creer_garage('Garage Voisin')
+        self.creer_vehicule(garage=voisin, date_achat=date(2025, 1, 1))
+        contexte = self.client.get(reverse('vehicules:exports')).context
+        self.assertEqual(contexte['stock']['nb'], 1)

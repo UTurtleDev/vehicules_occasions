@@ -11,7 +11,7 @@ import io
 from collections import namedtuple
 from decimal import Decimal, ROUND_HALF_UP
 
-from django.db.models import Sum
+from django.db.models import Q, Sum
 
 CENT = Decimal('0.01')
 ZERO = Decimal('0.00')
@@ -30,9 +30,16 @@ PERIODE_DEFAUT = 'mois'
 
 LigneEcriture = namedtuple('LigneEcriture', 'date compte libelle piece debit credit')
 
-# En-tête du CSV, repris tel quel du modèle fourni par le comptable. Le
-# logiciel de comptabilité s'en sert pour reconnaître les colonnes à
-# l'import : ne pas renommer ces intitulés sans vérifier de son côté.
+# En-tête du CSV, repris tel quel du modèle fourni par le comptable.
+#
+# Volontairement SANS ACCENTS : c'est à cette condition que le logiciel de
+# comptabilité reconnaît les colonnes tout seul à l'import. Avec des
+# accents, il faut les associer une à une à la main à chaque import.
+# « Numero de piece » n'est donc pas une faute de frappe, ne pas corriger.
+#
+# Seuls les intitulés sont concernés. Le contenu de la colonne libellé
+# vient de la base et garde ses accents (« Mme Lefèvre »), le BOM UTF-8
+# suffit à les faire passer.
 ENTETES_CSV = ['date', 'compte', 'libelle', 'Numero de piece', 'debit', 'credit']
 
 
@@ -123,6 +130,42 @@ def synthese(qs, debut, fin, aujourdhui):
         # Photo à ce jour : le stock ne se filtre pas sur la période, sinon
         # « véhicules en stock au mois dernier » ne voudrait rien dire.
         'nb_stock': qs.en_stock().count(),
+    }
+
+
+# ═══════════════════ STOCK À UNE DATE ═══════════════════
+
+def stock_a_la_date(qs, a_la_date):
+    """
+    Véhicules détenus à une date donnée, par ordre d'acquisition.
+
+    Ce n'est pas `en_stock()`, qui répond « pas encore vendu à ce jour ».
+    Un véhicule était détenu à une date s'il était acheté à cette date et
+    pas encore vendu à cette date : un véhicule vendu depuis compte donc
+    quand même, dès lors que la vente est postérieure. C'est ce qui permet
+    de reconstituer un état de stock passé, par exemple à une clôture.
+
+    Attention : les frais de remise en état ne portent pas de date en base,
+    la colonne « frais » est donc le total des frais du véhicule, y compris
+    ceux engagés après `a_la_date`.
+    """
+    detenus = qs.filter(date_achat__lte=a_la_date).filter(
+        Q(date_vente__isnull=True) | Q(date_vente__gt=a_la_date)
+    )
+
+    lignes = list(
+        detenus.select_related('marque', 'modele').order_by('date_achat', 'pk')
+    )
+    totaux = detenus.aggregate(
+        prix_achat=Sum('prix_achat_calc'),
+        frais=Sum('frais_reel_calc'),
+        cout=Sum('cout_revient_calc'),
+    )
+
+    return {
+        'lignes': lignes,
+        'nb': len(lignes),
+        'totaux': {cle: arrondir(valeur) for cle, valeur in totaux.items()},
     }
 
 

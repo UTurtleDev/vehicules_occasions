@@ -29,11 +29,28 @@
             </a>
             <form method="get" class="sb-dates {% if f_periode == 'perso' %}on{% endif %}">
                 <input type="hidden" name="periode" value="perso">
+                {% if f_stock_au %}<input type="hidden" name="stock_au" value="{{ f_stock_au }}">{% endif %}
                 <div class="sb-dates-row">
                     <label>Du</label><input type="date" name="du" value="{{ f_du }}">
                 </div>
                 <div class="sb-dates-row">
                     <label>Au</label><input type="date" name="au" value="{{ f_au }}">
+                </div>
+                <button type="submit">Appliquer</button>
+            </form>
+        </div>
+
+        <hr class="sb-divider">
+
+        <div class="sb-group">
+            <div class="sb-group-head"><span class="sb-group-title">État du stock</span></div>
+            <p class="sb-note">Une photo à une seule date, indépendante de la période ci-dessus.</p>
+            <form method="get" class="sb-dates on">
+                {% if f_periode != 'mois' %}<input type="hidden" name="periode" value="{{ f_periode }}">{% endif %}
+                {% if f_du %}<input type="hidden" name="du" value="{{ f_du }}">{% endif %}
+                {% if f_au %}<input type="hidden" name="au" value="{{ f_au }}">{% endif %}
+                <div class="sb-dates-row">
+                    <label>Au</label><input type="date" name="stock_au" value="{{ f_stock_au }}">
                 </div>
                 <button type="submit">Appliquer</button>
             </form>
@@ -111,6 +128,25 @@
                         indicateurs ci-dessus.
                     </p>
                     <a class="export-btn" href="{% url 'vehicules:export-synthese-pdf' %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}">
+                        Télécharger le PDF
+                    </a>
+                </div>
+
+                <div class="export-card">
+                    <span class="export-card-kind">PDF</span>
+                    <h2 class="export-card-title">État du stock</h2>
+                    <p class="export-card-desc">
+                        Les véhicules détenus au <strong>{{ stock_au|date:"d/m/Y" }}</strong>,
+                        par ordre d'acquisition, avec prix d'acquisition, frais de remise
+                        en état et coût total.
+                        {% if stock.nb %}
+                            {{ stock.nb }} véhicule{{ stock.nb|pluralize }} à cette date,
+                            {{ stock.totaux.cout|euros }} immobilisés.
+                        {% else %}
+                            Aucun véhicule en stock à cette date.
+                        {% endif %}
+                    </p>
+                    <a class="export-btn" href="{% url 'vehicules:export-stock-pdf' %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}">
                         Télécharger le PDF
                     </a>
                 </div>
