@@ -64,5 +64,3 @@ class ParametrageComptableView(GarageEcritureRequisMixin, UpdateView):
         ctx['exemple'] = {'debit': debit, 'marge_ht': marge_ht, 'tva': tva}
         return ctx
 
-
-# test #
