@@ -63,3 +63,6 @@ class ParametrageComptableView(GarageEcritureRequisMixin, UpdateView):
         debit, marge_ht, tva = ventiler_marge(EXEMPLE_MARGE, self.object.taux_tva)
         ctx['exemple'] = {'debit': debit, 'marge_ht': marge_ht, 'tva': tva}
         return ctx
+
+
+# test #
