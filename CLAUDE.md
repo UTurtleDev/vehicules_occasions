@@ -106,11 +106,25 @@ The user-name dropdown in the navbar (`<details class="navbar-profile">`) is the
 
 ## Environment
 
-`.env` file required at project root. Key variables:
-- `DEBUG` — `True` for dev
-- `SECRET_KEY`
-- `ALLOWED_HOSTS`
-- `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT` — MySQL for production (ignored when `DEBUG=True`, SQLite used instead)
+`.env` file required at project root. Variables follow the convention shared by all the owner's Django projects: `DJANGO_` prefix, and a single `DATABASE_URL` for the database.
+- `DJANGO_SECRET_KEY`
+- `DJANGO_DEBUG` — `True` for dev, defaults to `False`
+- `DJANGO_ALLOWED_HOSTS`, `DJANGO_CSRF_TRUSTED_ORIGINS`
+- `DATABASE_URL` — `mysql://user:password@host:port/base` in production. Left unset in dev, which falls back to `BASE_DIR / 'db.sqlite3'` **as an absolute path**. Do not write `sqlite:///db.sqlite3` in the `.env`: that is relative to the working directory and creates a second database when `manage.py` is run from elsewhere. When the URL resolves to MySQL, `settings.py` re-adds the `OPTIONS` the URL cannot carry (`utf8mb4`, `STRICT_TRANS_TABLES`).
+- `DJANGO_STATIC_ROOT`, `DJANGO_MEDIA_ROOT` — absolute paths when the collected folders live outside the project (o2switch). Default to `BASE_DIR / 'staticfiles'` and `BASE_DIR / 'media'`.
+- `DJANGO_SECURE_SSL_REDIRECT`, `DJANGO_SECURE_HSTS_SECONDS` — only read when `DJANGO_DEBUG=False`.
+
+A documented `.env.example` lives in `exemple_fichiers_vps/`.
+
+## Deployment (o2switch, Passenger)
+
+The project follows the shared standard described in `~/.claude/context/ARCHITECTURE-DJANGO.md`. Read that file before touching anything below.
+
+- **`config/__init__.py` holds the pymysql shim**, not `settings.py`. Python imports a package's `__init__` before its contents, so `pymysql.install_as_MySQLdb()` runs before Django looks for its driver. The `try/except ImportError` keeps SQLite dev working without pymysql.
+- **WhiteNoise is only wired in when `DEBUG=False`** — middleware inserted at index 1 (right after `SecurityMiddleware`), and `STORAGES['staticfiles']` switched to `CompressedManifestStaticFilesStorage`. The manifest storage requires `collectstatic` to have run: skip it in production and every page returns a 500.
+- **Security block** (`SECURE_SSL_REDIRECT`, `SESSION_COOKIE_SECURE`, HSTS) is guarded by `if not DEBUG` so the dev server is never forced to HTTPS.
+- `exemple_fichiers_vps/` holds the four hosting files (root `.htaccess`, `passenger_wsgi.py`, `staticfiles/.htaccess`, `media/.htaccess`) plus `.env.example` and a `LISEZMOI.md`. The folder is **gitignored** and copied to the server by hand. The root `.htaccess` rules go **below** the cPanel "DO NOT REMOVE" block, which carries the app path and the Python interpreter.
+- `requirements.txt` is the file the server installs from (`uv` is not available there). Regenerate it after every dependency change: `uv export --no-hashes --no-dev --format requirements-txt -o requirements.txt`.
 
 ## Notes
 

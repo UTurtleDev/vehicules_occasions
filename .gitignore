@@ -22,6 +22,9 @@ CLAUDE.md
 .htaccess
 passenger_wsgi.py
 
+# Modeles de fichiers d'hebergement (a recopier sur le serveur)
+exemple_fichiers_vps/
+
 # Static files en production
 staticfiles/
 media/

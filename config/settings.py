@@ -13,13 +13,17 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import environ
 
+# Le pilote MySQL est adapté dans config/__init__.py, exécuté avant ce
+# fichier : inutile de le refaire ici.
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # reading .env file
 env = environ.Env(
-    DEBUG=(bool, False)
+    DJANGO_DEBUG=(bool, False),
+    DJANGO_ALLOWED_HOSTS=(list, []),
 )
 environ.Env.read_env(env_file=str(BASE_DIR / '.env'))
 
@@ -28,12 +32,12 @@ environ.Env.read_env(env_file=str(BASE_DIR / '.env'))
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG')
+DEBUG = env('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS')
 
 
 # Application definition
@@ -64,6 +68,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# En développement, django.contrib.staticfiles sert déjà les fichiers :
+# WhiteNoise n'est ajouté qu'en production.
+if not DEBUG:
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -87,40 +96,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# Pilotée par DATABASE_URL : sqlite en développement, MySQL en production.
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': env.db_url(
+        'DATABASE_URL',
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+    )
+}
 
-# Database - Support SQLite (dev) et MySQL (prod)
-if env('USE_MYSQL', default=False):
-    # Production - MySQL
-    DATABASES = {
-        'default': {
-            'ENGINE': env('DB_ENGINE'),
-            'NAME': env('DB_NAME'),
-            'USER': env('DB_USER'),
-            'PASSWORD': env('DB_PASSWORD'),
-            'HOST': env('DB_HOST', default='localhost'),
-            'PORT': env('DB_PORT', default='3306'),
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-                'charset': 'utf8mb4',
-            },
-        }
-    }
-else:
-    # Développement - SQLite
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-
+# Deux réglages que l'URL ne transporte pas : l'encodage complet (accents,
+# emojis) et le mode strict, qui refuse d'enregistrer une valeur tronquée
+# au lieu de le faire en silence.
+if 'mysql' in DATABASES['default']['ENGINE']:
+    DATABASES['default'].setdefault('OPTIONS', {}).update({
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        'charset': 'utf8mb4',
+    })
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -159,14 +151,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+# Sur l'hébergement, les dossiers collectés vivent parfois hors du projet :
+# les chemins restent pilotables par variable d'environnement.
+STATIC_ROOT = env.path('DJANGO_STATIC_ROOT', default=BASE_DIR / 'staticfiles')
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = env.path('DJANGO_MEDIA_ROOT', default=BASE_DIR / 'media')
+
+# Le stockage à manifeste de WhiteNoise impose un collectstatic préalable :
+# on le réserve à la production.
+STOCKAGE_STATIQUES = (
+    'django.contrib.staticfiles.storage.StaticFilesStorage'
+    if DEBUG
+    else 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+)
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': STOCKAGE_STATIQUES,
+    },
+}
 
 
 # Default primary key field type
@@ -182,9 +194,19 @@ LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = 'vehicules:garages'
 
 # CSRF
-CSRF_COOKIE_SECURE = not DEBUG  
+CSRF_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_HTTPONLY = True
 
-CSRF_TRUSTED_ORIGINS = [
+CSRF_TRUSTED_ORIGINS = env.list('DJANGO_CSRF_TRUSTED_ORIGINS', default=[])
 
-]
+
+# Sécurité en production
+# Ces réglages ne s'appliquent qu'une fois DEBUG à False, pour ne pas
+# forcer le HTTPS sur le serveur de développement.
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = env.bool('DJANGO_SECURE_SSL_REDIRECT', default=True)
+    SESSION_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = env.int('DJANGO_SECURE_HSTS_SECONDS', default=3600)
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
