@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import environ
+from django.core.exceptions import ImproperlyConfigured
 
 # Le pilote MySQL est adapté dans config/__init__.py, exécuté avant ce
 # fichier : inutile de le refaire ici.
@@ -96,23 +97,48 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-# Pilotée par DATABASE_URL : sqlite en développement, MySQL en production.
+#
+# Une variable par information, plutôt qu'une URL unique : c'est plus lisible
+# dans un .env, et surtout le mot de passe n'a aucun caractère à encoder.
+#
+# Développement : rien à écrire, sqlite par défaut.
+# Production    : USE_MYSQL=True et les variables DB_*.
+#
+# En production, sqlite est refusé. Sans ce garde-fou, une variable oubliée
+# ferait basculer le site sur une base créée au passage, vide et invisible,
+# pendant que la vraie resterait inutilisée.
 
-DATABASES = {
-    'default': env.db_url(
-        'DATABASE_URL',
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+if env.bool('USE_MYSQL', default=False):
+    DATABASES = {
+        'default': {
+            'ENGINE': env('DB_ENGINE', default='django.db.backends.mysql'),
+            'NAME': env('DB_NAME'),
+            'USER': env('DB_USER'),
+            'PASSWORD': env('DB_PASSWORD'),
+            'HOST': env('DB_HOST', default='localhost'),
+            'PORT': env('DB_PORT', default='3306'),
+            'OPTIONS': {
+                # utf8mb4 pour que les accents traversent la base sans
+                # dommage. Le mode strict refuse d'enregistrer une valeur
+                # tronquée au lieu de le faire en silence : sur des montants,
+                # c'est indispensable.
+                'charset': 'utf8mb4',
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+        }
+    }
+elif DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    raise ImproperlyConfigured(
+        "Base de données non configurée. En production, renseignez USE_MYSQL=True "
+        "ainsi que DB_NAME, DB_USER et DB_PASSWORD dans le fichier .env."
     )
-}
-
-# Deux réglages que l'URL ne transporte pas : l'encodage complet (accents,
-# emojis) et le mode strict, qui refuse d'enregistrer une valeur tronquée
-# au lieu de le faire en silence.
-if 'mysql' in DATABASES['default']['ENGINE']:
-    DATABASES['default'].setdefault('OPTIONS', {}).update({
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        'charset': 'utf8mb4',
-    })
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

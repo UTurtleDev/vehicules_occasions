@@ -106,11 +106,12 @@ The user-name dropdown in the navbar (`<details class="navbar-profile">`) is the
 
 ## Environment
 
-`.env` file required at project root. Variables follow the convention shared by all the owner's Django projects: `DJANGO_` prefix, and a single `DATABASE_URL` for the database.
+`.env` file required at project root. Variables follow the convention shared by all the owner's Django projects: `DJANGO_` prefix on Django settings, `USE_MYSQL` + `DB_*` for the database.
 - `DJANGO_SECRET_KEY`
 - `DJANGO_DEBUG` — `True` for dev, defaults to `False`
 - `DJANGO_ALLOWED_HOSTS`, `DJANGO_CSRF_TRUSTED_ORIGINS`
-- `DATABASE_URL` — `mysql://user:password@host:port/base` in production. Left unset in dev, which falls back to `BASE_DIR / 'db.sqlite3'` **as an absolute path**. Do not write `sqlite:///db.sqlite3` in the `.env`: that is relative to the working directory and creates a second database when `manage.py` is run from elsewhere. When the URL resolves to MySQL, `settings.py` re-adds the `OPTIONS` the URL cannot carry (`utf8mb4`, `STRICT_TRANS_TABLES`).
+- `USE_MYSQL` — the database switch, one variable per piece of information rather than a URL, so the password needs no percent-encoding. `True` requires `DB_NAME`, `DB_USER`, `DB_PASSWORD` (plus optional `DB_HOST`, `DB_PORT`, `DB_ENGINE`) and adds `utf8mb4` + `STRICT_TRANS_TABLES`.
+- **SQLite is refused in production.** `USE_MYSQL` false and `DJANGO_DEBUG` false raises `ImproperlyConfigured` at startup. Without that guard a missing variable silently falls back to SQLite, and the site runs on an empty database created on the spot while the real one sits unused — the failure mode that hit the Cuisson deployment.
 - `DJANGO_STATIC_ROOT`, `DJANGO_MEDIA_ROOT` — absolute paths when the collected folders live outside the project (o2switch). Default to `BASE_DIR / 'staticfiles'` and `BASE_DIR / 'media'`.
 - `DJANGO_SECURE_SSL_REDIRECT`, `DJANGO_SECURE_HSTS_SECONDS` — only read when `DJANGO_DEBUG=False`.
 
