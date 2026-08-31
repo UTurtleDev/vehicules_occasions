@@ -120,6 +120,8 @@ A documented `.env.example` lives in `exemple_fichiers_vps/`.
 
 The project follows the shared standard described in `~/.claude/context/ARCHITECTURE-DJANGO.md`. Read that file before touching anything below.
 
+This is a **professional** app, so it goes under a subdomain of `uturtle.fr` (registered at Hostinger, DNS at **Cloudflare**), not `dasola.fr` (IONOS, personal projects). The Cloudflare proxy changes the deployment: create the DNS record grey-cloud first so AutoSSL can issue the certificate, and set SSL/TLS to **Full (strict)** before turning the orange cloud on. Flexible mode plus `SECURE_SSL_REDIRECT = True` is an infinite redirect loop. Details in section 8 of the shared document.
+
 - **`config/__init__.py` holds the pymysql shim**, not `settings.py`. Python imports a package's `__init__` before its contents, so `pymysql.install_as_MySQLdb()` runs before Django looks for its driver. The `try/except ImportError` keeps SQLite dev working without pymysql.
 - **WhiteNoise is only wired in when `DEBUG=False`** — middleware inserted at index 1 (right after `SecurityMiddleware`), and `STORAGES['staticfiles']` switched to `CompressedManifestStaticFilesStorage`. The manifest storage requires `collectstatic` to have run: skip it in production and every page returns a 500.
 - **Security block** (`SECURE_SSL_REDIRECT`, `SESSION_COOKIE_SECURE`, HSTS) is guarded by `if not DEBUG` so the dev server is never forced to HTTPS.
