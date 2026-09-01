@@ -76,6 +76,12 @@ if not DEBUG:
 
 ROOT_URLCONF = 'config.urls'
 
+
+# Adresse de l'administration : modifiable par variable d'environnement
+# pour ne pas exposer /admin/ en production.
+URL_ADMINISTRATION = env("DJANGO_URL_ADMINISTRATION", default="admin/")
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
