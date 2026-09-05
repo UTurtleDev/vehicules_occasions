@@ -225,6 +225,21 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = 'vehicules:garages'
 
+# Session : expiration sur inactivité, pas sur fermeture du navigateur.
+#
+# Par défaut Django pose un cookie persistant de deux semaines, d'où une
+# session qui survit à la fermeture de Chrome, garage actif compris.
+#
+# SESSION_EXPIRE_AT_BROWSER_CLOSE n'est volontairement pas utilisé : les
+# navigateurs réglés sur « reprendre là où vous vous étiez arrêté »
+# restaurent les cookies de session, le réglage serait donc sans effet sur
+# une bonne partie des postes. Une durée, elle, expire toujours.
+#
+# SESSION_SAVE_EVERY_REQUEST fait repartir ce délai à chaque page vue : on
+# est déconnecté après huit heures sans rien faire, jamais en pleine saisie.
+SESSION_COOKIE_AGE = env.int('DJANGO_SESSION_COOKIE_AGE', default=8 * 60 * 60)
+SESSION_SAVE_EVERY_REQUEST = True
+
 # CSRF
 CSRF_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_HTTPONLY = True

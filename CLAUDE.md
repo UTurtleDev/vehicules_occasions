@@ -106,6 +106,8 @@ Rules when touching this:
 
 **Filtering convention**: query params, no forms. `vehicules/templatetags/vo_filters.py` provides `toggle_qs` (multi-select facets), `set_qs` (single-select), `page_qs`, `is_active`, and the `euros` display filter. Facet counts are computed excluding the facet's own filter, so an option never drops to zero just because a sibling is checked. Sanitize numeric params (`v.isdigit()`) before `__in` lookups.
 
+**Sessions expire on inactivity, not on browser close.** `SESSION_COOKIE_AGE` (8 h, overridable with `DJANGO_SESSION_COOKIE_AGE`) plus `SESSION_SAVE_EVERY_REQUEST = True`, so the countdown restarts at every page view. `SESSION_EXPIRE_AT_BROWSER_CLOSE` is deliberately left off: browsers set to "continue where you left off" restore session cookies, so the setting silently does nothing on those machines. The active garage lives in that same session, which is why it used to survive a browser restart.
+
 **Settings** (`config/settings.py`): Uses `django-environ` to read from `.env`. Dev uses SQLite; production uses MySQL (`utf8mb4`, strict mode). French locale (`fr-fr`), Europe/Paris timezone. `LoginRequiredMiddleware` is active — public views must be decorated `@login_not_required`.
 
 **URLs** (`config/urls.py`): `/admin/`, `users` at root, `/vehicules/`, `/garages/`, `/remise-en-etat/`. Static/media served in DEBUG mode.
