@@ -119,12 +119,18 @@ class Vehicule(models.Model):
     # Acquisition
     date_achat = models.DateField()
     vendeur = models.CharField(max_length=100)
-    facture_achat = models.FileField(upload_to='factures_achat/', validators=[validateur_extensions])
+    # Facultative : la facture arrive souvent après le véhicule.
+    facture_achat = models.FileField(upload_to='factures_achat/', validators=[validateur_extensions], blank=True)
     prix_vehicule = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
     prix_enchere = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
     prix_transport = models.DecimalField(max_digits=10, decimal_places=2, validators=[validateur_prix])
-    immatriculation = models.CharField(max_length=20, unique=True)
-    vin = models.CharField(max_length=17, unique=True, blank=True, null=True)
+    # Pas d'unicité en base : un même véhicule peut revenir (vendu, puis
+    # repris au client lors de son achat suivant). Chaque passage est une
+    # fiche distincte, donc un cycle achat/vente et une marge distincts.
+    # L'unicité ne porte que sur le stock, et c'est VehiculeForm qui la
+    # vérifie : MySQL ignore les contraintes uniques conditionnelles.
+    immatriculation = models.CharField(max_length=20)
+    vin = models.CharField(max_length=17, blank=True, null=True)
     marque = models.ForeignKey('Marque', on_delete=models.CASCADE)
     modele = models.ForeignKey('Modele', on_delete=models.CASCADE)
     couleur = models.CharField(max_length=100)

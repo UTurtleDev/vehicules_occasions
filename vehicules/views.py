@@ -169,6 +169,14 @@ class AjoutVehiculeView(GarageEcritureMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('vehicules:detail-vehicule', kwargs={'pk': self.object.pk})
 
+    def get_form_kwargs(self):
+        # À la création, l'instance n'a pas encore de garage : le formulaire
+        # en a pourtant besoin dès la validation, pour chercher une plaque
+        # en double dans le bon stock.
+        kwargs = super().get_form_kwargs()
+        kwargs['garage'] = self.get_garage_ecriture()
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['marques'] = Marque.objects.order_by('marque')

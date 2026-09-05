@@ -20,11 +20,50 @@ class VehiculeForm(forms.ModelForm):
             'date_achat': forms.DateInput(attrs={'type': 'date'}),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, garage=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['marque'].required = False
         self.fields['modele'].required = False
         self.fields['modele'].queryset = Modele.objects.select_related('marque').order_by('marque__marque', 'modele')
+
+        # Le garage n'est pas un champ du formulaire : en création la vue ne
+        # le pose sur l'instance qu'après validation. On l'injecte donc ici,
+        # sinon impossible de savoir dans quel stock chercher un doublon.
+        if garage is None and self.instance.garage_id:
+            garage = self.instance.garage
+        self.garage = garage
+
+    def clean_immatriculation(self):
+        return (self.cleaned_data.get('immatriculation') or '').strip().upper()
+
+    def clean_vin(self):
+        # null=True sur le modèle : le champ vide vaut None, pas ''.
+        vin = self.cleaned_data.get('vin')
+        return vin.strip().upper() if vin else vin
+
+    def _doublon_en_stock(self, champ, valeur):
+        """
+        Un même véhicule peut revenir : acheté, vendu, puis repris au client
+        qui rachète chez nous. Les deux passages sont deux fiches, donc deux
+        cycles d'achat/vente et deux marges : c'est la lecture comptable
+        juste, et ça interdit de fusionner les deux sur une seule fiche.
+
+        L'unicité ne porte donc que sur le stock : deux véhicules NON vendus
+        du même garage ne peuvent pas partager une plaque ou un VIN. Une
+        fiche vendue, elle, ne bloque plus rien.
+
+        Vérifié ici et pas par une contrainte de base : MySQL ne sait pas
+        faire d'index unique conditionnel, Django l'ignorerait en silence en
+        production tout en l'appliquant en SQLite au développement.
+        """
+        if not valeur or self.garage is None:
+            return None
+        doublons = Vehicule.objects.filter(
+            garage=self.garage, date_vente__isnull=True, **{champ: valeur},
+        )
+        if self.instance.pk:
+            doublons = doublons.exclude(pk=self.instance.pk)
+        return doublons.first()
 
     def clean(self):
         cleaned_data = super().clean()
@@ -38,6 +77,21 @@ class VehiculeForm(forms.ModelForm):
 
         if not modele and not nouveau_modele:
             self.add_error('modele', 'Sélectionnez un modèle ou saisissez-en un nouveau.')
+
+        doublon = self._doublon_en_stock('immatriculation', cleaned_data.get('immatriculation'))
+        if doublon:
+            self.add_error('immatriculation', (
+                f'Un véhicule encore en stock porte déjà cette immatriculation '
+                f'({doublon.marque} {doublon.modele}, acquis le '
+                f'{doublon.date_achat:%d/%m/%Y}).'
+            ))
+
+        doublon = self._doublon_en_stock('vin', cleaned_data.get('vin'))
+        if doublon:
+            self.add_error('vin', (
+                f'Un véhicule encore en stock porte déjà ce VIN '
+                f'({doublon.marque} {doublon.modele}, {doublon.immatriculation}).'
+            ))
 
         return cleaned_data
 

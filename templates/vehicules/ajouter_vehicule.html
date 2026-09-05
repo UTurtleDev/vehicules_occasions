@@ -145,6 +145,7 @@
                 <div class="form-field">
                     <label for="{{ form.facture_achat.id_for_label }}">{{ form.facture_achat.label }}</label>
                     {{ form.facture_achat }}
+                    <p class="field-hint">Facultatif, vous pourrez l'ajouter plus tard.</p>
                     {% if form.facture_achat.errors %}<p class="field-error">{{ form.facture_achat.errors.0 }}</p>{% endif %}
                 </div>
 

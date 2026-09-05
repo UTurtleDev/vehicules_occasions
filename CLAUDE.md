@@ -65,6 +65,16 @@ Rules when touching this:
 - `marge_*_calc` is NULL until the vehicle is sold, so `Sum()`/`Avg()` naturally count sales only.
 - `prix_achat` includes auction fee and transport, by design (accounting decision, settled).
 
+**Plate and VIN are unique within the stock, not in the table.** A vehicle can come back: bought, sold, then taken back from the customer when they buy their next car. Each pass is its own record, hence its own purchase/sale cycle and its own margin, which is the correct accounting reading and rules out merging both onto one record.
+
+- No `unique=True` on `immatriculation` / `vin`. `VehiculeForm._doublon_en_stock()` rejects a duplicate only among the **unsold** vehicles of the **same garage**; a sold record blocks nothing, and a neighbouring garage never blocks anything.
+- The check lives in the form and **not in a database constraint on purpose**: MySQL has `supports_partial_indexes = False`, so Django silently drops a conditional `UniqueConstraint` in production while enforcing it on SQLite in dev. A guard that only exists in dev is worse than none.
+- The form therefore needs the garage before validation. `AjoutVehiculeView.get_form_kwargs()` passes it explicitly, since `form_valid()` only sets `instance.garage` afterwards; on edit the form reads it from `instance.garage_id`.
+- `clean_immatriculation()` / `clean_vin()` uppercase and strip, so the duplicate lookup can stay a plain exact match.
+- Consequence: the Django admin bypasses this check (it does not go through `VehiculeForm`'s garage kwarg).
+
+**`facture_achat` is optional** (`blank=True`): the invoice often arrives after the vehicle. Every template that shows it already guards with `{% if %}`.
+
 **Dashboard** (`vehicules.views.TableauDeBordView`, `/vehicules/tableau-de-bord/`): two independent readings of the same stock. "Stock" is a snapshot at today's date and **ignores the period filter**; "Activité" covers vehicles sold within the period, bounded on `date_vente`. Marque/énergie/transmission filters apply to both. Filters are plain GET params, built with the `vo_filters` template tags.
 
 **Exports** (`/vehicules/exports/`, reachable from the user-name menu in the navbar): three files, driven by **two independent controls**.

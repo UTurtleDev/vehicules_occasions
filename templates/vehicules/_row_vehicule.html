@@ -1,6 +1,10 @@
 {% comment %}
   Partial : une ligne de la liste véhicules.
   Attend la variable `vehicule` dans le contexte.
+
+  `afficher_marque` : la marque n'est répétée sur chaque ligne que lorsque la
+  liste n'est pas groupée par marque (tris par date), sinon l'en-tête de
+  groupe la donne déjà.
 {% endcomment %}
 <a class="row" href="{% url 'vehicules:detail-vehicule' vehicule.pk %}">
 
@@ -8,7 +12,7 @@
 
     <div class="row-veh">
         <div class="row-veh-model">
-            {{ vehicule.modele }} <span class="year">· {{ vehicule.annee_vehicule }}</span>
+            {% if afficher_marque %}{{ vehicule.marque }} {% endif %}{{ vehicule.modele }} <span class="year">· {{ vehicule.annee_vehicule }}</span>
         </div>
         <div class="row-veh-sub">
             <span class="row-veh-garage">{{ vehicule.garage.nom }}</span>

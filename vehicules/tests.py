@@ -12,6 +12,7 @@ from remise_en_etat.models import RemiseEnEtat
 from vehicules.exports import (
     ecrire_csv, lignes_ecritures, stock_a_la_date, synthese, ventes_ecartees,
 )
+from vehicules.forms import VehiculeForm
 from vehicules.models import Marque, Modele, Vehicule
 from vehicules.utils import bornes_periode
 
@@ -42,28 +43,55 @@ class BaseVehiculeTests(TestCase):
 
     def creer_vehicule(self, garage=None, prix_vehicule='10000', prix_enchere='500',
                        prix_transport='300', date_achat=None, **extra):
+        """Un véhicule complet ; `extra` surcharge n'importe lequel des champs."""
         self.compteur_immat += 1
-        return Vehicule.objects.create(
-            garage=garage or self.garage,
-            date_achat=date_achat or date(2025, 1, 10),
-            vendeur='Vendeur',
-            facture_achat='factures_achat/test.pdf',
-            prix_vehicule=Decimal(prix_vehicule),
-            prix_enchere=Decimal(prix_enchere),
-            prix_transport=Decimal(prix_transport),
-            immatriculation=f'AA-{self.compteur_immat:03d}-AA',
-            marque=self.marque,
-            modele=self.modele,
-            couleur='Gris',
-            annee_vehicule=2020,
-            crit_air=Vehicule.CritAir.CRIT_AIR_1,
-            kilometrage_achat=50000,
-            transmission=Vehicule.Transmission.MANUEL,
-            energie=Vehicule.Energie.ESSENCE,
-            chevaux_dine=100,
-            chevaux_fiscaux=5,
-            **extra,
-        )
+        champs = {
+            'garage': garage or self.garage,
+            'date_achat': date_achat or date(2025, 1, 10),
+            'vendeur': 'Vendeur',
+            'facture_achat': 'factures_achat/test.pdf',
+            'prix_vehicule': Decimal(prix_vehicule),
+            'prix_enchere': Decimal(prix_enchere),
+            'prix_transport': Decimal(prix_transport),
+            'immatriculation': f'AA-{self.compteur_immat:03d}-AA',
+            'marque': self.marque,
+            'modele': self.modele,
+            'couleur': 'Gris',
+            'annee_vehicule': 2020,
+            'crit_air': Vehicule.CritAir.CRIT_AIR_1,
+            'kilometrage_achat': 50000,
+            'transmission': Vehicule.Transmission.MANUEL,
+            'energie': Vehicule.Energie.ESSENCE,
+            'chevaux_dine': 100,
+            'chevaux_fiscaux': 5,
+        }
+        champs.update(extra)
+        return Vehicule.objects.create(**champs)
+
+    def donnees(self, **extra):
+        """POST complet de VehiculeForm, un champ à surcharger à la fois."""
+        base = {
+            'marque': self.marque.pk,
+            'modele': self.modele.pk,
+            'annee_vehicule': 2020,
+            'couleur': 'Gris',
+            'immatriculation': 'AB-123-CD',
+            'vin': 'VF1AAAAAAAAAAAAAA',
+            'energie': Vehicule.Energie.ESSENCE,
+            'transmission': Vehicule.Transmission.MANUEL,
+            'crit_air': Vehicule.CritAir.CRIT_AIR_1,
+            'chevaux_dine': 100,
+            'chevaux_fiscaux': 5,
+            'date_achat': '2025-06-01',
+            'vendeur': 'Vendeur',
+            'prix_vehicule': '10000',
+            'prix_enchere': '500',
+            'prix_transport': '300',
+            'kilometrage_achat': 50000,
+        }
+        base.update(extra)
+        return base
+
 
 
 class AvecCoutsTests(BaseVehiculeTests):
@@ -724,3 +752,139 @@ class VueExportStockTests(BaseVehiculeTests):
         self.creer_vehicule(garage=voisin, date_achat=date(2025, 1, 1))
         contexte = self.client.get(reverse('vehicules:exports')).context
         self.assertEqual(contexte['stock']['nb'], 1)
+
+
+# ═══════════════ UNICITÉ PLAQUE / VIN ═══════════════
+
+class UniciteImmatriculationTests(BaseVehiculeTests):
+    """
+    Un véhicule vendu peut revenir en stock : le client le reprend contre un
+    autre. La plaque et le VIN ne sont donc uniques que parmi les véhicules
+    non vendus du garage, pas dans toute la base.
+    """
+
+    def form(self, **extra):
+        return VehiculeForm(data=self.donnees(**extra), garage=self.garage)
+
+    def test_plaque_libre_acceptee(self):
+        self.assertTrue(self.form().is_valid())
+
+    def test_plaque_deja_en_stock_refusee(self):
+        self.creer_vehicule(immatriculation='AB-123-CD', vin='VF1BBBBBBBBBBBBBB')
+        form = self.form()
+        self.assertFalse(form.is_valid())
+        self.assertIn('immatriculation', form.errors)
+
+    def test_vin_deja_en_stock_refuse(self):
+        self.creer_vehicule(immatriculation='ZZ-999-ZZ', vin='VF1AAAAAAAAAAAAAA')
+        form = self.form()
+        self.assertFalse(form.is_valid())
+        self.assertIn('vin', form.errors)
+
+    def test_vehicule_vendu_ne_bloque_plus(self):
+        """Le cas qui a motivé le changement : acheté, vendu, puis repris."""
+        self.creer_vehicule(
+            immatriculation='AB-123-CD', vin='VF1AAAAAAAAAAAAAA',
+            date_vente=date(2025, 6, 28), prix_vente=Decimal('12000'),
+        )
+        self.assertTrue(self.form().is_valid())
+
+    def test_autre_garage_ne_bloque_pas(self):
+        voisin = creer_garage('Garage Voisin')
+        self.creer_vehicule(garage=voisin, immatriculation='AB-123-CD', vin='VF1AAAAAAAAAAAAAA')
+        self.assertTrue(self.form().is_valid())
+
+    def test_plaque_normalisee_en_majuscules(self):
+        form = self.form(immatriculation=' ab-123-cd ', vin=' vf1aaaaaaaaaaaaaa ')
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['immatriculation'], 'AB-123-CD')
+        self.assertEqual(form.cleaned_data['vin'], 'VF1AAAAAAAAAAAAAA')
+
+    def test_casse_differente_reste_un_doublon(self):
+        self.creer_vehicule(immatriculation='AB-123-CD', vin='VF1BBBBBBBBBBBBBB')
+        form = self.form(immatriculation='ab-123-cd')
+        self.assertFalse(form.is_valid())
+        self.assertIn('immatriculation', form.errors)
+
+    def test_vin_vide_ne_declenche_pas_de_doublon(self):
+        self.creer_vehicule(immatriculation='ZZ-999-ZZ', vin=None)
+        form = self.form(vin='')
+        self.assertTrue(form.is_valid())
+
+    def test_modification_ne_se_bloque_pas_elle_meme(self):
+        vehicule = self.creer_vehicule(immatriculation='AB-123-CD', vin='VF1AAAAAAAAAAAAAA')
+        form = VehiculeForm(data=self.donnees(couleur='Bleu'), instance=vehicule)
+        self.assertTrue(form.is_valid(), form.errors)
+
+    def test_facture_achat_facultative(self):
+        form = self.form()
+        self.assertFalse(form.fields['facture_achat'].required)
+        self.assertTrue(form.is_valid())
+
+
+class AjoutVehiculeViewTests(BaseVehiculeTests):
+    """Le parcours réel : la vue doit transmettre le garage au formulaire."""
+
+    def setUp(self):
+        super().setUp()
+        self.url = reverse('vehicules:ajouter-vehicule')
+        self.client.force_login(self.user)
+        session = self.client.session
+        session[GARAGE_SESSION_KEY] = self.garage.id
+        session.save()
+
+    def test_enregistrement_sans_facture_achat(self):
+        reponse = self.client.post(self.url, self.donnees(), follow=True)
+        self.assertEqual(reponse.status_code, 200)
+        vehicule = Vehicule.objects.get(immatriculation='AB-123-CD')
+        self.assertFalse(vehicule.facture_achat)
+        self.assertEqual(vehicule.garage, self.garage)
+
+    def test_doublon_en_stock_refuse_par_la_vue(self):
+        self.creer_vehicule(immatriculation='AB-123-CD', vin='VF1BBBBBBBBBBBBBB')
+        reponse = self.client.post(self.url, self.donnees())
+        self.assertEqual(reponse.status_code, 200)
+        self.assertIn('immatriculation', reponse.context['form'].errors)
+        self.assertEqual(Vehicule.objects.filter(immatriculation='AB-123-CD').count(), 1)
+
+    def test_reprise_apres_vente_acceptee_par_la_vue(self):
+        self.creer_vehicule(
+            immatriculation='AB-123-CD', vin='VF1AAAAAAAAAAAAAA',
+            date_vente=date(2025, 6, 28), prix_vente=Decimal('12000'),
+        )
+        self.client.post(self.url, self.donnees(), follow=True)
+        self.assertEqual(Vehicule.objects.filter(immatriculation='AB-123-CD').count(), 2)
+
+
+class ListeAffichageMarqueTests(BaseVehiculeTests):
+    """
+    Triée par marque, la liste groupe et l'en-tête de groupe porte la marque.
+    Triée par date il n'y a plus de groupe : chaque ligne doit alors la
+    rappeler, sinon on lit « KA » sans savoir que c'est une Ford.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.ford = Marque.objects.create(marque='Ford')
+        self.ka = Modele.objects.create(marque=self.ford, modele='KA')
+        self.creer_vehicule(marque=self.ford, modele=self.ka, annee_vehicule=2013)
+        self.url = reverse('vehicules:garages')  # la liste des vehicules
+        self.client.force_login(self.user)
+        session = self.client.session
+        session[GARAGE_SESSION_KEY] = self.garage.id
+        session.save()
+
+    def ligne(self, tri):
+        contenu = self.client.get(self.url, {'tri': tri}).content.decode()
+        debut = contenu.index('row-veh-model')
+        return contenu[debut:debut + 200]
+
+    def test_tri_par_date_affiche_la_marque(self):
+        for tri in ('date-asc', 'date-desc'):
+            with self.subTest(tri=tri):
+                self.assertIn('Ford KA', self.ligne(tri))
+
+    def test_tri_par_marque_ne_repete_pas_la_marque(self):
+        ligne = self.ligne('marque')
+        self.assertIn('KA', ligne)
+        self.assertNotIn('Ford KA', ligne)

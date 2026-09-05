@@ -161,7 +161,7 @@
                         <span>Statut</span>
                     </div>
                     {% for vehicule in vehicules %}
-                        {% include "vehicules/_row_vehicule.html" %}
+                        {% include "vehicules/_row_vehicule.html" with afficher_marque=True %}
                     {% endfor %}
                 {% endif %}
             </div>
